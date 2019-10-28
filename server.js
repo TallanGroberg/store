@@ -23,7 +23,8 @@ mongoose.connect('mongodb://localhost:27017/store', {
 
 //routes 
 app.use('/user', require('./routes/userRouter.js'))
-app.use('/product', require('./routes/productRouter.js'))
+app.use('/api/product', require('./routes/productRouter.js'))
+
 
 
 //error handling
