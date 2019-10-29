@@ -3,7 +3,6 @@ import {withAuth} from '../provider/AuthProvider'
 const AuthForm = (props) => {
   const initState = {
     name: '',
-    email: '',
     pasword: '',}
   const [inputs, setInputs] = useState(initState)
   const [signUp, setSignUp] = useState(false)
@@ -32,12 +31,16 @@ const AuthForm = (props) => {
           value={inputs.name}
           onChange={handleChange}
         />
+        {signUp ? 
         <input
-          placeholder="email"
-          name='email'
-          value={inputs.email}
-          onChange={handleChange}
+        placeholder="email"
+        name='email'
+        value={inputs.email}
+        onChange={handleChange}
         />
+        : 
+        null
+      }
         <input
           placeholder="password"
           name='password'
@@ -46,7 +49,7 @@ const AuthForm = (props) => {
         />
   <button>submit</button>
       </form>
-      <button onClick={toggler}>{signUp ? 'signup': 'login' }</button>
+      <button onClick={toggler}>{signUp ? 'go to login': 'go to signup' }</button>
     </div>
   );
 };
