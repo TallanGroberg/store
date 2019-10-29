@@ -1,16 +1,18 @@
 import React from 'react';
-import {withAuth} from '../provider/AuthProvider'
+import {Link} from 'react-router-dom'
+import {withstoreCrud} from '../provider/ProductProvider'
+import Product from './Product'
 const Products = (props) => {
 
- 
-  //this is the products page. this is where the products will be listed for further exploration
+  console.log('props Products',props)
 
-
+  const {products} = props
+  console.log(products)
   return (
     <div>
-      
+      {products.map( p => <Link key={p._id} to={p._id}> <Product key={p._id} product={p} /> </Link>)}
     </div>
   );
 };
 
-export default withAuth(Products);
+export default withstoreCrud(Products);

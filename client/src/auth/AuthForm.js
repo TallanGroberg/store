@@ -5,15 +5,16 @@ const AuthForm = (props) => {
     name: '',
     pasword: '',}
   const [inputs, setInputs] = useState(initState)
-  const [signUp, setSignUp] = useState(false)
+  
 
   const toggler = () => {
-    setSignUp(prev => (!prev))
+    props.toggleSignUp()
+    props.history.push('/login/signup')
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    signUp ?  props.signup(inputs) : props.login(inputs) 
+    props.isSigningUp ?  props.signup(inputs) : props.login(inputs) 
     
   }
   const handleChange = (e) => {
@@ -23,7 +24,7 @@ const AuthForm = (props) => {
 
   return (
     <div>
-        <h1>{signUp ? 'signup' : 'login'}</h1>
+        <h1>{props.isSigningUp ? 'signup' : 'login'}</h1>
        <form onSubmit={handleSubmit}>
         <input
           placeholder="name"
@@ -31,7 +32,7 @@ const AuthForm = (props) => {
           value={inputs.name}
           onChange={handleChange}
         />
-        {signUp ? 
+        {props.isSigningUp ? 
         <input
         placeholder="email"
         name='email'
@@ -49,7 +50,7 @@ const AuthForm = (props) => {
         />
   <button>submit</button>
       </form>
-      <button onClick={toggler}>{signUp ? 'go to login': 'go to signup' }</button>
+      <button onClick={toggler}>{props.isSigningUp ? 'go to login': 'go to signup' }</button>
     </div>
   );
 };

@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 
-
-
 const { Provider, Consumer } = React.createContext()
-
-
 
 export const bearerAxios = axios.create()
 bearerAxios.interceptors.request.use((config) => {
@@ -21,6 +17,7 @@ bearerAxios.interceptors.request.use((config) => {
 class AuthProvider extends Component {
  state = {
       err: '',
+      isSigningUp: false,
       user: localStorage.getItem('user') || {},
       name: '',
       email: '',
@@ -45,6 +42,7 @@ class AuthProvider extends Component {
       })
       this.props.history.push('/products')
     }
+
     login = (user) => {
       bearerAxios.post('user/login', user)
       .then(res => {
@@ -62,19 +60,30 @@ class AuthProvider extends Component {
       })
       this.props.history.push('/products')
     }
+
     logout = () => {
+      
       localStorage.removeItem('token')
       localStorage.removeItem('user')
       this.setState({
-        token: ''
+        token: '',
+        user: {},
       })
     }
+
     deleteAccount = (_id) => {
       bearerAxios.delete(`user/${_id}`)
       .then( res => {
         localStorage.removeItem('token')
         localStorage.removeItem('user')
       })
+    }
+
+    toggleSignUp = () => {
+      this.setState(prev => ({
+        isSigningUp: !prev.isSigningUp,
+      }))
+      console.log(this.state.isSigningUp)
     }
     
     
@@ -83,12 +92,13 @@ class AuthProvider extends Component {
     
     
     render() {
-      const {err,user,name,email,signup,login,token,} = this.state
+      const {err,isSigningUp,user,name,email,signup,login,token,} = this.state
       return (
         <Provider 
         value={{
           //state
           err,
+          isSigningUp,
           user,
           name,
           email,
@@ -102,6 +112,7 @@ class AuthProvider extends Component {
               signup: this.signup,
               logout: this.logout,
               deleteAccount: this.deleteAccount,
+              toggleSignUp: this.toggleSignUp,
           }}>
             {this.props.children}
         </Provider>
