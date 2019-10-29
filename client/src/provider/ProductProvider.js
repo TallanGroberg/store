@@ -14,7 +14,7 @@ class ProductProvider extends React.Component {
     .then(res  => {
       
       this.setState(prev => ({
-        products: [ ...res.data]
+        products: [...res.data]
       }))
     })
   }
@@ -39,4 +39,4 @@ export const withstoreCrud = C => props => (
   </Consumer>
 )
 
-export default withAuth(ProductProvider);
+export default withRouter(withAuth(ProductProvider));

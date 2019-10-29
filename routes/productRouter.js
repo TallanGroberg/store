@@ -19,6 +19,12 @@ productRouter.get('/:user', (req,res, next) => {
   })
 })
 
+productRouter.get('/:name/:_id', (req,res, next) => {
+  Product.findOne({_id: req.params._id}, (err,products) => {
+    handleRequest(err,req,res,next,products)
+  })
+})
+
 //make a new product
 productRouter.post('/', (req,res,next) => {
   const newProduct = new Product(req.body)

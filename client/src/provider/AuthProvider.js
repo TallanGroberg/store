@@ -12,8 +12,6 @@ bearerAxios.interceptors.request.use((config) => {
 })
 
 
-
-
 class AuthProvider extends Component {
  state = {
       err: '',
@@ -53,7 +51,7 @@ class AuthProvider extends Component {
         this.setState({token, input})
       })
       .catch(err => {
-        this.props.history.push('/login')
+        this.props.history.push('/login/signup')
         this.setState({
           err: err.message
         })

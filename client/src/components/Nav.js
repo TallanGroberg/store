@@ -27,7 +27,7 @@ const Nav = (props) => {
     <nav>
       {props.token ? 
       <>
-        <Link to='products'>products</Link>
+        <Link to='/products'>products</Link>
           <button onClick={handleLogout}>logout</button>
       </>
         :

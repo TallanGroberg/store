@@ -17,8 +17,8 @@ const App = props => {
     <div>
       <Nav />
         <Route exact path='/products' render={ rProps => token ? <Products {...rProps} /> : <AuthForm /> } />
+        <Route path='/products/:_id' render={ rProps => <Product {...rProps}  />} />
         <Route expact path='/login/signup' render={ rProps => <AuthForm {...rProps} />} />
-        <Route expact path='/products/:_id' render={ rProps => <Product {...rProps}  />} />
     </div>
   );
 };
