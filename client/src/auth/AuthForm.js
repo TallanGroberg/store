@@ -7,7 +7,6 @@ const AuthForm = (props) => {
   const [inputs, setInputs] = useState(initState)
   const [signUp, setSignUp] = useState(false)
 
-    console.log(inputs)
   const toggler = () => {
     setSignUp(prev => (!prev))
   }
@@ -15,6 +14,7 @@ const AuthForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     signUp ?  props.signup(inputs) : props.login(inputs) 
+    
   }
   const handleChange = (e) => {
     const {name, value} = e.target

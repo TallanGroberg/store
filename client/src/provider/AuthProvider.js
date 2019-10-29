@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import {withRouter} from 'react-router-dom'
+
+
+
 const { Provider, Consumer } = React.createContext()
+
+
 
 export const bearerAxios = axios.create()
 bearerAxios.interceptors.request.use((config) => {
-  // const token = localStorage.getItem('token')
-  config.headers.Athorization = `Bearer ${localStorage.getItem('token')}`
+  const token = localStorage.getItem('token')
+  config.headers.Authorization = `Bearer ${token}`
   return config
 })
 
@@ -37,6 +43,7 @@ class AuthProvider extends Component {
           err: err.message
         })
       })
+      this.props.history.push('/products')
     }
     login = (user) => {
       bearerAxios.post('user/login', user)
@@ -48,14 +55,19 @@ class AuthProvider extends Component {
         this.setState({token, input})
       })
       .catch(err => {
+        this.props.history.push('/login')
         this.setState({
           err: err.message
         })
       })
+      this.props.history.push('/products')
     }
     logout = () => {
       localStorage.removeItem('token')
       localStorage.removeItem('user')
+      this.setState({
+        token: ''
+      })
     }
     deleteAccount = (_id) => {
       bearerAxios.delete(`user/${_id}`)
@@ -72,21 +84,24 @@ class AuthProvider extends Component {
     
     render() {
       const {err,user,name,email,signup,login,token,} = this.state
-      console.log('err in state',this.state.err)
       return (
         <Provider 
         value={{
+          //state
           err,
           user,
           name,
           email,
-            signup,
-            login,
-            token,
-            login: this.login,
-            signup: this.signup,
-            logout: this.logout,
-            deleteAccount: this.deleteAccount,
+          signup,
+          login,
+          token,
+            //props from router
+            
+            //in component functions
+              login: this.login,
+              signup: this.signup,
+              logout: this.logout,
+              deleteAccount: this.deleteAccount,
           }}>
             {this.props.children}
         </Provider>
@@ -102,4 +117,4 @@ export const withAuth = C => props => (
 )
 
 
-export default AuthProvider;
+export default withRouter(AuthProvider);

@@ -1,12 +1,16 @@
 import React from 'react';
-
-const ProtectedRoute = () => {
+import {Route, Redirect, withRouter} from 'react-router-dom'
+import {withAuth} from '../provider/AuthProvider'
+const ProtectedRoute = (props) => {
+  const {component: Component, ...rest } = props
   //make to require a token 
   return (
-    <div>
-      
-    </div>
+    props.token 
+      ? 
+        <Route { ...rest} component={Component} /> 
+      :
+        <Redirect to='/login' />
   );
 };
 
-export default ProtectedRoute;
+export default withRouter(withAuth(ProtectedRoute));

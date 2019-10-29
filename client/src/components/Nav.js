@@ -1,22 +1,36 @@
 import React, {useEffect, useState} from 'react';
+import {Link, withRouter} from 'react-router-dom'
 import {withAuth} from '../provider/AuthProvider'
 const Nav = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState({})
-  console.log(isLoggedIn)
+
   useEffect( () => {
     if(typeof(props.user) !== 'object') {
       setUser(JSON.parse(props.user).user)
       setIsLoggedIn(prev => (!prev))
     } 
   }, [])
+
+  const handleLogout = () => {
+    props.logout(user._id)
+    props.history.push('/login')
+    setUser(user => {})
+    setIsLoggedIn(prev => (!prev))
+
+  }
   
   return (
     <nav>
+      <Link to='products'>products</Link>
    
-      <button onClick={() => props.logout(user._id)}>logout</button>
+      {props.token ? 
+      <button onClick={handleLogout}>logout</button>
+        :
+        <p>welcome</p>
+    }
     </nav>
   );
 };
 
-export default withAuth(Nav);
+export default withRouter(withAuth(Nav));
