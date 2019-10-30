@@ -9,7 +9,7 @@
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "keywords": [],
-  "author": "",
+  "author": "Tallan Groberg",
   "license": "property of Tallan Groberg do not steal!!!!!",
   "dependencies": {
     "bcrypt": "^3.0.6",
@@ -22,5 +22,5 @@
   },
   "engines": {
     "node": "10.16.3"
-}
+  }
 }

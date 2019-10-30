@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Link, withRouter} from 'react-router-dom'
 import {withAuth} from '../provider/AuthProvider'
+
+
 const Nav = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   
@@ -29,6 +31,7 @@ const Nav = (props) => {
       <>
         <Link to='/products'>products</Link>
           <button onClick={handleLogout}>logout</button>
+          <button onClick={() => props.history.push('/makeproduct')}>make a product</button>
       </>
         :
         <p>welcome</p>

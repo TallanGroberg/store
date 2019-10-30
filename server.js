@@ -7,7 +7,9 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 const PORT = process.env.PORT || 4444
 const secret = process.env.SECRET || 'super secret sly stuffs'
+
 const expressJwt = require('express-jwt')
+
 
 
 app.use(express.json())
