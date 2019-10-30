@@ -11,6 +11,9 @@ import AuthForm from './auth/AuthForm'
 import Products from './components/Products'
 import Product from './components/Product'
 import MakeProduct from './components/MakeProduct'
+import Profile from './auth/Profile'
+import Cart from './components/Cart'
+import Checkout from './components/Checkout'
 const App = props => {
   
 
@@ -19,11 +22,16 @@ const App = props => {
   return (
     <div>
       <Nav />
-        <Route exact path='/' render={ rProps => token ? <Products {...rProps} /> : <AuthForm /> } />
-        <ProtectedRoute exact path='/products' render={ rProps => <Products /> } />
-        <ProtectedRoute exact path='/makeproduct' render={ rProps => <MakeProduct /> } />
-        <Route path='/products/:_id' render={ rProps => <Product {...rProps}  />} />
-        <Route expact path='/login/signup' render={ rProps => <AuthForm {...rProps} />} />
+        <Switch>
+          <Route expact path='/login/signup' render={ rProps => <AuthForm {...rProps} />} />
+          <Route exact path='/' render={ rProps => token ? <Products {...rProps} /> : <AuthForm /> } />
+            <ProtectedRoute exact path='/products' render={ rProps => <Products /> } />
+            <ProtectedRoute exact path='/makeproduct' render={ rProps => <MakeProduct /> } />
+            <ProtectedRoute exact path='/yourproducts' render={ rProps => <Profile /> } />
+            <ProtectedRoute exact path='/cart' render={ rProps => <Cart /> } />
+            <ProtectedRoute exact path='/checkout' render={ rProps => <Checkout /> } />
+            <ProtectedRoute path='/products/:_id' render={ rProps => <Product {...rProps}  />} />
+        </Switch>
     </div>
   );
 };

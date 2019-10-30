@@ -1,12 +1,13 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom'
 import {Link, Switch, Route} from 'react-router-dom'
 import {withstoreCrud} from '../provider/ProductProvider'
 import Product from './Product'
 const Products = (props) => {
 
-  console.log('props.match Products',props.match)
+  console.log('props.match Products',props)
 
-  const {products} = props
+  const {products, addToCart } = props
   console.log('products in products',products)
 
 
@@ -27,6 +28,7 @@ const Products = (props) => {
                   {p.price}
                 </p>
           </Link>
+          <button onClick={() => addToCart(p)}>add to cart</button>
         </>)
       })}
 
@@ -39,4 +41,4 @@ const Products = (props) => {
   );
 };
 
-export default withstoreCrud(Products);
+export default withRouter(withstoreCrud(Products));

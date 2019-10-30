@@ -1,6 +1,6 @@
 import React, {useEffect, useState,} from 'react';
 import {Link} from 'react-router-dom'
-import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
+
 import {bearerAxios} from '../provider/AuthProvider'
 import {withstoreCrud, } from '../provider/ProductProvider'
 
@@ -27,6 +27,7 @@ const Product = (props) => {
       <h1>{title}</h1>
         <p>{description}</p>
           <p>{price}</p>
+          <button onClick={() => props.addToCart(product)}>add to cart</button>
 
     </div>
   );

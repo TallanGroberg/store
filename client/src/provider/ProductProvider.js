@@ -12,37 +12,70 @@ const { Provider, Consumer, } = React.createContext()
 class ProductProvider extends React.Component {
   state = {
     products: [],
+    cart: [],
    
   }
 
   componentDidMount() {
+    this.getAllProducts()
+}
+
+  getAllProducts = () => {
     bearerAxios.get('/api/product')
     .then(res  => {
-      const data = res.data.reverse()
+      
       this.setState(prev => ({
-        products: [...data]
+        products: [...res.data]
     }))
   })
   .catch(err => console.log(err))
-}
+  }
 
   makeProduct = (inputs) => {
     bearerAxios.post('/api/product', inputs)
-    .then( res => console.log(res))
+    .then( res => {
+      this.setState( prev => ({
+        products: [...prev.products, inputs]
+      }))
+    })
     .catch(err => console.log(err))
+  }
+
+  deleteProduct = async (_id) => {
+    await bearerAxios.delete(`/api/product/${_id}`)
+    .then( res => {
+
+      this.setState( prev => {
+        const filterArray = prev.products.filter( thing => {
+          return thing._id !== _id
+        })
+        return {products: filterArray}
+      })
+    })
+    this.getAllProducts()
+  }
+
+  //section for cart functionality
+
+  addToCart = async product => {
+    console.log('product in add to Cart, product provider', product)
+    await this.state.cart.push(product)
+    alert(`you added ${product.title} to your cart` )
   }
 
   
 
 
   render() {
-    const {products,title,description,price,} = this.state
+    const {products,cart,} = this.state
 
     return (
       <Provider value={{
         products,
+        cart,
         makeProduct: this.makeProduct,
-       
+        addToCart: this.addToCart,
+        deleteProduct: this.deleteProduct,
       }}>
         {this.props.children}
       </Provider>

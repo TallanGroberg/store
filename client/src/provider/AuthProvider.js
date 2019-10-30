@@ -23,8 +23,8 @@ class AuthProvider extends Component {
       token: localStorage.getItem('token') || '',
     }
 
-    signup = (user) => {
-      bearerAxios.post('user/signup', user)
+    signup = async user => {
+      await bearerAxios.post('/user/signup', user)
       .then(res => {
         const {token, input} = res.data
         delete user.password
@@ -38,11 +38,12 @@ class AuthProvider extends Component {
           err: err.message
         })
       })
-      this.props.history.push('/products')
+      
+      this.props.history.push('/')
     }
 
-    login = (user) => {
-      bearerAxios.post('user/login', user)
+    login = async user => {
+      await bearerAxios.post('/user/login', user)
       .then(res => {
         delete user.password
         const {token, input} = res.data
@@ -56,7 +57,7 @@ class AuthProvider extends Component {
           err: err.message
         })
       })
-      this.props.history.push('/products')
+      this.props.history.push('/')
     }
 
     logout = () => {

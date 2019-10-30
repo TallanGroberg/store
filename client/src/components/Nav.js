@@ -21,7 +21,6 @@ const Nav = (props) => {
     if(isLoggedIn){
       setIsLoggedIn(prev => (!prev))
     }
-
   }
 
   
@@ -32,6 +31,8 @@ const Nav = (props) => {
         <Link to='/products'>products</Link>
           <button onClick={handleLogout}>logout</button>
           <button onClick={() => props.history.push('/makeproduct')}>make a product</button>
+          <button onClick={() => props.history.push('/cart')}>Cart</button>
+          <button onClick={() => props.history.push('/yourproducts')}> your products</button>
       </>
         :
         <p>welcome</p>
