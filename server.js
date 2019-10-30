@@ -16,7 +16,7 @@ app.use(morgan('dev'))
 
 app.use('/api', expressJwt({ secret: process.env.SECRET}))
 
-mongoose.connect('mongodb://localhost:27017/store', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/store', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
