@@ -17,19 +17,37 @@ class ProductProvider extends React.Component {
   }
 
   componentDidMount() {
-    this.getAllProducts()
+    this.getAllBuyables()
 }
 
-  getAllProducts = () => {
+  getAllProducts = async () => {
+    await bearerAxios.get('/api/product')
+    .then(res  => {
+      this.setState({
+        products: [...res.data]
+      })
+      // this.getAllBuyables()
+    })
+    .catch(err => console.log(err.message))
+  }
+
+  getAllBuyables = () => {
     bearerAxios.get('/api/product')
     .then(res  => {
-      
-      this.setState(prev => ({
-        products: [...res.data]
-    }))
+      console.log('get all buyables',res.data)
+      this.setState(prev => {
+        const productToSell = res.data.filter(p => {
+          return p.isIncart  === false
+        })
+        return {products: productToSell}
+      })
   })
-  .catch(err => console.log(err))
+  .catch(err => console.log(err.message))
+ 
   }
+//end of start chain
+
+
 
   makeProduct = (inputs) => {
     bearerAxios.post('/api/product', inputs)
@@ -57,11 +75,36 @@ class ProductProvider extends React.Component {
 
   //section for cart functionality
 
-  addToCart = async product => {
-    console.log('product in add to Cart, product provider', product)
-    await this.state.cart.push(product)
-    alert(`you added ${product.title} to your cart` )
+  handleCart = (p, _id) => {
+    console.log('product in add to Cart, product provider', p.isIncart)
+    bearerAxios.put(`/api/product/${_id}`, p)
+    if(!p.isIncart) {
+      return this.getCart()
+    } else {
+      this.removeFromProductList(p)
+    } 
   }
+
+  //get everything that has the cart boolean true
+  getCart = () => {
+    bearerAxios.get('/api/product/cart')
+    .then( res => {
+      this.setState({
+        cart: [...res.data]
+      })
+    })
+  }
+
+  removeFromProductList =  (p) => {
+       this.setState(prev => {
+        const productsForSale = prev.products.filter(aProduct => {
+          return aProduct.isIncart !== p.isIncart
+        })
+        return {products: productsForSale}
+      })
+      this.getAllBuyables()
+  }
+
 
   
 
@@ -74,8 +117,11 @@ class ProductProvider extends React.Component {
         products,
         cart,
         makeProduct: this.makeProduct,
-        addToCart: this.addToCart,
+        handleCart: this.handleCart,
         deleteProduct: this.deleteProduct,
+        getCart: this.getCart,
+        removeFromProductList: this.removeFromProductList,
+        getAllBuyables: this.getAllBuyables,
       }}>
         {this.props.children}
       </Provider>

@@ -16,6 +16,14 @@ const productSchema = new Schema({
   price: {
     type: Number,
     required: true,
+  },
+  isIncart: {
+    type: Boolean,
+    default: false
+  },
+  isBought: {
+    type: Boolean,
+    default: false
   }
 })
 

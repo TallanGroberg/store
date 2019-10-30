@@ -1,8 +1,8 @@
 import React, {useEffect, useState,} from 'react';
 import {Link} from 'react-router-dom'
 
-import {bearerAxios} from '../provider/AuthProvider'
-import {withstoreCrud, } from '../provider/ProductProvider'
+import {bearerAxios, withAuth} from '../provider/AuthProvider'
+import {withstoreCrud } from '../provider/ProductProvider'
 
 const Product = (props) => {
   const [product, setProduct] = useState({})
@@ -15,9 +15,15 @@ const Product = (props) => {
     })
   }, [])
   const {title, description, price } = product
+  const {user, handleCart,} = props
+  console.log('props in Product.js', user )
 
-
-
+  // const handleCartAddInProduct = (p) => {
+  //   p.isInCart = true
+  //   console.log('handleCartAddInProduct should be false', p.isIncart)
+  //   p.buyer = JSON.parse(user).user._id
+  //   handleCart(p, p._id)
+  // }
 
 
 
@@ -27,10 +33,10 @@ const Product = (props) => {
       <h1>{title}</h1>
         <p>{description}</p>
           <p>{price}</p>
-          <button onClick={() => props.addToCart(product)}>add to cart</button>
+          {/* <button onClick={() => handleCartAddInProduct(product)}>add to cart</button> */}
 
     </div>
   );
 };
 
-export default withstoreCrud(Product);
+export default withAuth(withstoreCrud(Product));

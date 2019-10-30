@@ -1,15 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {withRouter} from 'react-router-dom'
+import {withAuth} from '../provider/AuthProvider'
 import {Link, Switch, Route} from 'react-router-dom'
 import {withstoreCrud} from '../provider/ProductProvider'
 import Product from './Product'
+
 const Products = (props) => {
 
-  console.log('props.match Products',props)
+  
 
-  const {products, addToCart } = props
-  console.log('products in products',products)
+  const {products, getAllBuyables, handleCart,removeFromProductList, user } = props
+  // console.log('user', JSON.parse(user).user)
 
+  useEffect( () => {
+    getAllBuyables()
+  }, [])
+ 
+
+  const handleCartAdd = (p) => {
+    
+    // p.buyer = JSON.parse(user).user._id
+    console.log('P.isInCart from products',p.IsIncart)
+    p.isIncart = true
+    handleCart(p, p._id)
+    // removeFromProductList(p)
+  }
 
   return (
 
@@ -28,12 +43,12 @@ const Products = (props) => {
                   {p.price}
                 </p>
           </Link>
-          <button onClick={() => addToCart(p)}>add to cart</button>
+          <button onClick={() => handleCartAdd(p)}>add to cart</button>
         </>)
       })}
 
 <Switch>
-  <Route expact path='/products/:_id' render={ (rProps) => <Product />} />
+  <Route expact path='/products/:_id' render={ (rProps) => <Product {...rProps}  />} />
 </Switch>
     
     
@@ -41,4 +56,4 @@ const Products = (props) => {
   );
 };
 
-export default withRouter(withstoreCrud(Products));
+export default withRouter(withAuth(withstoreCrud(Products)));

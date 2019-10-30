@@ -5,7 +5,7 @@ const MakeProduct = (props) => {
   const initState = {title: '',description: '',price: '',}
     const [inputs, setInputs] = useState(initState)
 
-  console.log('props in makeproduct',props)
+
 
   const handleSubmit = async e => {
     e.preventDefault()

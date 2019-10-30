@@ -6,7 +6,7 @@ const Profile = (props) => {
   const [yourStuff, setYourStuff] = useState([])
   const [user, setUser] = useState(JSON.parse(props.user).user)
     const {_id} = user
-      console.log(toggle)
+     
   
       useEffect(()  => {
         bearerAxios.get(`/api/product/user/${user._id}`)
@@ -19,7 +19,7 @@ const Profile = (props) => {
           setToggle(prev => (!prev))
         }
 
-         const deleteStuff = async(_id) => {
+         const deleteStuff = async (_id) => {
 
           const filterArray = yourStuff.filter( thing => {
             return thing._id !== _id
@@ -35,7 +35,7 @@ const Profile = (props) => {
   
 
 
-  console.log('props profiles',props)
+ 
 
   //platform for users to 
   //edit products,

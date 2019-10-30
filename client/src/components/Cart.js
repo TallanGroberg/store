@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {withRouter} from 'react-router-dom'
+import { bearerAxios } from '../provider/AuthProvider';
 import {withstoreCrud} from '../provider/ProductProvider'
 
 
@@ -8,9 +9,19 @@ const Cart = (props) => {
 
   //will proceed to checkout
 
-  //then add credit card information 
+  
   //then push back to the home page
-  console.log(props)
+
+  useEffect( () => {
+    props.getCart()
+  }, [])
+
+
+    const removeFromCart = p => {
+      p.isIncart = false
+      props.handleCart(p, p._id)
+    }
+
   return (
     <div>
       {props.cart.length === 0 ? 
@@ -19,16 +30,16 @@ const Cart = (props) => {
         <button onClick={() => props.history.push('/')}>see all products</button>
       </>
       :
-
         props.cart.map(p => {
           return <>
           <h1>{p.title}</h1>
             <p>{p.price}</p>
-            <button onClick={() => props.history.push('/checkout')}>proceed to checkout</button>
+            <button onClick={() => removeFromCart(p) }>remove from Cart</button>
           </>
 
         })
       }
+          <button onClick={() => props.history.push('/checkout')}>proceed to checkout</button>
     </div>
   );
 };

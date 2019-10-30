@@ -82,7 +82,7 @@ class AuthProvider extends Component {
       this.setState(prev => ({
         isSigningUp: !prev.isSigningUp,
       }))
-      console.log(this.state.isSigningUp)
+      
     }
     
     
