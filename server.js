@@ -1,9 +1,12 @@
 const express = require('express')
+const path = require("path")
+app.use(express.static(path.join(__dirname, "client", "build")))
 require('dotenv').config()
 const app = express()
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-const PORT = 4444
+const PORT = process.env.PORT || 4444
+const secret = process.env.SECRET || 'super secret sly stuffs'
 const expressJwt = require('express-jwt')
 
 
@@ -37,6 +40,9 @@ app.use( (err,req,res,next) => {
 
 
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`app is live ${PORT}`)

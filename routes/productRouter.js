@@ -12,6 +12,7 @@ productRouter.get('/', (req,res,next) => {
   })
 })
 
+
 //your products
 productRouter.get('/:user', (req,res, next) => {
   Product.find({user: req.user._id}, (err,products) => {
