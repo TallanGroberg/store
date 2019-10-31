@@ -2,13 +2,7 @@ const express = require('express')
 const productRouter = express.Router()
 const Product = require('../models/product.js')
 
-const handleRequest = (err,req,res,next,arg) => {
-
-  err ? 
-  res.status(500).next(err) :
-    console.log('arg in handle request', arg)
-   res.status(200).send(arg)
-}
+const handleRequest = (err,req,res,next,arg) => err ? res.status(500).next(err) : res.status(200).send(arg)
   const dataBaseChange = (err,req,res,next,arg) => err ? res.status(500).next(err) : res.status(201).send(arg)
 
 //all products
@@ -33,7 +27,7 @@ productRouter.get('/cart', (req,res, next) => {
   })
 })
 productRouter.get('/bought', (req,res, next) => {
-  console.log('bought request')
+
   Product.find({isBought: true}, (err,products) => {
     handleRequest(err,req,res,next,products)
   })
@@ -43,9 +37,8 @@ productRouter.get('/bought', (req,res, next) => {
 productRouter.put('/bought/:_id', (req,res, next) => {
   Product.findOneAndUpdate({_id: req.params._id, user: req.user._id,},
     req.body, {new: true}, (err,products) => {
-      console.log('before',req.body.isBought)
       req.body.isBought = true
-      console.log('after',req.body.isBought)
+     
     handleRequest(err,req,res,next,products)
   })
 })
@@ -84,8 +77,7 @@ productRouter.delete('/:_id', (req,res,next) => {
 // edit a product
 productRouter.put('/:_id', (req,res,next) => {
   Product.findOneAndUpdate({_id: req.params._id, user: req.user._id,},
-     req.body, {new: true}, (err,product)=> {
-       console.log('isInCart?',req.body.isIncart)
+    req.body, {new: true}, (err,product)=> {
     dataBaseChange(err,req,res,next,product)
   })
 })

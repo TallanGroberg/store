@@ -16,19 +16,8 @@ const Product = (props) => {
   }, [])
   const {title, description, price } = product
   const {user, handleCart,} = props
-  console.log('props in Product.js', user )
-
-  // const handleCartAddInProduct = (p) => {
-  //   p.isInCart = true
-  //   console.log('handleCartAddInProduct should be false', p.isIncart)
-  //   p.buyer = JSON.parse(user).user._id
-  //   handleCart(p, p._id)
-  // }
-
-
 
   return (
-
     <div>
       <h1>{title}</h1>
         <p>{description}</p>

@@ -33,9 +33,6 @@ app.use('/charge', require('./routes/paymentRouter'))
 // may have to create a tokenified route
 
 
-
-
-
 //error handling
 
 app.use( (err,req,res,next) => {

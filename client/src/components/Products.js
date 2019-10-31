@@ -10,7 +10,7 @@ const Products = (props) => {
   
 
   const {products, getAllBuyables, handleCart,removeFromProductList, user } = props
-  // console.log('user', JSON.parse(user).user)
+
 
   useEffect( () => {
     getAllBuyables()

@@ -10,7 +10,7 @@ const Checkout = (props) => {
   useEffect( () => {
     props.getCart()
   }, [])
-  console.log('props in Cart.js',props)
+
   const {getCart, cart} = props
 
   const prices = cart.map( p => p.price  )

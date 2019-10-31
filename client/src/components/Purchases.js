@@ -9,7 +9,7 @@ const Purchases = (props) => {
   useEffect( () => {
     props.getAllBoughtProducts()
   }, [])
-    console.log('bought products', props.bought)
+   
   return (
     <div>
       {props.bought.map( p => {

@@ -25,12 +25,14 @@ class ProductProvider extends React.Component {
   getAllBuyables = () => {
     bearerAxios.get('/api/product')
     .then(res  => {
-      console.log('get all buyables',res.data)
       this.setState(prev => {
-        const productToSell = res.data.filter(p => {
+        const productNotInCart = res.data.filter(p => {
           return p.isIncart  === false
         })
-        return {products: productToSell}
+          const productsNotBought = productNotInCart.filter(product => {
+            return product.isBought  === false
+          })
+              return {products: productsNotBought}
       })
   })
   .catch(err => console.log(err.message))
@@ -66,7 +68,7 @@ class ProductProvider extends React.Component {
   //section for cart functionality
 
   handleCart = (p, _id) => {
-    console.log('product in add to Cart, product provider', p.isIncart)
+    
     bearerAxios.put(`/api/product/${_id}`, p)
     if(!p.isIncart) {
       return this.getCart()
