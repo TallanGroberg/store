@@ -7,6 +7,7 @@ const { Provider, Consumer } = React.createContext()
 export const bearerAxios = axios.create()
 bearerAxios.interceptors.request.use((config) => {
   const token = localStorage.getItem('token')
+  
   config.headers.Authorization = `Bearer ${token}`
   return config
 })

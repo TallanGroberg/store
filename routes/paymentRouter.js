@@ -1,23 +1,26 @@
 const express = require('express')
-const productRouter = express.Router()
+const paymentRouter = express.Router()
 const Product = require('../models/product.js')
-const stripe = require('stripe')('sk_test_CXMUi3h50oI3L61wpLYfDuxB00lO81ro0B');
+const stripe = require('stripe')(process.env.PUBLISHABLE_KEY);
 
 
 
-(async () => {
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    line_items: [{
-      name: 'T-shirt',
-      description: 'Comfortable cotton t-shirt',
-      images: ['https://example.com/t-shirt.png'],
-      amount: 500,
-      currency: 'usd',
-      quantity: 1,
-    }],
-    success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
-    cancel_url: 'https://example.com/cancel',
-  });
-})();
+paymentRouter.post("/", async (req, res) => {
+  try {
+    let {status} = await stripe.charges.create({
+      amount: req.body.amount,
+      currency: "usd",
+      description: "the lazer beam",
+      source: req.body.token
+    });
 
+    
+    return res.json({status});
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+});
+
+
+module.exports = paymentRouter

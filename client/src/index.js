@@ -5,16 +5,19 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import AuthProvider from './provider/AuthProvider'
 import ProductProvider from './provider/ProductProvider'
 import * as serviceWorker from './serviceWorker';
-
+import {Elements, StripeProvider} from 'react-stripe-elements';
 ReactDOM.render(
-
-<Router>
-  <AuthProvider> 
-    <ProductProvider>
-      <App />
-    </ProductProvider>
-  </AuthProvider> 
-</Router>
+<StripeProvider apiKey="pk_test_XXuU8tjXhFT5g0IajD21jcde00iqncvKJY">
+  <Elements>
+    <Router>
+      <AuthProvider> 
+        <ProductProvider>
+          <App />
+        </ProductProvider>
+      </AuthProvider> 
+    </Router>
+  </Elements>
+</StripeProvider>
 
 , document.getElementById('root'));
 

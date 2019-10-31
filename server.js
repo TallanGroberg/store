@@ -10,7 +10,7 @@ const secret = process.env.SECRET || 'super secret sly stuffs'
 
 const expressJwt = require('express-jwt')
 
-
+app.use(require("body-parser").text());
 
 app.use(express.json())
 app.use(morgan('dev'))
@@ -29,6 +29,10 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/store', {
 //routes 
 app.use('/user', require('./routes/userRouter.js'))
 app.use('/api/product', require('./routes/productRouter.js'))
+app.use('/charge', require('./routes/paymentRouter'))
+// may have to create a tokenified route
+
+
 
 
 
@@ -42,9 +46,9 @@ app.use( (err,req,res,next) => {
 
 
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`app is live ${PORT}`)
