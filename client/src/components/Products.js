@@ -18,10 +18,10 @@ const Products = (props) => {
  
 
   const handleCartAdd = (p) => {
-    
-    // p.buyer = JSON.parse(user).user._id
-    console.log('P.isInCart from products',p.IsIncart)
     p.isIncart = true
+    p.buyer = JSON.parse(user).user._id
+    
+    console.log('P.isInCart from products',p.buyer)
     handleCart(p, p._id)
     // removeFromProductList(p)
   }
@@ -32,6 +32,10 @@ const Products = (props) => {
       {products.map( p =>  {
         return (
         <>
+        {JSON.parse(user).user._id === p._id ?
+          null
+            :
+            <>
           <Link to={'/products/' + p._id}>
             <h1>
               {p.title}
@@ -43,7 +47,9 @@ const Products = (props) => {
                   {p.price}
                 </p>
           </Link>
-          <button onClick={() => handleCartAdd(p)}>add to cart</button>
+         <button onClick={() => handleCartAdd(p)}>add to cart</button>
+         </>
+        }
         </>)
       })}
 

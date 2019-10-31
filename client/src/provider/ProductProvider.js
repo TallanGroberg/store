@@ -20,16 +20,7 @@ class ProductProvider extends React.Component {
     this.getAllBuyables()
 }
 
-  getAllProducts = async () => {
-    await bearerAxios.get('/api/product')
-    .then(res  => {
-      this.setState({
-        products: [...res.data]
-      })
-      // this.getAllBuyables()
-    })
-    .catch(err => console.log(err.message))
-  }
+ 
 
   getAllBuyables = () => {
     bearerAxios.get('/api/product')
