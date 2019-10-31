@@ -14,6 +14,7 @@ import Product from './components/Product'
 import MakeProduct from './components/MakeProduct'
 import Profile from './auth/Profile'
 import Cart from './components/Cart'
+import Purchases from './components/Purchases'
 import Checkout from './components/Checkout'
 const App = props => {
   
@@ -31,6 +32,7 @@ const App = props => {
             <ProtectedRoute exact path='/yourproducts' render={ rProps => <Profile /> } />
             <ProtectedRoute exact path='/cart' render={ rProps => <Cart /> } />
             <ProtectedRoute exact path='/checkout' render={ rProps => <Checkout /> } />
+            <ProtectedRoute exact path='/purchases' render={ rProps => <Purchases /> } />
             <ProtectedRoute path='/products/:_id' render={ rProps => <Product {...rProps}  />} />
         </Switch>
     </div>

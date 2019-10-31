@@ -13,7 +13,7 @@ class ProductProvider extends React.Component {
   state = {
     products: [],
     cart: [],
-   
+    bought: [],
   }
 
   componentDidMount() {
@@ -34,7 +34,6 @@ class ProductProvider extends React.Component {
       })
   })
   .catch(err => console.log(err.message))
- 
   }
 //end of start chain
 
@@ -76,6 +75,11 @@ class ProductProvider extends React.Component {
     } 
   }
 
+
+
+
+
+
   //get everything that has the cart boolean true
   getCart = () => {
     bearerAxios.get('/api/product/cart')
@@ -85,6 +89,19 @@ class ProductProvider extends React.Component {
       })
     })
   }
+
+  getAllBoughtProducts = () => {
+    bearerAxios.get('/api/product/bought')
+    .then(res  => {
+      this.setState(prev => ({
+        bought: [...res.data]
+      }))
+    })
+  .catch(err => console.log(err.message))
+  console.log(this.state.bought)
+  }
+
+
 
   removeFromProductList =  (p) => {
        this.setState(prev => {
@@ -101,18 +118,20 @@ class ProductProvider extends React.Component {
 
 
   render() {
-    const {products,cart,} = this.state
+    const {products,cart, bought} = this.state
 
     return (
       <Provider value={{
         products,
         cart,
+        bought,
         makeProduct: this.makeProduct,
         handleCart: this.handleCart,
         deleteProduct: this.deleteProduct,
         getCart: this.getCart,
         removeFromProductList: this.removeFromProductList,
         getAllBuyables: this.getAllBuyables,
+        getAllBoughtProducts: this.getAllBoughtProducts,
       }}>
         {this.props.children}
       </Provider>

@@ -17,7 +17,7 @@ const Checkout = (props) => {
   const totalPrice = prices.reduce( (t,f) => t + f, 0)
 
 
-
+  
   //this will be the page that a user can enter credit card information and go back to the product page. 
   return (
     <div>

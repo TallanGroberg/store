@@ -10,7 +10,6 @@ paymentRouter.post("/", async (req, res) => {
     let {status} = await stripe.charges.create({
       amount: req.body.amount,
       currency: "usd",
-      description: "the lazer beam",
       source: req.body.token
     });
 
