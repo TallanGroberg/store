@@ -18,7 +18,6 @@ class CheckoutForm extends Component {
 
     await axios.post('/charge',
     {
-        
         headers: {"Content-Type": "text/plain"},
         token: token.id,  
         amount: this.props.totalPrice
