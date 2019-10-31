@@ -4,6 +4,7 @@ import { bearerAxios } from '../provider/AuthProvider';
 import {withstoreCrud} from '../provider/ProductProvider'
 
 
+
 const Cart = (props) => {
   //will be the landing ground for setup of payment systems 
 
@@ -19,6 +20,7 @@ const Cart = (props) => {
 
     const removeFromCart = p => {
       p.isIncart = false
+      delete p.buyer
       props.handleCart(p, p._id)
     }
 
