@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-dotenv.config()
 import {BrowserRouter as Router} from 'react-router-dom'
 import AuthProvider from './provider/AuthProvider'
 import ProductProvider from './provider/ProductProvider'
