@@ -1,52 +1,40 @@
-import React, {Component} from 'react';
+import React, {useState,} from 'react';
 import {CardElement, injectStripe} from 'react-stripe-elements';
 import axios from 'axios'
 
 
-class CheckoutForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {complete: false};
-    this.submit = this.submit.bind(this);
-  }
+const CheckoutForm = (props) =>  {
+  const [complete, setComplete] = useState(false)
   
+    const  submit =  async (ev) =>  {
+      let {token} = await props.stripe.createToken({name: "Name"});
+
+        await axios.post('/charge',{
+          headers: {"Content-Type": "text/plain"},
+          token: token.id,  
+          amount: props.totalPrice
+        }
+      ).then( res => {
+        if(res.status === 200) return setComplete(!complete)
+      })
+    }
   
-
-  //may need to change to bearerAxios.post
-  async submit(ev) {
-    let {token} = await this.props.stripe.createToken({name: "Name"});
-
-    await axios.post('/charge',
-    {
-        headers: {"Content-Type": "text/plain"},
-        token: token.id,  
-        amount: this.props.totalPrice
-      }
-    )
-   
-    // let response = await fetch("/charge", {
-    //   method: "POST",
-    //   headers: {"Content-Type": "text/plain"},
-    //   body: token.id,  
-    //   amount: this.props.totalPrice
-    // });
-  
-    // if (response.ok) this.setState({complete: true});
-  }
-
- 
-
-  render() {
-    console.log('checkoutform', this.props)
-    if (this.state.complete) return <h1>Purchase Complete</h1>;
     return (
-      <div className="checkout">
-        <p>Would you like to complete the purchase?</p>
-        <CardElement />
-        <button onClick={this.submit}>Purchase</button>
-      </div>
+      <>
+      {complete ? 
+      <h1>payment successful, {props.totalPrice / 100} will be removed from your account</h1>
+
+        :
+      <>
+      <p>Would you like to complete the purchase?</p>
+      <xmp>this is for test purposes only please enter 4242 4242 4242 4242 4242 to test the system </xmp>
+      <CardElement />
+      <button onClick={submit}>Purchase</button>
+      </>
+    }
+    </>
     );
   }
-}
+
 
 export default injectStripe(CheckoutForm);
