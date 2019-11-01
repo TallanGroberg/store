@@ -7,7 +7,7 @@ import ProductProvider from './provider/ProductProvider'
 import * as serviceWorker from './serviceWorker';
 import {Elements, StripeProvider} from 'react-stripe-elements';
 ReactDOM.render(
-<StripeProvider apiKey={process.env.REACT_APP_PUBLISHABLE_LIVE_APIKEY || process.env.REACT_APP_PUBLISHABLE_TEST_APIKEY}>
+<StripeProvider apiKey={process.env.REACT_APP_PUBLISHABLE_TEST_APIKEY ||process.env.REACT_APP_PUBLISHABLE_LIVE_APIKEY}>
   <Elements>
     <Router>
       <AuthProvider> 
