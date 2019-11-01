@@ -24,8 +24,8 @@ const CheckoutForm = (props) =>  {
             p.isBought = true
             p.isInCart = false
             bearerAxios.put(`/api/product/bought/${p._id}`, p)
-
           })
+         
           return setComplete(!complete)
         }
       })
