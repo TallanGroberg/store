@@ -27,7 +27,7 @@ const Checkout = (props) => {
         <p>{p.price / 100}</p>
         </>
       })}
-      <CheckoutForm totalPrice={totalPrice} />
+      <CheckoutForm cart={cart} totalPrice={totalPrice} />
       <p>your total is: {totalPrice / 100}</p>
     </div>
   );

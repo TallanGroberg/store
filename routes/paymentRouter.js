@@ -11,7 +11,9 @@ paymentRouter.post("/", async (req, res) => {
     let {status} = await stripe.charges.create({
       amount: req.body.amount,
       currency: "usd",
-      source: req.body.token
+      description: res.body.description,
+      source: req.body.token,
+      statement_descriptor: 'Custom descriptor'
     });
 
     

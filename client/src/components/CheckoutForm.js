@@ -17,6 +17,7 @@ const CheckoutForm = (props) =>  {
           headers: {"Content-Type": "text/plain"},
           token: token.id,  
           amount: props.totalPrice,
+          description: 'test payment',
         }
       ).then( res => {
         if(res.status === 200) {
