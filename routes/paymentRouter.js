@@ -1,7 +1,7 @@
 const express = require('express')
 const paymentRouter = express.Router()
 const Product = require('../models/product.js')
-const stripe = require('stripe')(process.env.PUBLISHABLE_KEY);
+const stripe = require('stripe')(process.env.PUBLISHABLE_KEY || REACT_APP_PUBLISHABLE_LIVE_APIKEY);
 
 
 
