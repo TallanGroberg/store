@@ -1,7 +1,7 @@
 const express = require('express')
 const paymentRouter = express.Router()
 const Product = require('../models/product.js')
-const stripe = require('stripe')(process.env.REACT_APP_PUBLISHABLE_LIVE_APIKEY || process.env.PUBLISHABLE_KEY);
+const stripe = require('stripe')(process.env.REACT_APP_SECRET_LIVE_APIKEY || process.env.PUBLISHABLE_KEY);
 
 
 
@@ -11,9 +11,7 @@ paymentRouter.post("/", async (req, res) => {
     let {status} = await stripe.charges.create({
       amount: req.body.amount,
       currency: "usd",
-      description: res.body.description,
       source: req.body.token,
-      statement_descriptor: 'Custom descriptor'
     });
 
     
