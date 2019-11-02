@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {withstoreCrud} from '../provider/ProductProvider'
 import {withAuth,bearerAxios} from '../provider/AuthProvider'
+
 const Profile = (props) => {
   const [toggle, setToggle] = useState(false)
   const [yourStuff, setYourStuff] = useState([])
-  const [user, setUser] = useState(JSON.parse(props.user).user)
+  const [user, setUser] = useState(props.user)
     const {_id} = user
      
   
@@ -30,13 +31,6 @@ const Profile = (props) => {
           props.deleteProduct(_id)
         }
         
-
-
-  
-
-
- 
-
   //platform for users to 
   //edit products,
   //delete products,
@@ -47,6 +41,8 @@ const Profile = (props) => {
     <div>
       {yourStuff.map( s => {
         return <>
+                <button onClick={() => props.history.push('/usersettings')}>user Settings</button>
+                  <h1>your purchases</h1>
                   <h1>{s.title}</h1>
                     <p>{s.description}</p>
                     <p>{s.price}</p>

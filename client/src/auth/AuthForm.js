@@ -3,7 +3,7 @@ import {withAuth} from '../provider/AuthProvider'
 const AuthForm = (props) => {
   const initState = {
     name: '',
-    pasword: '',}
+    password: '',}
   const [inputs, setInputs] = useState(initState)
   
 

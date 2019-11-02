@@ -12,26 +12,36 @@ bearerAxios.interceptors.request.use((config) => {
   return config
 })
 
+interface User{
+  name: string;
+  email: string;
+}
+
+interface InitialState{
+  err: string;
+  user: User;
+  token: string;
+}
 
 class AuthProvider extends Component {
- state = {
+ state: InitialState = {
       err: '',
       isSigningUp: false,
-      user: localStorage.getItem('user') || {},
+      user: JSON.parse(localStorage.getItem('user')),
       name: '',
       email: '',
       password: '',
       token: localStorage.getItem('token') || '',
     }
 
-    signup = async user => {
+    signup = async (user: User) => {
       await bearerAxios.post('/user/signup', user)
       .then(res => {
         const {token, input} = res.data
         delete user.password
         localStorage.setItem('token', token )
+        this.setState({token, user: input})
         localStorage.setItem('user', JSON.stringify(res.data))
-        this.setState({token, input})
       })
       .catch(err =>  {
         console.log('err.message',err.message)
@@ -44,13 +54,17 @@ class AuthProvider extends Component {
     }
 
     login = async user => {
-      await bearerAxios.post('/user/login', user)
+      await axios.post('/user/login', user)
       .then(res => {
-        delete user.password
-        const {token, input} = res.data
+        // delete user.password;
+
+        const {token, user} = res.data;
+          
+        
         localStorage.setItem('token', token)
-        localStorage.setItem('user', JSON.stringify(res.data))
-        this.setState({token, input})
+        localStorage.setItem('user', JSON.stringify(user))
+        this.setState({token, user})
+        
       })
       .catch(err => {
         this.props.history.push('/login/signup')
@@ -83,7 +97,16 @@ class AuthProvider extends Component {
       this.setState(prev => ({
         isSigningUp: !prev.isSigningUp,
       }))
-      
+    }
+    editUser = (user: User, _id) => {
+      bearerAxios.put(`/user/${_id}`, user)
+      .then(res => {
+        delete user.password
+        this.setState({
+          user: user,
+        })
+      })
+
     }
     
     
@@ -113,6 +136,7 @@ class AuthProvider extends Component {
               logout: this.logout,
               deleteAccount: this.deleteAccount,
               toggleSignUp: this.toggleSignUp,
+              editUser: this.editUser,
           }}>
             {this.props.children}
         </Provider>
