@@ -41,7 +41,7 @@ const CheckoutForm = (props) =>  {
           :
         <>
           <p>Would you like to complete the purchase?</p>
-            <xmp>this is for test purposes only please enter 4242 4242 4242 4242 4242 to test the system </xmp>
+            <xmp>this is for test purposes only please enter 4242 4242 4242 4242 4242 or  to test the system </xmp>
             <CardElement />
               <button onClick={submit}>Purchase</button>
         </>

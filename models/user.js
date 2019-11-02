@@ -46,3 +46,5 @@ userSchema.methods.withoutpassword = function(next) {
 }
 
 module.exports = mongoose.model("User", userSchema)
+
+//make the salt number between a range. 
