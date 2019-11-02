@@ -3,7 +3,7 @@ const userRouter = express.Router()
 const User = require('../models/user.js')
 const jwt = require('jsonwebtoken')
 const secret = process.env.SECRET || 'super secret sly stuffs'
-
+const bcrypt = require('bcrypt')
 
   
 
@@ -76,6 +76,33 @@ userRouter.post('/login', (req,res,next) => {
     })
   })
 })
+
+
+userRouter.put('/:_id', (req,res,next) => {
+  const user = req.body
+ //1st promise
+
+  const hashPassword = new Promise((resolve, reject) => {
+    bcrypt.hash(user.password, 11, (err, hash) => {
+      if(err) return next(err);
+      user.password = hash;
+      resolve(user.password)
+    })
+  })
+ 
+  .then(pass => {
+    
+    User.findByIdAndUpdate(req.params._id, req.body, {new: true}, (err, user) => {
+      console.log('after find and update', user)
+      if(err) {
+        res.status(500)
+        return next(err)
+      }
+      return res.status(201).send(user)
+    })
+  })
+})
+
 
 
 module.exports = userRouter
