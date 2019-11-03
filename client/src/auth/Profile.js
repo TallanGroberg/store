@@ -17,8 +17,8 @@ const Profile = (props) => {
       })
     }
     
-      useEffect(()  => {
-       getUsersProducts()
+      useEffect( ()  => {
+        getUsersProducts()
       }, [])
 
 

@@ -20,7 +20,7 @@
           const {name,value} = e.target
           setInputs( input => ({...inputs, [name]: value}))
         }
-        console.log('inputs in editproductform', inputs)
+        
 
 
     return (
