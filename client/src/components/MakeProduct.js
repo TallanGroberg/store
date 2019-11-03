@@ -7,7 +7,7 @@ const MakeProduct = (props) => {
     const [inputs, setInputs] = useState(initState)
     const [image, setImage] = useState({})
 
-  console.log('image outside handleFile',image)
+  console.log('image outside handleFile',image[0])
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -21,7 +21,7 @@ const MakeProduct = (props) => {
   const handleUpload = (e) => {
     const file = e.target.files
     console.log(file[0])
-    // await setImage(image => (file[0]))
+    setImage(image => (file[0]))
     bearerAxios.post('api/images', file[0] )
   }
 

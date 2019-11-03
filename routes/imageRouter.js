@@ -10,7 +10,7 @@ cloudinary.config({
 
 
 
-// imageRouter.post('/', cloudinary.uploader.upload("my_image.jpg",  (error, result) =>  console.log(result, error));
+
 
 
 module.exports = imageRouter
