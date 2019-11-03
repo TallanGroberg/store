@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import {withstoreCrud} from '../provider/ProductProvider'
+import {bearerAxios} from '../provider/AuthProvider'
 import {withRouter} from 'react-router-dom'
 const MakeProduct = (props) => {
-  const initState = {title: '',description: '',price: '',}
+  const initState = {title: '',description: '',price: '', image: ''}
     const [inputs, setInputs] = useState(initState)
+    const [image, setImage] = useState({})
 
-
+  console.log('image outside handleFile',image)
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -16,7 +18,12 @@ const MakeProduct = (props) => {
     const {name,value} = e.target
     setInputs(input => ({...input, [name]: value }))
   }
-
+  const handleUpload = (e) => {
+    const file = e.target.files
+    console.log(file[0])
+    // await setImage(image => (file[0]))
+    bearerAxios.post('api/images', file[0] )
+  }
 
   const {makeProduct, } = props
   return (
@@ -38,6 +45,13 @@ const MakeProduct = (props) => {
       name='price'
       value={inputs.price}
       onChange={handleChange} />
+      <input type="file"  
+      id='file' 
+      name="file"
+      placeholder="file"
+      value={inputs.image}
+      onChange={handleUpload}
+      />
       <button>submit</button>
     </form>
       
