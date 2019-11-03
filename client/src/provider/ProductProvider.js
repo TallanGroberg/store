@@ -25,6 +25,7 @@ class ProductProvider extends React.Component {
   getAllBuyables = () => {
     bearerAxios.get('/api/product')
     .then(res  => {
+   
       this.setState(prev => {
         const productNotInCart = res.data.filter(p => {
           return p.isIncart  === false
@@ -51,8 +52,8 @@ class ProductProvider extends React.Component {
     .catch(err => console.log(err))
   }
 
-  deleteProduct = async (_id) => {
-    await bearerAxios.delete(`/api/product/${_id}`)
+  deleteProduct = (_id) => {
+    bearerAxios.delete(`/api/product/${_id}`)
     .then( res => {
 
       this.setState( prev => {
@@ -62,19 +63,23 @@ class ProductProvider extends React.Component {
         return {products: filterArray}
       })
     })
-    this.getAllProducts()
+
   }
 
   //section for cart functionality
 
   handleCart = (p, _id) => {
-    
     bearerAxios.put(`/api/product/${_id}`, p)
-    if(!p.isIncart) {
-      return this.getCart()
-    } else {
+    .then(res => {
+      this.setState(prev => {
+        const filterCart = prev.cart.filter(aProduct => {
+          return aProduct._id !== _id
+        })
+        return {cart: filterCart}
+      })
+    })
       this.removeFromProductList(p)
-    } 
+    
   }
 
 
@@ -82,12 +87,16 @@ class ProductProvider extends React.Component {
 
 
 
-  //get everything that has the cart boolean true
+  //get everything that has the cart Boolean true
+
   getCart = () => {
     bearerAxios.get('/api/product/cart')
     .then( res => {
-      this.setState({
-        cart: [...res.data]
+      this.setState(prev => {
+        const filterCart = res.data.filter(aProduct => {
+          return aProduct.isIncart === true
+        })
+        return {cart: [...filterCart]}
       })
     })
   }
@@ -106,7 +115,7 @@ class ProductProvider extends React.Component {
 
 
   removeFromProductList =  (p) => {
-       this.setState(prev => {
+      this.setState(prev => {
         const productsForSale = prev.products.filter(aProduct => {
           return aProduct.isIncart !== p.isIncart
         })

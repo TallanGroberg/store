@@ -9,17 +9,18 @@ const Products = (props) => {
 
   
 
-  const {products, getAllBuyables, handleCart,removeFromProductList, user } = props
+  const {products, getAllBuyables, handleCart, user } = props
 
 
   useEffect( () => {
+  
     getAllBuyables()
   }, [])
  
 
   const handleCartAdd = (p) => {
     p.isIncart = true
-    p.buyer = JSON.parse(user).user._id
+    p.buyer = user._id
     
     console.log('P.isInCart from products',p.buyer)
     handleCart(p, p._id)
@@ -30,9 +31,8 @@ const Products = (props) => {
 
     <div>
       {products.map( p =>  {
-        return (
-        <>
-        {JSON.parse(user).user._id === p._id ?
+        return ( <>
+        {user._id === p._id ?
           null
             :
             <>

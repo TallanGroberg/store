@@ -7,10 +7,9 @@ const Profile = (props) => {
   const [yourStuff, setYourStuff] = useState([])
   const [user, setUser] = useState(props.user)
     const {_id} = user
-     
-  
+    
       useEffect(()  => {
-        bearerAxios.get(`/api/product/user/${user._id}`)
+       bearerAxios.get(`/api/product/user/${user._id}`)
         .then( res => {
           setYourStuff(res.data)
         })
@@ -20,15 +19,13 @@ const Profile = (props) => {
           setToggle(prev => (!prev))
         }
 
-         const deleteStuff = async (_id) => {
-
+        const deleteStuff = async (_id) => {
+          
           const filterArray = yourStuff.filter( thing => {
             return thing._id !== _id
-          })
-          
-          await setYourStuff( prev => (filterArray))
-
-          props.deleteProduct(_id)
+            })
+            await setYourStuff( prev => (filterArray))
+              props.deleteProduct(_id)
         }
         
   //platform for users to 
@@ -39,10 +36,10 @@ const Profile = (props) => {
   // ability to change there own profiles 
   return (
     <div>
+      <button onClick={() => props.history.push('/usersettings')}>user Settings</button>
+      <h1>your products to sell</h1>
       {yourStuff.map( s => {
         return <>
-                <button onClick={() => props.history.push('/usersettings')}>user Settings</button>
-                  <h1>your purchases</h1>
                   <h1>{s.title}</h1>
                     <p>{s.description}</p>
                     <p>{s.price}</p>

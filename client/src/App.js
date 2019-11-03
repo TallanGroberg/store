@@ -17,6 +17,8 @@ import EditUserForm from './auth/EditUserForm'
 import Cart from './components/Cart'
 import Purchases from './components/Purchases'
 import Checkout from './components/Checkout'
+import NoMatch from './components/NoMatch'
+
 const App = props => {
   
 
@@ -36,6 +38,7 @@ const App = props => {
             <ProtectedRoute exact path='/checkout' render={ rProps => <Checkout /> } />
             <ProtectedRoute exact path='/purchases' render={ rProps => <Purchases /> } />
             <ProtectedRoute path='/products/:_id' render={ rProps => <Product {...rProps}  />} />
+            <Route render={rProps => <NoMatch />}/>
         </Switch>
     </div>
   );

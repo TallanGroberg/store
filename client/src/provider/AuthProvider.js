@@ -53,7 +53,7 @@ class AuthProvider extends Component {
       this.props.history.push('/')
     }
 
-    login = async user => {
+    login = async (user: User) => {
       await axios.post('/user/login', user)
       .then(res => {
         // delete user.password;
@@ -85,7 +85,7 @@ class AuthProvider extends Component {
       })
     }
 
-    deleteAccount = (_id) => {
+    deleteAccount = (_id: String) => {
       bearerAxios.delete(`user/${_id}`)
       .then( res => {
         localStorage.removeItem('token')
@@ -98,7 +98,7 @@ class AuthProvider extends Component {
         isSigningUp: !prev.isSigningUp,
       }))
     }
-    editUser = (user: User, _id) => {
+    editUser = (user: User, _id: String) => {
       bearerAxios.put(`/user/${_id}`, user)
       .then(res => {
         delete user.password

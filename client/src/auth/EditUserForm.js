@@ -7,11 +7,11 @@ const EditUserForm = (props) => {
   const {name, email, _id } = props.user
   
   const [inputs, setInputs] = useState({name: name, email: email, password: ''})
-  console.log(_id, inputs)
+  console.log(typeof(_id), props.user)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.editUser(inputs, _id )
+    props.editUser(inputs, props.user._id )
   }
 
   const handleChange = (e) => {
