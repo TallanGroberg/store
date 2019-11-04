@@ -6,7 +6,7 @@ import {withstoreCrud } from '../provider/ProductProvider'
 
 const Product = (props) => {
   const [product, setProduct] = useState({})
-  const [file, setFile] = useState({})
+ 
   
   useEffect( () => {
     bearerAxios.get(`/api/product/id/${props.match.params._id}`)
@@ -14,14 +14,15 @@ const Product = (props) => {
       setProduct(res.data)
     })
   }, [])
-  const {title, description, price } = product
+  const {title, description, price, imgUrl } = product
   const {user, handleCart,} = props
 
   return (
     <div>
       <h1>{title}</h1>
-        <p>{description}</p>
-          <p>{price}</p>
+          <img src={imgUrl} width="400" height='400' />
+            <p>{description}</p>
+            <p>{price}</p>
           {/* <button onClick={() => handleCartAddInProduct(product)}>add to cart</button> */}
 
     </div>

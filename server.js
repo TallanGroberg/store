@@ -2,23 +2,26 @@ const express = require('express')
 const path = require("path")
 const app = express()
 const bodyparser = require('body-parser')
-app.use(express.static(path.join(__dirname, "client", "build")))
 require('dotenv').config()
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const PORT = process.env.PORT || 4444
 const secret = process.env.SECRET || 'super secret sly stuffs'
-
+const fileUpload = require('express-fileupload');
+const multer = require('multer')
 const expressJwt = require('express-jwt')
 
-app.use(require("body-parser").text());
 
 
-app.use(express.json())
-app.use(morgan('dev'))
 
 
-app.use('/api', expressJwt({ secret: process.env.SECRET}))
+  app.use(express.static(path.join(__dirname, "client", "build")))
+  app.use(require("body-parser").text());
+  app.use(express.json())
+  app.use(morgan('dev'))
+  app.use(fileUpload());
+
+  app.use('/api', expressJwt({ secret: process.env.SECRET}))
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/store', {
   useNewUrlParser: true,
@@ -31,8 +34,8 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/store', {
 //routes 
 app.use('/user', require('./routes/userRouter.js'))
 app.use('/api/product', require('./routes/productRouter.js'))
-app.use('/charge', require('./routes/paymentRouter'))
 app.use('api/images', require('./routes/imageRouter'))
+app.use('/charge', require('./routes/paymentRouter'))
 // may have to create a tokenified route
 
 

@@ -6,6 +6,7 @@ const EditProduct = (props) => {
     title: '',
     description: '',
     price: '',
+    imgUrl: '',
   }
     
     const [inputs, setInputs] = useState(initState)

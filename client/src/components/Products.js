@@ -46,6 +46,7 @@ const Products = (props) => {
                 <p>
                   {p.price}
                 </p>
+                <img src={p.imgUrl} width='200' height="200" alt="a product" />
           </Link>
          <button onClick={() => handleCartAdd(p)}>add to cart</button>
          </>
