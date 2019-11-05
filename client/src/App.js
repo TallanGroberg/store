@@ -8,7 +8,8 @@ import { withAuth } from './provider/AuthProvider.js'
 // made components
 import ProtectedRoute from './auth/ProtectedRoute'
 import Nav from './components/Nav'
-import AuthForm from './auth/AuthForm'
+import Login from './auth/Login'
+import Signup from './auth/Signup'
 import Products from './components/Products'
 import Product from './components/Product'
 import MakeProduct from './components/MakeProduct'
@@ -28,8 +29,9 @@ const App = props => {
     <div>
       <Nav />
         <Switch>
-          <Route expact path='/login/signup' render={ rProps => <AuthForm {...rProps} />} />
-          <Route exact path='/' render={ rProps => token ? <Products {...rProps} /> : <AuthForm /> } />
+          <Route expact path='/login' render={ rProps => <Login {...rProps} />} />
+          <Route expact path='/signup' render={ rProps => <Signup {...rProps} />} />
+          <Route exact path='/' render={ rProps => token ? <Products {...rProps} /> : <Login /> } />
             <ProtectedRoute exact path='/products' render={ rProps => <Products /> } />
             <ProtectedRoute exact path='/makeproduct' render={ rProps => <MakeProduct /> } />
             <ProtectedRoute exact path='/yourprofile' render={ rProps => <Profile {...rProps} /> } />
