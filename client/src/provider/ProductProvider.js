@@ -23,9 +23,11 @@ class ProductProvider extends React.Component {
   getAllBuyables = () => {
     bearerAxios.get('/api/product/forsell')
     .then(res  => {
-      this.setState(prev => ({
-        product: [...res.data]
-      }))
+      console.log(res.data)
+      this.setState(prev => {
+        
+        products: [...res.data]
+      })
   })
   .catch(err => console.log(err.message))
   }
@@ -60,6 +62,7 @@ class ProductProvider extends React.Component {
   //section for cart functionality
 
   handleCart = (p, _id) => {
+    console.log(p,'in cart')
     bearerAxios.put(`/api/product/${_id}`, p)
     .then(res => {
       this.setState(prev => {
@@ -83,12 +86,9 @@ class ProductProvider extends React.Component {
   getCart = () => {
     bearerAxios.get('/api/product/cart')
     .then( res => {
-      this.setState(prev => {
-        const filterCart = res.data.filter(aProduct => {
-          return aProduct.isIncart === true
-        })
-        return {cart: [...filterCart]}
-      })
+      this.setState(prev => ({
+        cart: [...res.data]
+      }))
     })
   }
 

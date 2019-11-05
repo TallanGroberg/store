@@ -13,18 +13,26 @@ const Products = (props) => {
 
 
   useEffect( () => {
-  
     getAllBuyables()
   }, [])
- 
 
-  const handleCartAdd = (p) => {
+  const makeIsInCartTrue = (p) => {
     p.isIncart = true
     p.buyer = user._id
+  }
+ 
+
+  const handleCartAdd =  (p) => {
+      p.isIncart = true
+      p.buyer = user._id
+    if(p.isInCart === true && p.buyer !== undefined) {
+      handleCart(p, p._id)
+    } else {
+     makeIsInCartTrue(p)
+    }
+    getAllBuyables()
+
     
-    console.log('P.isInCart from products',p.buyer)
-    handleCart(p, p._id)
-    // removeFromProductList(p)
   }
 
   return (

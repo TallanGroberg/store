@@ -36,8 +36,10 @@ const ProductEditPage = (props) => {
           if(url) {
             setComplete(true)
           }
-            props.editProduct({imgUrl: url}, _id)
+          props.editProduct({imgUrl: url}, _id)
+          setInputs(prev => ({...prev, imgUrl: url}))
         })
+        
       })
     }
   }
