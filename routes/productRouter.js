@@ -84,10 +84,9 @@ productRouter.delete('/:_id', (req,res,next) => {
 
 // edit a product
 productRouter.put('/:_id', (req,res,next) => {
-  Product.findOneAndUpdate({_id: req.params._id, user: req.user._id,},
+  Product.findOneAndUpdate({_id: req.params._id, },
     req.body, {new: true}, (err,product)=> {
-    console.log('req body', req.body)
-    dataBaseChange(err,req,res,next, req.body)
+    dataBaseChange(err,req,res,next, product)
   })
 })
 

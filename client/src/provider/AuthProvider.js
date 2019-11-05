@@ -30,6 +30,7 @@ class AuthProvider extends Component {
     signup = async (user) => {
       await axios.post('/user/signup', user)
       .then(res => {
+        debugger
         const {token, user} = res.data
         delete user.password
         localStorage.setItem('token', token )
@@ -49,7 +50,6 @@ class AuthProvider extends Component {
     login = (user) => {
       axios.post('/user/login', user)
       .then(res => {
-        debugger
         const {token, user, } = res.data;
         localStorage.setItem('token', token)
         this.setState({token, user})
