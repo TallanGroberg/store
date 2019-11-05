@@ -20,6 +20,12 @@ productRouter.get('/user/:id', (req,res, next) => {
   })
 })
 
+//everything forsell
+productRouter.get('/forsell', (req,res, next) => {
+  Product.find({isIncart: false, isBought: false}, (err,products) => {
+    handleRequest(err,req,res,next,products)
+  })
+})
 //products in cart
 productRouter.get('/cart', (req,res, next) => {
   Product.find({isIncart: true}, (err,products) => {

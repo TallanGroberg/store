@@ -1,7 +1,7 @@
 import React from 'react';
 import {withAuth, bearerAxios} from './AuthProvider'
 import {withRouter} from 'react-router-dom'
-
+import {storage} from '../firebase/index.js'
 
 //set up all the data entry fields to save and create objects outside of this file
 // this should only be the the plact to interact with the database. 
@@ -20,21 +20,12 @@ class ProductProvider extends React.Component {
     this.getAllBuyables()
 }
 
- 
-
   getAllBuyables = () => {
-    bearerAxios.get('/api/product')
+    bearerAxios.get('/api/product/forsell')
     .then(res  => {
-   
-      this.setState(prev => {
-        const productNotInCart = res.data.filter(p => {
-          return p.isIncart  === false
-        })
-          const productsNotBought = productNotInCart.filter(product => {
-            return product.isBought  === false
-          })
-              return {products: productsNotBought}
-      })
+      this.setState(prev => ({
+        product: [...res.data]
+      }))
   })
   .catch(err => console.log(err.message))
   }
@@ -109,7 +100,7 @@ class ProductProvider extends React.Component {
       }))
     })
   .catch(err => console.log(err.message))
-  console.log(this.state.bought)
+  // console.log(this.state.bought)
   }
 
 
@@ -125,20 +116,32 @@ class ProductProvider extends React.Component {
   }
 
   editProduct =  (inputs, _id) => {
+    // console.log('inputs in edProduct',inputs, '_id in editproduct',_id)
+    
     bearerAxios.put(`api/product/${_id}`, inputs)
     .then(res => {
-      this.setState(prev => ({
-        products: prev.products.map(aProduct => aProduct._id === _id ? res.data : aProduct)
-      }))
+      console.log('The response is here!!!', res.data)
+      this.setState(prev => {
+        const updatedProducts = prev.products.map(aProduct => aProduct._id === _id ? res.data : aProduct)
+        // console.log(prev.products.forEach(prod => console.log(prod.imgUrl)), 99999, updatedProducts.forEach(prod => console.log(prod.imgUrl)))
+        return { products: [...updatedProducts] }
+      })
     })
+    .catch(err => console.log(err))
     
   }
+
+
+ 
+
+  
 
 
   
 
 
   render() {
+    // console.log(this.state.products)
     const {products,cart, bought} = this.state
 
     return (

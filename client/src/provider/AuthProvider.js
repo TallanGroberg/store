@@ -34,7 +34,7 @@ class AuthProvider extends Component {
       token: localStorage.getItem('token') || '',
     }
 
-    signup = async (user: User) => {
+    signup = async (user) => {
       await bearerAxios.post('/user/signup', user)
       .then(res => {
         const {token, input} = res.data
@@ -53,10 +53,10 @@ class AuthProvider extends Component {
       this.props.history.push('/')
     }
 
-    login = async (user: User) => {
+    login = async (user) => {
       await axios.post('/user/login', user)
       .then(res => {
-        // delete user.password;
+        delete user.password;
 
         const {token, user} = res.data;
           

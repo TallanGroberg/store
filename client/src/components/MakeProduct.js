@@ -8,6 +8,8 @@ const MakeProduct = (props) => {
     const [inputs, setInputs] = useState(initState)
     const [image, setImage] = useState('')
     const [imgUrl, setImgUrl] = useState('')
+    
+
   console.log(inputs,)
 
 
