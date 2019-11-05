@@ -55,7 +55,7 @@ class AuthProvider extends Component {
         localStorage.setItem('user', JSON.stringify(res.data.user))
       })
       .catch(err => {
-        this.props.history.push('/login/signup')
+        this.props.history.push('/login')
         this.setState({
           err: err.message
         })
