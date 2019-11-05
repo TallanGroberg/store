@@ -10,8 +10,9 @@ const ProductEditPage = (props) => {
   const initState = {title, description, price, _id, imgUrl}
   const [toggle, setToggle] = useState(false)
   const [complete, setComplete] = useState(false)
+  const [loading, setLoading] = useState(0)
   const [inputs, setInputs] = useState(initState)
-  
+  console.log(loading)
   // console.log('props in product edit page', props)
 
   const toggler = () => {
@@ -25,7 +26,7 @@ const ProductEditPage = (props) => {
       const uploadTask = storage.ref(`/images/${arg.name}`).put(arg)
       uploadTask.on('state_changed', 
       (snapShot) => {
-        // console.log(snapShot)
+        
       }, (err) => {
         console.log(err)
       }, () => {
@@ -47,7 +48,7 @@ const ProductEditPage = (props) => {
       {toggle ? 
       <>
       <EditProductForm  handleImageUpload={handleImageUpload} toggler={toggler} getUsersProducts={getUsersProducts}   title={title} description={description} imgUrl={imgUrl} price={price} _id={_id} /> 
-      {complete && 'your image has been updated refresh the page and it will appear' }
+      {complete && 'your image has been updated please wait a moment for the server to respond' }
       <button onClick={() => setToggle(prev => (!prev))}>hide form</button>
       </>
       :

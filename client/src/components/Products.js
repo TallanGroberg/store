@@ -7,8 +7,6 @@ import Product from './Product'
 
 const Products = (props) => {
 
-  
-
   const {products, getAllBuyables, handleCartAdd, user } = props
 
 console.log(props)
@@ -25,16 +23,14 @@ console.log(props)
 
     <div>
         
-      {products.length <= 1 ? 
+      {products.length <= 0 ? 
       <p>no products on display</p>  
       :
     <>
       {products.map( p =>  {
         return ( <>
-        {user._id === p._id ?
-          null
-          :
-            <>
+       
+            
           <Link to={'/products/' + p._id}>
             <h1>
               {p.title}
@@ -47,16 +43,16 @@ console.log(props)
                 </p>
                 <img src={p.imgUrl} width='200' height="200" alt="a product" />
           </Link>
-         <button onClick={() => handleCartAdd(p._id)}>add to cart</button>
-      </>
-        }
+        {user._id === p.user ? <p>this is how you product looks on the market</p> : <button onClick={() => handleCartAdd(p._id)}>add to cart</button>}
+      
+        
         </>)
       })}
     </>
       }
 
 <Switch>
-  <Route expact path='/products/:_id' render={ (rProps) => <Product {...rProps}  />} />
+  <Route expact path='/products/:_id' render={ (rProps) => <Product {...rProps} handleCartAdd={handleCartAdd}  />} />
 </Switch>
     
     

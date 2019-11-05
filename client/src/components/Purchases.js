@@ -17,7 +17,8 @@ const Purchases = (props) => {
                 <h1>{p.title}</h1>
                   <p>{p.description}</p>
                   <p>{p.price}</p>
-                    <p>Product id: {p._id}</p>
+                    <img src={p.imgUrl} alt='no image' />
+                      <p>Product id: {p._id}</p>
               </>
       })}
     </div>

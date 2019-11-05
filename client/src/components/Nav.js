@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Link, withRouter} from 'react-router-dom'
 import {withAuth} from '../provider/AuthProvider'
-
+import {withstoreCrud} from '../provider/ProductProvider'
 
 const Nav = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -17,17 +17,21 @@ const Nav = (props) => {
 
   const handleLogout = () => {
     props.logout()
-    props.history.push('/login/signup')
+    props.history.push('/login')
     if(isLoggedIn){
       setIsLoggedIn(prev => (!prev))
     }
   }
 
+  console.log('props in nav',props.cart)
+
   
   return (
     <nav>
+      
       {props.token ? 
       <>
+          
         <Link to='/products'>products</Link>
           <button onClick={handleLogout}>logout</button>
           <button onClick={() => props.history.push('/makeproduct')}>make a product</button>
@@ -42,4 +46,4 @@ const Nav = (props) => {
   );
 };
 
-export default withRouter(withAuth(Nav));
+export default withRouter(withAuth(withstoreCrud(Nav)));

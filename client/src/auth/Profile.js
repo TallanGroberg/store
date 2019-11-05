@@ -9,7 +9,6 @@ const Profile = (props) => {
   const [toggle, setToggle] = useState(false)
   const [yourStuff, setYourStuff] = useState([])
   const [user, setUser] = useState(props.user)
-  const [, forceUpdate] = useState();
   
   
   // console.log("props in profile.js",props)
@@ -23,10 +22,8 @@ const Profile = (props) => {
     }
 
     const initProducts = props.products
-    
       useEffect( ()  => {
         getUsersProducts()
-        
       }, props.products)
 
 
