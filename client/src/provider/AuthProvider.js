@@ -50,7 +50,6 @@ class AuthProvider extends Component {
       axios.post('/user/login', user)
       .then(res => {
         const {token, user, } = res.data;
-        console.log(res.data)
         localStorage.setItem('token', token)
         this.setState({token, user})
         localStorage.setItem('user', JSON.stringify(res.data.user))

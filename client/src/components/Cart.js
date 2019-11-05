@@ -17,10 +17,13 @@ const Cart = (props) => {
     props.getCart()
   }, [])
 
-
-    const removeFromCart = p => {
+    const handleCartChanges = (p) => {
       p.isIncart = false
       delete p.buyer
+    }
+
+    const removeFromCart = async  p => {
+      await handleCartChanges(p)
       props.handleCart(p, p._id)
     }
 

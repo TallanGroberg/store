@@ -26,7 +26,7 @@ console.log(props)
   const handleCartAdd = async (p) => {
       
       await makeIsInCartTrue(p)
-      console.log('first')
+      
       handleCart(p, p._id)
     
     
@@ -37,11 +37,13 @@ console.log(props)
   return (
 
     <div>
+        
+    
       {products.map( p =>  {
         return ( <>
         {user._id === p._id ?
           null
-            :
+          :
             <>
           <Link to={'/products/' + p._id}>
             <h1>
@@ -56,10 +58,12 @@ console.log(props)
                 <img src={p.imgUrl} width='200' height="200" alt="a product" />
           </Link>
          <button onClick={() => handleCartAdd(p)}>add to cart</button>
-         </>
+      </>
         }
         </>)
       })}
+    
+    
 
 <Switch>
   <Route expact path='/products/:_id' render={ (rProps) => <Product {...rProps}  />} />

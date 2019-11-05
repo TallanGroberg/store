@@ -8,7 +8,7 @@ const handleRequest = (err,req,res,next,arg) => err ? res.status(500).next(err) 
 
 //all products
 productRouter.get('/', (req,res,next) => {
-  Product.find( (err,products) => {
+  Product.find({isIncart: false, isBought: false}, (err,products) => {
     handleRequest(err,req,res,next,products)
   })
 })

@@ -15,29 +15,54 @@ class ProductProvider extends React.Component {
     cart: [],
     bought: [],
   }
-
+  
   componentDidMount() {
     this.getAllBuyables()
-}
-
-getAllBuyables = () => {
-  bearerAxios.get('/api/product/')
-  .then(res  => {
- 
-    this.setState(prev => {
-      const productNotInCart = res.data.filter(p => {
-        return p.isIncart  === false
-      })
-        const productsNotBought = productNotInCart.filter(product => {
-          return product.isBought  === false
+  }
+  
+  getAllBuyables = () => {
+  
+      
+        bearerAxios.get('/api/product/')
+        .then(res  => {
+          this.setState(prev => {
+            const productNotInCart = res.data.filter(p => {
+              return p.isIncart  === false
+            })
+            const productsNotBought = productNotInCart.filter(product => {
+              return product.isBought  === false
+            })
+            return {products: [ ...productNotInCart]}
+          })
         })
-            return {products: productsNotBought}
+        .catch(err => console.log(err.message))
+        
+      
+  }
+  //end of start chain
+  getCart = () => {
+    bearerAxios.get('/api/product/cart')
+    .then( res => {
+      this.setState(prev => {
+        const filterCart = res.data.map(aProduct => {
+          return aProduct.isIncart === true
+        })
+        return {cart: [...res.data]}
+      })
     })
-})
-.catch(err => console.log(err.message))
-}
-//end of start chain
-
+    console.log(this.state.cart)
+  }
+  
+  getAllBoughtProducts = () => {
+    bearerAxios.get('/api/product/bought')
+    .then(res  => {
+      this.setState(prev => ({
+        bought: [...res.data]
+      }))
+    })
+  .catch(err => console.log(err.message))
+  // console.log(this.state.bought)
+  }
 
 
   makeProduct = (inputs) => {
@@ -67,20 +92,23 @@ getAllBuyables = () => {
   //section for cart functionality
 
   handleCart = (p, _id) => {
-    console.log(p,'in cart')
+    
     bearerAxios.put(`/api/product/${_id}`, p)
     .then(res => {
       this.setState(prev => {
         const filterCart = prev.cart.filter(aProduct => {
-          return aProduct._id !== _id
+          return aProduct._id === p._id && p.isIncart === true
         })
-        return {cart: filterCart}
+          const filterProducts = prev.products.filter(prod => {
+            return prod._id === p._id && prod.isIncart === false
+          })
+        return {cart: [...filterCart], products: [...filterProducts]}
       })
     })
-      this.removeFromProductList(p)
-    
+      console.log('products',this.state.products, 'cart', this.state.cart)
   }
 
+ 
 
 
 
@@ -88,25 +116,7 @@ getAllBuyables = () => {
 
   //get everything that has the cart Boolean true
 
-  getCart = () => {
-    bearerAxios.get('/api/product/cart')
-    .then( res => {
-      this.setState(prev => ({
-        cart: [...res.data]
-      }))
-    })
-  }
 
-  getAllBoughtProducts = () => {
-    bearerAxios.get('/api/product/bought')
-    .then(res  => {
-      this.setState(prev => ({
-        bought: [...res.data]
-      }))
-    })
-  .catch(err => console.log(err.message))
-  // console.log(this.state.bought)
-  }
 
 
 
@@ -117,12 +127,10 @@ getAllBuyables = () => {
         })
         return {products: productsForSale}
       })
-      this.getAllBuyables()
+      
   }
 
   editProduct =  (inputs, _id) => {
-    // console.log('inputs in edProduct',inputs, '_id in editproduct',_id)
-    
     bearerAxios.put(`api/product/${_id}`, inputs)
     .then(res => {
       console.log('The response is here!!!', res.data)
