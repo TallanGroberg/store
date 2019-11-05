@@ -3,6 +3,7 @@ import {withAuth} from '../provider/AuthProvider'
 const AuthForm = (props) => {
   const initState = {
     name: '',
+    email: '',
     password: '',}
   const [inputs, setInputs] = useState(initState)
   
@@ -26,28 +27,40 @@ const AuthForm = (props) => {
     <div>
         <h1>{props.isSigningUp ? 'signup' : 'login'}</h1>
        <form onSubmit={handleSubmit}>
-        <input
-          placeholder="name"
-          name='name'
-          value={inputs.name}
-          onChange={handleChange}
-        />
+       
         {props.isSigningUp ? 
-        <input
-        placeholder="email"
-        name='email'
-        value={inputs.email}
-        onChange={handleChange}
-        />
-        : 
-        null
-      }
+        <>
+         <input
+         placeholder="name"
+         name='name'
+         value={inputs.name}
+         onChange={handleChange}
+       />
+     
         <input
           placeholder="password"
           name='password'
           value={inputs.password}
           onChange={handleChange}
         />
+
+        </>
+        : 
+        <>
+        <input
+        placeholder="name"
+        name='name'
+        value={inputs.name}
+        onChange={handleChange}
+      />
+        <input
+          placeholder="password"
+          name='password'
+          value={inputs.password}
+          onChange={handleChange}
+        />
+       </>
+      }
   <button>submit</button>
       </form>
       <button onClick={toggler}>{props.isSigningUp ? 'go to login': 'go to signup' }</button>

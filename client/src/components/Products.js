@@ -11,7 +11,7 @@ const Products = (props) => {
 
   const {products, getAllBuyables, handleCart, user } = props
 
-
+console.log(props)
   useEffect( () => {
     getAllBuyables()
   }, [])
@@ -19,14 +19,14 @@ const Products = (props) => {
   const makeIsInCartTrue = (p) => {
     p.isIncart = true
     p.buyer = user._id
+    console.log('second')
   }
  
 
   const handleCartAdd = async (p) => {
-      // p.isIncart = true
-      // p.buyer = user._id
+      
       await makeIsInCartTrue(p)
-    
+      console.log('first')
       handleCart(p, p._id)
     
     

@@ -12,19 +12,12 @@ bearerAxios.interceptors.request.use((config) => {
   return config
 })
 
-interface User{
-  name: string;
-  email: string;
-}
 
-interface InitialState{
-  err: string;
-  user: User;
-  token: string;
-}
+
+
 
 class AuthProvider extends Component {
- state: InitialState = {
+ state = {
       err: '',
       isSigningUp: false,
       user: JSON.parse(localStorage.getItem('user')),
@@ -35,12 +28,12 @@ class AuthProvider extends Component {
     }
 
     signup = async (user) => {
-      await bearerAxios.post('/user/signup', user)
+      await axios.post('/user/signup', user)
       .then(res => {
-        const {token, input} = res.data
+        const {token, user} = res.data
         delete user.password
         localStorage.setItem('token', token )
-        this.setState({token, user: input})
+        this.setState({token, user})
         localStorage.setItem('user', JSON.stringify(res.data))
       })
       .catch(err =>  {
@@ -53,18 +46,14 @@ class AuthProvider extends Component {
       this.props.history.push('/')
     }
 
-    login = async (user) => {
-      await axios.post('/user/login', user)
+    login = (user) => {
+      axios.post('/user/login', user)
       .then(res => {
-        delete user.password;
-
-        const {token, user} = res.data;
-          
-        
+        const {token, user, } = res.data;
+        console.log(res.data)
         localStorage.setItem('token', token)
-        localStorage.setItem('user', JSON.stringify(user))
         this.setState({token, user})
-        
+        localStorage.setItem('user', JSON.stringify(res.data.user))
       })
       .catch(err => {
         this.props.history.push('/login/signup')
@@ -85,7 +74,7 @@ class AuthProvider extends Component {
       })
     }
 
-    deleteAccount = (_id: String) => {
+    deleteAccount = (_id) => {
       bearerAxios.delete(`user/${_id}`)
       .then( res => {
         localStorage.removeItem('token')
@@ -98,7 +87,7 @@ class AuthProvider extends Component {
         isSigningUp: !prev.isSigningUp,
       }))
     }
-    editUser = (user: User, _id: String) => {
+    editUser = (user, _id) => {
       bearerAxios.put(`/user/${_id}`, user)
       .then(res => {
         delete user.password

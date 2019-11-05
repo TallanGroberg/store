@@ -21,7 +21,7 @@ class ProductProvider extends React.Component {
 }
 
 getAllBuyables = () => {
-  bearerAxios.get('/api/product/forsell')
+  bearerAxios.get('/api/product/')
   .then(res  => {
  
     this.setState(prev => {

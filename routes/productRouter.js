@@ -2,6 +2,7 @@ const express = require('express')
 const productRouter = express.Router()
 const Product = require('../models/product.js')
 
+
 const handleRequest = (err,req,res,next,arg) => err ? res.status(500).next(err) : res.status(200).send(arg)
   const dataBaseChange = (err,req,res,next,arg) => err ? res.status(500).next(err) : res.status(201).send(arg)
 
