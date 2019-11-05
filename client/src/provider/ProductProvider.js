@@ -1,10 +1,7 @@
 import React from 'react';
 import {withAuth, bearerAxios} from './AuthProvider'
 import {withRouter} from 'react-router-dom'
-import {storage} from '../firebase/index.js'
 
-//set up all the data entry fields to save and create objects outside of this file
-// this should only be the the plact to interact with the database. 
 
 
 const { Provider, Consumer, } = React.createContext()
@@ -20,39 +17,32 @@ class ProductProvider extends React.Component {
     this.getAllBuyables()
   }
   
+
   getAllBuyables = () => {
-  
-      
         bearerAxios.get('/api/product/')
         .then(res  => {
           this.setState(prev => {
-            const productNotInCart = res.data.filter(p => {
-              return p.isIncart  === false
+            const filterProducts = res.data.filter(product => {
+              return product.isIncart === false
             })
-            const productsNotBought = productNotInCart.filter(product => {
-              return product.isBought  === false
-            })
-            return {products: [ ...productNotInCart]}
+            return {products: [ ...filterProducts]}
           })
         })
         .catch(err => console.log(err.message))
-        
-      
   }
-  //end of start chain
+
   getCart = () => {
     bearerAxios.get('/api/product/cart')
     .then( res => {
       this.setState(prev => {
-        const filterCart = res.data.map(aProduct => {
-          return aProduct.isIncart === true
-        })
         return {cart: [...res.data]}
       })
     })
     console.log(this.state.cart)
   }
   
+
+
   getAllBoughtProducts = () => {
     bearerAxios.get('/api/product/bought')
     .then(res  => {
@@ -61,10 +51,9 @@ class ProductProvider extends React.Component {
       }))
     })
   .catch(err => console.log(err.message))
-  // console.log(this.state.bought)
   }
 
-
+  //this function is sound
   makeProduct = (inputs) => {
     bearerAxios.post('/api/product', inputs)
     .then( res => {
@@ -75,10 +64,10 @@ class ProductProvider extends React.Component {
     .catch(err => console.log(err))
   }
 
+
   deleteProduct = (_id) => {
     bearerAxios.delete(`/api/product/${_id}`)
     .then( res => {
-
       this.setState( prev => {
         const filterArray = prev.products.filter( thing => {
           return thing._id !== _id
@@ -86,48 +75,6 @@ class ProductProvider extends React.Component {
         return {products: filterArray}
       })
     })
-
-  }
-
-  //section for cart functionality
-
-  handleCart = (p, _id) => {
-    
-    bearerAxios.put(`/api/product/${_id}`, p)
-    .then(res => {
-      this.setState(prev => {
-        const filterCart = prev.cart.filter(aProduct => {
-          return aProduct._id === p._id && p.isIncart === true
-        })
-          const filterProducts = prev.products.filter(prod => {
-            return prod._id === p._id && prod.isIncart === false
-          })
-        return {cart: [...filterCart], products: [...filterProducts]}
-      })
-    })
-      console.log('products',this.state.products, 'cart', this.state.cart)
-  }
-
- 
-
-
-
-
-
-  //get everything that has the cart Boolean true
-
-
-
-
-
-  removeFromProductList =  (p) => {
-      this.setState(prev => {
-        const productsForSale = prev.products.filter(aProduct => {
-          return aProduct.isIncart !== p.isIncart
-        })
-        return {products: productsForSale}
-      })
-      
   }
 
   editProduct =  (inputs, _id) => {
@@ -136,17 +83,39 @@ class ProductProvider extends React.Component {
       console.log('The response is here!!!', res.data)
       this.setState(prev => {
         const updatedProducts = prev.products.map(aProduct => aProduct._id === _id ? res.data : aProduct)
-        // console.log(prev.products.forEach(prod => console.log(prod.imgUrl)), 99999, updatedProducts.forEach(prod => console.log(prod.imgUrl)))
         return { products: [...updatedProducts] }
       })
     })
     .catch(err => console.log(err))
-    
   }
+  
+  handleProductAdd = (_id) => {
+    bearerAxios.put(`/api/product/${_id}`, {isIncart: false})
+    .then(res => {
+      this.setState(prev => {
+        const filterCart = prev.cart.filter(prod => {
+          return prod._id !== _id  
+        })
+        return {cart: [...filterCart]}
+      })
+    })
+    .catch(err => console.log(err))
+  }
+  
 
-
- 
-
+  handleCartAdd = ( _id) => {
+     bearerAxios.put(`/api/product/${_id}`, {isIncart: true})
+    .then(res => {
+      this.setState(prev => {
+        const filterProduct = prev.products.filter(prod => {
+          return prod._id !== _id  
+        })
+        return {products: [...filterProduct]}
+      })
+      
+    })
+    .catch(err => console.log(err))
+  }
   
 
 
@@ -154,7 +123,6 @@ class ProductProvider extends React.Component {
 
 
   render() {
-    // console.log(this.state.products)
     const {products,cart, bought} = this.state
 
     return (
@@ -163,10 +131,10 @@ class ProductProvider extends React.Component {
         cart,
         bought,
         makeProduct: this.makeProduct,
-        handleCart: this.handleCart,
+        handleCartAdd: this.handleCartAdd,
+        handleProductAdd: this.handleProductAdd,
         deleteProduct: this.deleteProduct,
         getCart: this.getCart,
-        removeFromProductList: this.removeFromProductList,
         getAllBuyables: this.getAllBuyables,
         getAllBoughtProducts: this.getAllBoughtProducts,
         editProduct: this.editProduct,

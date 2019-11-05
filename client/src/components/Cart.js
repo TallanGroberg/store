@@ -10,22 +10,12 @@ const Cart = (props) => {
 
   //will proceed to checkout
 
-  
-  //then push back to the home page
+  const {handleProductAdd} = props
 
   useEffect( () => {
     props.getCart()
   }, [])
 
-    const handleCartChanges = (p) => {
-      p.isIncart = false
-      delete p.buyer
-    }
-
-    const removeFromCart = async  p => {
-      await handleCartChanges(p)
-      props.handleCart(p, p._id)
-    }
 
   return (
     <div>
@@ -38,8 +28,9 @@ const Cart = (props) => {
         props.cart.map(p => {
           return <>
           <h1>{p.title}</h1>
+          <img src={p.imgUrl} width='100pt' height='100pt' alt='no picture added'/>
             <p>{p.price}</p>
-            <button onClick={() => removeFromCart(p) }>remove from Cart</button>
+            <button onClick={() => props.handleProductAdd(p._id)}>remove from Cart</button>
           </>
 
         })

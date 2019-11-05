@@ -9,36 +9,26 @@ const Products = (props) => {
 
   
 
-  const {products, getAllBuyables, handleCart, user } = props
+  const {products, getAllBuyables, handleCartAdd, user } = props
 
 console.log(props)
   useEffect( () => {
     getAllBuyables()
   }, [])
 
-  const makeIsInCartTrue = (p) => {
-    p.isIncart = true
-    p.buyer = user._id
-    console.log('second')
-  }
+  
  
 
-  const handleCartAdd = async (p) => {
-      
-      await makeIsInCartTrue(p)
-      
-      handleCart(p, p._id)
-    
-    
 
-    
-  }
 
   return (
 
     <div>
         
-    
+      {products.length <= 1 ? 
+      <p>no products on display</p>  
+      :
+    <>
       {products.map( p =>  {
         return ( <>
         {user._id === p._id ?
@@ -57,13 +47,13 @@ console.log(props)
                 </p>
                 <img src={p.imgUrl} width='200' height="200" alt="a product" />
           </Link>
-         <button onClick={() => handleCartAdd(p)}>add to cart</button>
+         <button onClick={() => handleCartAdd(p._id)}>add to cart</button>
       </>
         }
         </>)
       })}
-    
-    
+    </>
+      }
 
 <Switch>
   <Route expact path='/products/:_id' render={ (rProps) => <Product {...rProps}  />} />
