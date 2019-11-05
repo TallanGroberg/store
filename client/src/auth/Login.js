@@ -10,7 +10,7 @@ const AuthForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.isSigningUp ?  props.signup(inputs) : props.login(inputs) 
+    props.login(inputs) 
     
   }
   const handleChange = (e) => {

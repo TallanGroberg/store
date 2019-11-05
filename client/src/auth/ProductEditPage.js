@@ -19,8 +19,6 @@ const ProductEditPage = (props) => {
   }
 
   const handleImageUpload = (arg, _id) => {
-    // console.log('in handleimageupload',_id, )
- 
     if(arg === undefined) {
       console.error("you didnt properly upload an image")
     } else {
@@ -38,13 +36,12 @@ const ProductEditPage = (props) => {
           }
           props.editProduct({imgUrl: url}, _id)
           setInputs(prev => ({...prev, imgUrl: url}))
+          props.getUsersProducts()
         })
         
       })
     }
   }
-
-  // console.log('_id', _id,'imgUrl', imgUrl)
   return (
     <>
       {toggle ? 

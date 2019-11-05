@@ -10,7 +10,7 @@ const Signup = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.isSigningUp ?  props.signup(inputs) : props.login(inputs) 
+    props.signup(inputs)  
     
   }
   const handleChange = (e) => {

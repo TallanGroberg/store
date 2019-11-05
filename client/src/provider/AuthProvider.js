@@ -49,13 +49,14 @@ class AuthProvider extends Component {
     login = (user) => {
       axios.post('/user/login', user)
       .then(res => {
+        debugger
         const {token, user, } = res.data;
         localStorage.setItem('token', token)
         this.setState({token, user})
         localStorage.setItem('user', JSON.stringify(res.data.user))
       })
       .catch(err => {
-        this.props.history.push('/login')
+        this.props.history.push('/')
         this.setState({
           err: err.message
         })

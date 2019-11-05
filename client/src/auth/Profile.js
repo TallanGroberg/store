@@ -26,7 +26,7 @@ const Profile = (props) => {
     
       useEffect( ()  => {
         getUsersProducts()
-        setTimeout(forceUpdate, 2000);
+        
       }, props.products)
 
 
