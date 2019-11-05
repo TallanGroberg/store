@@ -20,17 +20,22 @@ class ProductProvider extends React.Component {
     this.getAllBuyables()
 }
 
-  getAllBuyables = () => {
-    bearerAxios.get('/api/product/forsell')
-    .then(res  => {
-      console.log(res.data)
-      this.setState(prev => {
-        
-        products: [...res.data]
+getAllBuyables = () => {
+  bearerAxios.get('/api/product/forsell')
+  .then(res  => {
+ 
+    this.setState(prev => {
+      const productNotInCart = res.data.filter(p => {
+        return p.isIncart  === false
       })
-  })
-  .catch(err => console.log(err.message))
-  }
+        const productsNotBought = productNotInCart.filter(product => {
+          return product.isBought  === false
+        })
+            return {products: productsNotBought}
+    })
+})
+.catch(err => console.log(err.message))
+}
 //end of start chain
 
 
