@@ -7,7 +7,6 @@ const { Provider, Consumer } = React.createContext()
 export const bearerAxios = axios.create()
 bearerAxios.interceptors.request.use((config) => {
   const token = localStorage.getItem('token')
-  
   config.headers.Authorization = `Bearer ${token}`
   return config
 })
@@ -30,7 +29,6 @@ class AuthProvider extends Component {
     signup = async (user) => {
       await axios.post('/user/signup', user)
       .then(res => {
-        debugger
         const {token, user} = res.data
         delete user.password
         localStorage.setItem('token', token )
