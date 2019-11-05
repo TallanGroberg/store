@@ -22,15 +22,14 @@ const Products = (props) => {
   }
  
 
-  const handleCartAdd =  (p) => {
-      p.isIncart = true
-      p.buyer = user._id
-    if(p.isInCart === true && p.buyer !== undefined) {
+  const handleCartAdd = async (p) => {
+      // p.isIncart = true
+      // p.buyer = user._id
+      await makeIsInCartTrue(p)
+    
       handleCart(p, p._id)
-    } else {
-     makeIsInCartTrue(p)
-    }
-    getAllBuyables()
+    
+    
 
     
   }
