@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-
+import {Link} from 'react-router-dom'
 import {withstoreCrud} from '../provider/ProductProvider'
 import {withAuth,bearerAxios} from '../provider/AuthProvider'
 import ProductEditPage from '../auth/ProductEditPage'
@@ -44,7 +44,8 @@ const Profile = (props) => {
 
   return (
     <div>
-      <button onClick={() => props.history.push('/usersettings')}>user Settings</button>
+      {/* <button onClick={() => props.history.push('/usersettings')}>user Settings</button> */}
+      <Link to='/usersettings'>User Settings</Link>
       <h1>your products to sell</h1>
       {yourStuff.map( stuff => {
         return <ProductEditPage getUsersProducts={getUsersProducts} deleteStuff={deleteStuff} yourStuff={stuff} />

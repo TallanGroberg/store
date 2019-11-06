@@ -1,6 +1,7 @@
 //dependencies
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Route, Switch} from 'react-router-dom'
+import styled from 'styled-components'
 
 //context
 import {withstoreCrud} from './provider/ProductProvider'
@@ -21,13 +22,16 @@ import Checkout from './components/Checkout'
 import NoMatch from './components/NoMatch'
 
 const App = props => {
-  
+  const [width, setWidth] = useState(0)
+  useEffect( () => {
+    setWidth(window.innerWidth)
+  }, [])
 
 
   const {token, isSigningUp} = props
-  return (
-    <div>
-      <Nav />
+  return (<>
+      {width > 1000 ? <Nav /> : null}
+    <Container>
         <Switch>
           <Route expact path='/login' render={ rProps => <Login {...rProps} />} />
           <Route expact path='/signup' render={ rProps => <Signup {...rProps} />} />
@@ -42,8 +46,57 @@ const App = props => {
             <ProtectedRoute path='/products/:_id' render={ rProps => <Product {...rProps}  />} />
             <Route render={rProps => <NoMatch />}/>
         </Switch>
-    </div>
-  );
+    </Container>
+        {width < 1000 ? <Nav /> : null}
+  </>);
 };
+
+const Container = styled.div`
+  font-family: Verdana, Geneva, sans-serif; 
+  text-align:center;
+ 
+  h1 {
+    font-size: 22pt;
+    box-shadow: -1px 18px 10px -22px rgba(0,0,0,0.75);
+  }
+  h2 {
+    font-size: 20pt;
+  }
+  h3 {
+    font-size: 17pt;
+  }
+  h4 {
+    font-size: 14pt;
+  }
+  p {
+    font-size: 12pt;
+  }
+  a {
+    text-decoration: none;
+    color: #171717;
+
+  }
+  input:focus,
+    select:focus,
+      textarea:focus,
+        button:focus {
+          outline: none;
+        }
+  button {
+  font-weight: bold;
+  padding: 3pt;
+  margin: 0.5pt;
+  border: none;
+  background: none;
+  transition: 0.3s;
+  }
+  button:hover {
+    box-shadow: 0px 0px 9px -6px rgba(0,0,0,0.75);
+    background-color: #FCFCFC;
+  }
+  img {
+    box-shadow: 0px 0px 9px -6px rgba(0,0,0,0.75);
+  }
+`
 
 export default withAuth(withstoreCrud(App))

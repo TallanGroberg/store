@@ -9,12 +9,12 @@ const MakeProduct = (props) => {
     const [image, setImage] = useState('')
     const [imgUrl, setImgUrl] = useState('')
     
-
-  console.log(inputs,)
-
-
   const handleSubmit = async e => {
     e.preventDefault()
+    if(inputs.imgUrl === '') {
+      setImgUrl(inputs.imgUrl = 'https://firebasestorage.googleapis.com/v0/b/the-stor-e.appspot.com/o/images%2Fdownload.png?alt=media&token=9a6c5aba-42a1-43a0-bd6d-f0462b6bdb84')
+     
+    }
     setImgUrl(inputs.imgUrl)
    
     await makeProduct(inputs)
@@ -44,6 +44,7 @@ const MakeProduct = (props) => {
       }, () => {
         //completed function
         storage.ref('images').child(image.name).getDownloadURL().then(url => {
+          console.log(url)
           setInputs(inputs => ({...inputs, imgUrl: url}))
         })
       })
@@ -59,11 +60,13 @@ const MakeProduct = (props) => {
       name='title'
       value={inputs.title}
       onChange={handleChange} />
-      <input
+    <br />
+      <textarea rows='4' cols='50'
       placeholder='description'
       name='description'
       value={inputs.description}
       onChange={handleChange} />
+    <br />
       <input
       type='number'
       placeholder='price'
@@ -71,7 +74,8 @@ const MakeProduct = (props) => {
       value={inputs.price}
       onChange={handleChange} />
       <br />
-      {inputs.imgUrl === '' && 'remember to upload the image before you submit a product' }
+      {inputs.imgUrl === '' && 'Remember to upload the image before you submit a product, if you are on mobile you may not be able to submit an image from your photo library.' }
+      <br />
       <button>submit</button>
     </form>
     <form>
