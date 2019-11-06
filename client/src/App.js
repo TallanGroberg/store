@@ -22,15 +22,11 @@ import Checkout from './components/Checkout'
 import NoMatch from './components/NoMatch'
 
 const App = props => {
-  const [width, setWidth] = useState(0)
-  useEffect( () => {
-    setWidth(window.innerWidth)
-  }, [])
-
+  
 
   const {token, isSigningUp} = props
   return (<>
-      {width > 1000 ? <Nav /> : null}
+      <Nav  /> 
     <Container>
         <Switch>
           <Route expact path='/login' render={ rProps => <Login {...rProps} />} />
@@ -47,7 +43,8 @@ const App = props => {
             <Route render={rProps => <NoMatch />}/>
         </Switch>
     </Container>
-        {width < 1000 ? <Nav /> : null}
+    
+        
   </>);
 };
 
@@ -57,7 +54,8 @@ const Container = styled.div`
  
   h1 {
     font-size: 22pt;
-    box-shadow: -1px 18px 10px -22px rgba(0,0,0,0.75);
+    border-top: 1px solid #F0F0F0;
+    /* box-shadow: -1px 18px 10px -22px rgba(0,0,0,0.75); */
   }
   h2 {
     font-size: 20pt;
@@ -73,8 +71,13 @@ const Container = styled.div`
   }
   a {
     text-decoration: none;
+    transition: 0.3s;
     color: #171717;
+  }
 
+  a:hover {
+    box-shadow: -1px 18px 10px -22px rgba(0,0,0,0.75);
+    color: #303030;
   }
   input:focus,
     select:focus,
@@ -83,20 +86,29 @@ const Container = styled.div`
           outline: none;
         }
   button {
-  font-weight: bold;
-  padding: 3pt;
-  margin: 0.5pt;
-  border: none;
-  background: none;
-  transition: 0.3s;
+    font-size: 12pt;
+    padding: 3pt;
+    margin: 0.5pt;
+    border: none;
+    background: none;
+    transition: 0.3s;
+    color: #696969;
   }
   button:hover {
     box-shadow: 0px 0px 9px -6px rgba(0,0,0,0.75);
     background-color: #FCFCFC;
+    color: black;
   }
   img {
     box-shadow: 0px 0px 9px -6px rgba(0,0,0,0.75);
   }
+  @media only screen and (max-width: 1000px) {
+    margin-bottom: 40px;
+  }
+  @media only screen and (min-width: 1000px) {
+    margin-top: 50px;
+  }
+
 `
 
 export default withAuth(withstoreCrud(App))

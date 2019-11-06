@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-// import StripeCheckout from 'react-stripe-checkout';
+import styled from 'styled-components'
 import {withAuth, bearerAxios } from '../provider/AuthProvider'
 import {withstoreCrud} from '../provider/ProductProvider' 
 import {withRouter} from 'react-router-dom'
@@ -11,7 +11,7 @@ const Checkout = (props) => {
     props.getCart()
   }, [])
 
-  const {getCart, cart} = props
+  const {getCart, cart, handleProductAdd} = props
 
   const prices = cart.map( p => p.price  )
   const totalPrice = prices.reduce( (t,f) => t + f, 0)
@@ -19,18 +19,30 @@ const Checkout = (props) => {
 
   
   //this will be the page that a user can enter credit card information and go back to the product page. 
-  return (
-    <div>
+  return (<>
+    <CheckoutStyle>
       {cart.map(p => {
-        return <>
+        return <div>
         <h1>{p.title}</h1>
+          <img src={p.imgUrl} alt='no image' height='100' width='100' />
         <p>{p.price / 100}</p>
-        </>
+        <button onClick={ () => handleProductAdd(p._id, p)}>Remove From cart</button>
+        </div>
       })}
+    </CheckoutStyle>
       <CheckoutForm cart={cart} totalPrice={totalPrice} />
       <p>your total is: {totalPrice / 100}</p>
-    </div>
+      </>
   );
 };
+
+const CheckoutStyle = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200pt, 1fr));
+  grid-auto-flow: row;
+  grid-gap: 5pt;
+  margin-bottom: 10pt;
+
+`;
 
 export default withRouter(withAuth(withstoreCrud(Checkout)));

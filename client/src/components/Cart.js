@@ -38,7 +38,7 @@ const Cart = (props) => {
           
           <h1>{p.title}</h1>
           <img src={p.imgUrl} width='100pt' height='100pt' alt='no picture added'/>
-            <p>{p.price}</p>
+            <p>{p.price / 100}</p>
             <button onClick={() => props.handleProductAdd(p._id, '')}>remove from Cart</button>
           </div>
 

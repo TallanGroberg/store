@@ -58,7 +58,7 @@ const EditProduct = (props) => {
       name='title' 
       value={inputs.title} 
       onChange={handleChange} />
-      <input 
+      <textarea row='5' cols='50' 
       placeholder="description" 
       name='description' 
       value={inputs.description} 

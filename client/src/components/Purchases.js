@@ -16,7 +16,7 @@ const Purchases = (props) => {
         return <>
                 <h1>{p.title}</h1>
                   <p>{p.description}</p>
-                  <p>{p.price}</p>
+                  <p>{p.price / 100}</p>
                     <img src={p.imgUrl} alt='no image' />
                       <p>Product id: {p._id}</p>
               </>

@@ -30,7 +30,7 @@ console.log(props)
 <div>
         
       {products.length <= 0 ? 
-      <p>no products on display</p>  
+      <p>loading, if it takes a while try refreshing the page</p>  
       :
     <>
             <ProductPageStyle>
@@ -45,7 +45,7 @@ console.log(props)
                 {p.description}
               </p>
                 <p>
-                  {p.price}
+                  {p.price / 100}
                 </p>
                 <img src={p.imgUrl} width='200' height="200" alt="a product" />
           </Link>
@@ -81,6 +81,7 @@ const ProductPageStyle = styled.div`
   grid-auto-flow: row;
   grid-gap: 5pt;
   margin-bottom: 10pt;
+  
 `
 
 export default withRouter(withAuth(withstoreCrud(Products)));

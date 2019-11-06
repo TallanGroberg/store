@@ -54,19 +54,23 @@ const MakeProduct = (props) => {
   const {makeProduct, } = props
   return (
     <>
+
     <form onSubmit={handleSubmit}>
+      <p>Title</p>
       <input
       placeholder='title'
       name='title'
       value={inputs.title}
       onChange={handleChange} />
     <br />
+    <p>Description</p>
       <textarea rows='4' cols='50'
       placeholder='description'
       name='description'
       value={inputs.description}
       onChange={handleChange} />
     <br />
+    <p>Price</p>
       <input
       type='number'
       placeholder='price'
@@ -78,6 +82,7 @@ const MakeProduct = (props) => {
       <br />
       <button>submit</button>
     </form>
+    <br />
     <form>
       <input type="file"  
       id='file' 
@@ -85,6 +90,7 @@ const MakeProduct = (props) => {
       placeholder="file"
       onChange={handleImageChange}
       />
+      <br />
       <button onClick={handleImageUpload}>upload image</button>
       </form>
       {inputs.imgUrl !== '' && 'you sucessfully uploaded an image'}

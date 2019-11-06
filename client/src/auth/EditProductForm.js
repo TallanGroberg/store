@@ -47,7 +47,8 @@
             value={inputs.title}
             onChange={handleChange} />
             <p>description</p>
-          <input placeholder="description"
+          <textarea rows='4' cols='50'
+           placeholder="description"
             name='description' 
             value={inputs.description}
             onChange={handleChange} />

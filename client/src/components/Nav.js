@@ -6,6 +6,7 @@ import {withstoreCrud} from '../provider/ProductProvider'
 
 const Nav = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+ 
   
   
   useEffect( () => {
@@ -31,8 +32,9 @@ const Nav = (props) => {
     <nav>
       
       {props.token ? 
+      // <NavStyle className={window.innerWidth < 1000 ? 'footer' : null}>
       <NavStyle>
-          
+
         <Link to='/products'>products</Link>
           <button onClick={() => props.history.push('/makeproduct')}>make a product</button>
           <button onClick={() => props.history.push('/cart')}>Cart</button>
@@ -47,19 +49,29 @@ const Nav = (props) => {
   );
 };
 
-const NavStyle = styled.div`
- font-family: Verdana, Geneva, sans-serif; 
-  text-align:center;
+const NavStyle = styled.nav`
+    z-index: 2;
+    position: fixed;
+    @media only screen and (max-width: 1000px) {
+      bottom: -2px;
+      
+
+    }
+    @media only screen and (min-width: 1000px) {
+      top: -2px;
+      
+    }
+
   
-    display: flex;
+
+ font-family: Verdana, Geneva, sans-serif; 
+    text-align:center;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
     background: white;
-    flex-direction: row;
-    justify-content: space-evenly;
-    position: sticky;
-    z-index: 1;
-    bottom: 0;
+    width: 101%;
     height: 30pt;
-    border-bottom: 0.01pt solid black;
+    
     box-shadow: 0px 0px 9px -6px rgba(0,0,0,0.75);
   
   h1 {
@@ -80,8 +92,13 @@ const NavStyle = styled.div`
   }
   a {
     text-decoration: none;
-    color: #171717;
 
+    color: #171717;
+    transition: 0.3s;
+  }
+  a:hover {
+    color: #696969;
+    /* box-shadow: -1px 18px 10px -22px rgba(0,0,0,0.75); */
   }
   input:focus,
     select:focus,
@@ -90,16 +107,19 @@ const NavStyle = styled.div`
           outline: none;
         }
   button {
-  font-weight: bold;
+  
+  font-size: 12pt;
   padding: 3pt;
   margin: 0.5pt;
   border: none;
   background: none;
   transition: 0.3s;
+    color: #696969;
   }
   button:hover {
     box-shadow: 0px 0px 9px -6px rgba(0,0,0,0.75);
     background-color: #FCFCFC;
+    color: black;
   }
 `
 

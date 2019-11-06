@@ -56,7 +56,7 @@ const ProductEditPage = (props) => {
       <h1>{title}</h1>
         <img src={imgUrl} width='100pt' height='100pt' />
         <p>{description}</p>
-        <p>{price}</p>
+        <p>{price / 100}</p>
       <button onClick={() => deleteStuff(_id)}>Delete</button>
       <button onClick={() => setToggle(prev => (!prev))}>show form</button>
       </>
