@@ -89,8 +89,8 @@ class ProductProvider extends React.Component {
     .catch(err => console.log(err))
   }
   
-  handleProductAdd = (_id) => {
-    bearerAxios.put(`/api/product/${_id}`, {isIncart: false})
+  handleProductAdd = (_id, buyer) => {
+    bearerAxios.put(`/api/product/${_id}`, {isIncart: false, buyer})
     .then(res => {
       this.setState(prev => {
         const filterCart = prev.cart.filter(prod => {
@@ -103,8 +103,9 @@ class ProductProvider extends React.Component {
   }
   
 
-  handleCartAdd = ( _id) => {
-    bearerAxios.put(`/api/product/${_id}`, {isIncart: true})
+  handleCartAdd = ( _id, buyer) => {
+
+    bearerAxios.put(`/api/product/${_id}`, {isIncart: true, buyer})
     .then(res => {
       this.setState(prev => {
         const filterProduct = prev.products.filter(prod => {

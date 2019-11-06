@@ -7,6 +7,9 @@ const productSchema = new Schema({
     ref: 'User',
     required: true,
   },
+  buyer: {
+    type: String,
+  },
   title: {
     type: String,
   },

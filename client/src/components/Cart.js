@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {withRouter} from 'react-router-dom'
-import { bearerAxios } from '../provider/AuthProvider';
+import { bearerAxios, withAuth } from '../provider/AuthProvider';
 import {withstoreCrud} from '../provider/ProductProvider'
 
 
@@ -10,27 +10,34 @@ const Cart = (props) => {
 
   //will proceed to checkout
 
-  const {handleProductAdd} = props
+  const {handleProductAdd, user} = props
 
   useEffect( () => {
     props.getCart()
   }, [])
-
-
+  
+  
+  
+  const yourCart = props.cart.filter( product => {
+    console.log(product)
+    return product.buyer === props.user._id
+  })
+  
   return (
     <div>
-      {props.cart.length === 0 ? 
+      {yourCart.length === 0 ? 
       <>
         <p>you have no items in your cart</p>
         <button onClick={() => props.history.push('/')}>see all products</button>
       </>
       :
-        props.cart.map(p => {
+        yourCart.map(p => {
           return <>
+          
           <h1>{p.title}</h1>
           <img src={p.imgUrl} width='100pt' height='100pt' alt='no picture added'/>
             <p>{p.price}</p>
-            <button onClick={() => props.handleProductAdd(p._id)}>remove from Cart</button>
+            <button onClick={() => props.handleProductAdd(p._id, '')}>remove from Cart</button>
           </>
 
         })
@@ -40,4 +47,4 @@ const Cart = (props) => {
   );
 };
 
-export default withRouter(withstoreCrud(Cart));
+export default withRouter(withAuth(withstoreCrud(Cart)));

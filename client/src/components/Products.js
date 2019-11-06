@@ -14,7 +14,12 @@ console.log(props)
     getAllBuyables()
   }, [])
 
-  
+  const handleAdd = (p) => {
+
+    p.buyer = user._id
+    handleCartAdd(p._id, p.buyer)
+    console.log(p.buyer, user._id)
+  }
  
 
 
@@ -43,7 +48,7 @@ console.log(props)
                 </p>
                 <img src={p.imgUrl} width='200' height="200" alt="a product" />
           </Link>
-        {user._id === p.user ? <p>this is how you product looks on the market</p> : <button onClick={() => handleCartAdd(p._id)}>add to cart</button>}
+        {user._id === p.user ? <p>this is how you product looks on the market</p> : <button onClick={() => handleAdd(p)}>add to cart</button>}
       
         
         </>)
