@@ -93,7 +93,7 @@ userRouter.put('/:_id', (req,res,next) => {
   .then(pass => {
     
     User.findByIdAndUpdate(req.params._id, req.body, {new: true}, (err, user) => {
-      console.log('after find and update', user)
+      
       if(err) {
         res.status(500)
         return next(err)

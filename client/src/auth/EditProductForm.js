@@ -5,19 +5,20 @@
   
   const EditProductForm = props => {
     const {title,description, handleImageUpload ,price, _id, imgUrl, editProduct, getUsersProducts, toggler} = props
-      const initState = { title: title, description: description, price: price, imgUrl: imgUrl }
+      const initState = { title, description, price, imgUrl }
         const [inputs, setInputs] = useState(initState)
         const [image,setImage] = useState('')
-        // console.log('inputs.imgUrl', inputs.imgUrl)
+        
 
         const handleSubmit = async (e) => {
           e.preventDefault()
-         
             await editProduct(inputs, _id)
             await getUsersProducts()
+            handleImageUpload(image, _id)
             toggler()
-          
+
         } 
+
         const handleChange = e => {
           const {name,value} = e.target
           setInputs( input => ({...inputs, [name]: value}))

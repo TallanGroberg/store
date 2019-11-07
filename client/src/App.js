@@ -51,7 +51,7 @@ const App = props => {
 const Container = styled.div`
   font-family: Verdana, Geneva, sans-serif; 
   text-align:center;
- 
+
   h1 {
     font-size: 22pt;
     border-top: 1px solid #F0F0F0;

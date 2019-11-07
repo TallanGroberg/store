@@ -25,7 +25,7 @@ const Nav = (props) => {
     }
   }
 
-  console.log('props in nav',props.cart)
+
 
   
   return (

@@ -7,16 +7,11 @@ const MakeProduct = (props) => {
   const initState = {title: '',description: '',price: '',imgUrl: ''}
     const [inputs, setInputs] = useState(initState)
     const [image, setImage] = useState('')
-    const [imgUrl, setImgUrl] = useState('')
+    const [imgUrl, setImgUrl] = useState('https://firebasestorage.googleapis.com/v0/b/the-stor-e.appspot.com/o/images%2Fdownload.png?alt=media&token=9a6c5aba-42a1-43a0-bd6d-f0462b6bdb84')
     
   const handleSubmit = async e => {
     e.preventDefault()
-    if(inputs.imgUrl === '') {
-      setImgUrl(inputs.imgUrl = 'https://firebasestorage.googleapis.com/v0/b/the-stor-e.appspot.com/o/images%2Fdownload.png?alt=media&token=9a6c5aba-42a1-43a0-bd6d-f0462b6bdb84')
-     
-    }
-    setImgUrl(inputs.imgUrl)
-   
+
     await makeProduct(inputs)
     props.history.push('/')
   }
@@ -44,7 +39,6 @@ const MakeProduct = (props) => {
       }, () => {
         //completed function
         storage.ref('images').child(image.name).getDownloadURL().then(url => {
-          console.log(url)
           setInputs(inputs => ({...inputs, imgUrl: url}))
         })
       })

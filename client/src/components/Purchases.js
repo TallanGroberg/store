@@ -4,24 +4,43 @@ import {withstoreCrud} from '../provider/ProductProvider'
 
 
 const Purchases = (props) => {
-
+  const {user} = props
+  console.log(user._id, )
 
   useEffect( () => {
     props.getAllBoughtProducts()
   }, [])
+
+  const yourPurchases = props.bought.filter( product => {
+    return product.buyer === user._id
+  })
+  console.log(yourPurchases)
    
   return (
-    <div>
-      {props.bought.map( p => {
-        return <>
-                <h1>{p.title}</h1>
-                  <p>{p.description}</p>
-                  <p>{p.price / 100}</p>
-                    <img src={p.imgUrl} alt='no image' />
-                      <p>Product id: {p._id}</p>
-              </>
-      })}
-    </div>
+      <div>
+        {yourPurchases.length === 0 
+        ? 
+          <>
+            <p>you haven't bought anything yet. </p>
+            <button onClick={() => props.history.push('/products')}>go to products page</button> 
+          </>
+        : 
+          null}
+          
+        {yourPurchases.map( p => {
+          return <>
+                {console.log(p.buyer)}
+                  <h1>{p.title}</h1>
+                    <p>{p.description}</p>
+                      <p>{p.price / 100}</p>
+                        <p>{p.buyer}</p>
+                          <img src={p.imgUrl} width='200' alt='no image' />
+                            <p>Product id: {p._id}</p>
+                </>
+          })
+        }
+        
+      </div>
   );
 };
 

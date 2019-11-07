@@ -1,26 +1,26 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {withRouter} from 'react-router-dom'
 import styled from 'styled-components'
 import {withAuth} from '../provider/AuthProvider'
 import {Link, Switch, Route} from 'react-router-dom'
 import {withstoreCrud} from '../provider/ProductProvider'
 import Product from './Product'
+import EditProductForm from '../auth/EditProductForm'
 
 const Products = (props) => {
+  const [toggle, setToggle] = useState(false)
+  const {products, getAllBuyables, deleteProduct, editProduct, handleCartAdd, user } = props
+  console.log(toggle)
 
-  const {products, getAllBuyables, deleteProduct, handleCartAdd, user } = props
-
-console.log(props)
   useEffect( () => {
     getAllBuyables()
   }, [])
 
   const handleAdd = (p) => {
-
     p.buyer = user._id
     handleCartAdd(p._id, p.buyer)
-    console.log(p.buyer, user._id)
   }
+
  
 
 
@@ -36,29 +36,24 @@ console.log(props)
             <ProductPageStyle>
       {products.map( p =>  {
         return ( <>
-              <div>
+      <div>
           <Link to={'/products/' + p._id}>
-            <h1>
-              {p.title}
-            </h1>
-              <p>
-                {p.description}
-              </p>
-                <p>
-                  {p.price / 100}
-                </p>
+            <h1>{p.title}</h1>
+              <p>{p.description}</p>
+                <p>{p.price / 100}</p>
                 <img src={p.imgUrl} width='200' height="200" alt="a product" />
           </Link>
-          <br />
+  <br />
         {user._id === p.user ? 
             <>
-              <p>this is your product. </p> 
-                <button onClick={() => deleteProduct(p._id)}>delete your product</button>
+                <p>this is your product. </p> 
+                  <button onClick={() => deleteProduct(p._id)}>delete your product</button>
+                    <button onClick={ () =>  setToggle(toggle => (!toggle))}>edit Product</button>
             </>
               : 
               <button onClick={() => handleAdd(p)}>add to cart</button>}
-             </div>
-        </>)
+      </div>
+                </>)
         }
         )}
         </ProductPageStyle>

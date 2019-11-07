@@ -11,6 +11,8 @@ const Cart = (props) => {
 
   //will proceed to checkout
 
+  //i want to kick all things out of the cart if it is in for a certain amout of time.
+
   const {handleProductAdd, user} = props
 
   useEffect( () => {
@@ -20,7 +22,7 @@ const Cart = (props) => {
   
   
   const yourCart = props.cart.filter( product => {
-    console.log(product)
+
     return product.buyer === props.user._id
   })
   
@@ -29,23 +31,32 @@ const Cart = (props) => {
       {yourCart.length === 0 ? 
       <>
         <p>you have no items in your cart</p>
-        <button onClick={() => props.history.push('/')}>see all products</button>
       </>
       :
       <CartStyle>
         {yourCart.map(p => {
-          return <div>
-          
-          <h1>{p.title}</h1>
-          <img src={p.imgUrl} width='100pt' height='100pt' alt='no picture added'/>
+          return <div>{p.isBought === false ? 
+          <>
+            <h1>{p.title}</h1>
+            <img src={p.imgUrl} width='100pt' height='100pt' alt='no picture added'/>
             <p>{p.price / 100}</p>
             <button onClick={() => props.handleProductAdd(p._id, '')}>remove from Cart</button>
+          </>
+              : 
+            <p>your cart is empty, go back to the product page</p>
+          }
           </div>
 
         })}
         </CartStyle>
       }
-          <button onClick={() => props.history.push('/checkout')}>proceed to checkout</button>
+      
+          {yourCart.length === 0 
+            ? 
+              <button onClick={() => props.history.push('/products')}>go to products page</button> 
+            :
+              <button onClick={() => props.history.push('/checkout')}>proceed to checkout</button>
+          }
     </>
   );
 };

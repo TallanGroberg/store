@@ -59,7 +59,7 @@ productRouter.get('/:name/:_id', (req,res, next) => {
 
 //make a new product
 productRouter.post('/', (req,res,next) => {
-  console.log('hit the post')
+  
   const newProduct = new Product(req.body)
   newProduct.user = req.user._id
   newProduct.save( (err,product) => {

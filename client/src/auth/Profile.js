@@ -11,7 +11,7 @@ const Profile = (props) => {
   const [user, setUser] = useState(props.user)
   
   
-  // console.log("props in profile.js",props)
+ 
     const {_id} = user
 
     const getUsersProducts = () => {

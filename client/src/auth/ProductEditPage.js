@@ -10,10 +10,10 @@ const ProductEditPage = (props) => {
   const initState = {title, description, price, _id, imgUrl}
   const [toggle, setToggle] = useState(false)
   const [complete, setComplete] = useState(false)
-  const [loading, setLoading] = useState(0)
+
   const [inputs, setInputs] = useState(initState)
-  console.log(loading)
-  // console.log('props in product edit page', props)
+  
+  
 
   const toggler = () => {
     setToggle(prev => (!prev))

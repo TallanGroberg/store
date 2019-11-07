@@ -15,7 +15,7 @@ const Product = (props) => {
       setProduct(res.data)
     })
   }, [])
-  console.log(product.user, user._id)
+ 
   const {title, description, price, imgUrl, } = product
 
   const handleCart = () => {

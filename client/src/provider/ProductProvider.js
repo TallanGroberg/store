@@ -38,7 +38,7 @@ class ProductProvider extends React.Component {
         return {cart: [...res.data]}
       })
     })
-    console.log(this.state.cart)
+    
   }
   
 
@@ -80,7 +80,6 @@ class ProductProvider extends React.Component {
   editProduct =  (inputs, _id) => {
     bearerAxios.put(`api/product/${_id}`, inputs)
     .then(res => {
-      console.log('The response is here!!!', res.data)
       this.setState(prev => {
         const updatedProducts = prev.products.map(aProduct => aProduct._id === _id ? res.data : aProduct)
         return { products: [...updatedProducts] }
@@ -117,7 +116,6 @@ class ProductProvider extends React.Component {
       
     })
     .catch(err => console.log(err))
-
   }
   
 
