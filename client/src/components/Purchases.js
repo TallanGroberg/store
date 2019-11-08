@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {withRouter} from 'react-router-dom'
 import {withAuth,bearerAxios} from '../provider/AuthProvider'
 import {withstoreCrud} from '../provider/ProductProvider'
 
@@ -44,4 +45,4 @@ const Purchases = (props) => {
   );
 };
 
-export default withAuth(withstoreCrud(Purchases));
+export default withRouter(withAuth(withstoreCrud(Purchases)));
