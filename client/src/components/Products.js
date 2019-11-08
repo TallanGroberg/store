@@ -48,7 +48,7 @@ const Products = (props) => {
             <>
                 <p>this is your product. </p> 
                   <button onClick={() => deleteProduct(p._id)}>delete your product</button>
-                    <button onClick={ () =>  setToggle(toggle => (!toggle))}>edit Product</button>
+                    {/* <button onClick={ () =>  setToggle(toggle => (!toggle))}>edit Product</button> */}
             </>
               : 
               <button onClick={() => handleAdd(p)}>add to cart</button>}
