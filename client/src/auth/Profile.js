@@ -20,6 +20,12 @@ const Profile = (props) => {
         setYourStuff(res.data)
       })
     }
+    const getUsersProductsAgain = () => {
+      bearerAxios.get(`/api/product/user/${user._id}`)
+      .then( res => {
+        setYourStuff(res.data)
+      })
+    }
 
     const initProducts = props.products
       useEffect( ()  => {
@@ -48,7 +54,7 @@ const Profile = (props) => {
       <Link to='/usersettings'>User Settings</Link>
       <h1>your products to sell</h1>
       {yourStuff.map( stuff => {
-        return <ProductEditPage getUsersProducts={getUsersProducts} deleteStuff={deleteStuff} yourStuff={stuff} />
+        return <ProductEditPage getUsersProductsAgain={getUsersProductsAgain} deleteStuff={deleteStuff} yourStuff={stuff} />
       })}
     </div>
   );

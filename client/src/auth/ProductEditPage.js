@@ -6,7 +6,7 @@ import {withstoreCrud} from '../provider/ProductProvider'
 
 
 const ProductEditPage = (props) => {
-  const {deleteStuff, getUsersProducts, yourStuff: {title, description, price, imgUrl, _id}} = props
+  const {deleteStuff, getUsersProductsAgain, yourStuff: {title, description, price, imgUrl, _id}} = props
   const initState = {title, description, price, _id, imgUrl}
   const [toggle, setToggle] = useState(false)
   const [complete, setComplete] = useState(false)
@@ -37,7 +37,7 @@ const ProductEditPage = (props) => {
           }
           props.editProduct({imgUrl: url}, _id)
           setInputs(prev => ({...prev, imgUrl: url}))
-          props.getUsersProducts()
+          props.getUsersProductsAgain()
         })
         
       })
@@ -47,7 +47,7 @@ const ProductEditPage = (props) => {
     <>
       {toggle ? 
       <>
-      <EditProductForm  handleImageUpload={handleImageUpload} toggler={toggler} getUsersProducts={getUsersProducts}   title={title} description={description} imgUrl={imgUrl} price={price} _id={_id} /> 
+      <EditProductForm  handleImageUpload={handleImageUpload} toggler={toggler} getUsersProductsAgain={getUsersProductsAgain}   title={title} description={description} imgUrl={imgUrl} price={price} _id={_id} /> 
       {complete && 'your image has been updated please wait a moment for the server to respond' }
       <button onClick={() => setToggle(prev => (!prev))}>hide form</button>
       </>

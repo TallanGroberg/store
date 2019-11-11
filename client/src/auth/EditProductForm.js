@@ -4,19 +4,18 @@
   import {withAuth} from '../provider/AuthProvider'
   
   const EditProductForm = props => {
-    const {title,description, handleImageUpload ,price, _id, imgUrl, editProduct, getUsersProducts, toggler} = props
+    const {title,description, handleImageUpload ,price, _id, imgUrl, editProduct, getUsersProductsAgain, toggler} = props
       const initState = { title, description, price, imgUrl }
         const [inputs, setInputs] = useState(initState)
         const [image,setImage] = useState('')
-        
+        console.log('imgURl',imgUrl)
 
         const handleSubmit = async (e) => {
           e.preventDefault()
             await editProduct(inputs, _id)
-            await getUsersProducts()
+            await toggler()
+            getUsersProductsAgain()
             handleImageUpload(image, _id)
-            toggler()
-
         } 
 
         const handleChange = e => {
@@ -61,7 +60,6 @@
             onChange={handleChange} />
             <button>submit</button>
         </form>
-        <form>
         <input type="file"  
           id='file' 
           name="file"
@@ -69,7 +67,6 @@
           onChange={handleImageChange}
         />
     <button onClick={handleImage}>change image</button>
-    </form>
         <img src={imgUrl} width="100" height='100' alt='no image' />
       </>
     );
