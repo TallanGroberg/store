@@ -6,12 +6,12 @@ import {withstoreCrud} from '../provider/ProductProvider'
 
 
 const ProductEditPage = (props) => {
-  const {deleteStuff, getUsersProductsAgain, yourStuff: {title, description, price, imgUrl, _id}} = props
-  const initState = {title, description, price, _id, imgUrl}
-  const [toggle, setToggle] = useState(false)
-  const [complete, setComplete] = useState(false)
-
-  const [inputs, setInputs] = useState(initState)
+  const {deleteProduct, getUsersProducts,} = props
+    const {title ,description,imgUrl,price,_id} = props.mappedStuff
+    const initState = {title, description, price, _id, imgUrl}
+      const [toggle, setToggle] = useState(false)
+      const [complete, setComplete] = useState(false)
+      const [inputs, setInputs] = useState(initState)
   
   
 
@@ -37,7 +37,7 @@ const ProductEditPage = (props) => {
           }
           props.editProduct({imgUrl: url}, _id)
           setInputs(prev => ({...prev, imgUrl: url}))
-          props.getUsersProductsAgain()
+          props.getUsersProducts()
         })
         
       })
@@ -47,20 +47,22 @@ const ProductEditPage = (props) => {
     <>
       {toggle ? 
       <>
-      <EditProductForm  handleImageUpload={handleImageUpload} toggler={toggler} getUsersProductsAgain={getUsersProductsAgain}   title={title} description={description} imgUrl={imgUrl} price={price} _id={_id} /> 
-      {complete && 'your image has been updated please wait a moment for the server to respond' }
-      <button onClick={() => setToggle(prev => (!prev))}>hide form</button>
+        <EditProductForm title={title} description={description} price={price} imgUrl={imgUrl} _id={_id}  handleImageUpload={handleImageUpload} toggler={toggler}  /> 
+          <br />
+            {complete && 'your image has been updated please wait a moment for the server to respond' }
+              <br />
+                <button onClick={() => setToggle(prev => (!prev))}>hide form</button>
       </>
       :
       <>
-      <h1>{title}</h1>
-        <img src={imgUrl} width='100pt' height='100pt' />
-        <p>{description}</p>
-        <p>{price / 100}</p>
-      <button onClick={() => deleteStuff(_id)}>Delete</button>
-      <button onClick={() => setToggle(prev => (!prev))}>show form</button>
+        <h1>{title}</h1>
+          <img src={imgUrl} width='100pt' height='100pt' />
+            <p>{description}</p>
+              <p>{price / 100}</p>
+                <button onClick={() => deleteProduct(_id)}>Delete</button>
+                  <button onClick={() => setToggle(prev => (!prev))}>show form</button>
       </>
-    }
+      }
     </>
   );
 };

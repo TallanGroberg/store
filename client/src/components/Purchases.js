@@ -6,7 +6,6 @@ import {withstoreCrud} from '../provider/ProductProvider'
 
 const Purchases = (props) => {
   const {user} = props
-  console.log(user._id, )
 
   useEffect( () => {
     props.getAllBoughtProducts()
@@ -15,7 +14,7 @@ const Purchases = (props) => {
   const yourPurchases = props.bought.filter( product => {
     return product.buyer === user._id
   })
-  console.log(yourPurchases)
+
    
   return (
       <div>
@@ -30,7 +29,6 @@ const Purchases = (props) => {
           
         {yourPurchases.map( p => {
           return <>
-                {console.log(p.buyer)}
                   <h1>{p.title}</h1>
                     <p>{p.description}</p>
                       <p>{p.price / 100}</p>

@@ -11,6 +11,7 @@ class ProductProvider extends React.Component {
     products: [],
     cart: [],
     bought: [],
+    yourStuff: [],
   }
   
   componentDidMount() {
@@ -42,6 +43,14 @@ class ProductProvider extends React.Component {
   }
   
 
+  getUsersProducts = () => {
+    bearerAxios.get(`/api/product/user/${this.props.user._id}`)
+    .then( res => {
+      this.setState({
+        yourStuff: [...res.data],
+      })
+    })
+  }
 
   getAllBoughtProducts = () => {
     bearerAxios.get('/api/product/bought')
@@ -53,7 +62,7 @@ class ProductProvider extends React.Component {
   .catch(err => console.log(err.message))
   }
 
-  //this function is sound
+  
   makeProduct = (inputs) => {
     bearerAxios.post('/api/product', inputs)
     .then( res => {
@@ -124,13 +133,15 @@ class ProductProvider extends React.Component {
 
 
   render() {
-    const {products,cart, bought} = this.state
+    const {products,cart, bought, yourStuff} = this.state
 
     return (
       <Provider value={{
         products,
         cart,
         bought,
+        yourStuff,
+        getUsersProducts: this.getUsersProducts,
         makeProduct: this.makeProduct,
         handleCartAdd: this.handleCartAdd,
         handleProductAdd: this.handleProductAdd,

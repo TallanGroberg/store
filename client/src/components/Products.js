@@ -10,7 +10,7 @@ import EditProductForm from '../auth/EditProductForm'
 const Products = (props) => {
   const [toggle, setToggle] = useState(false)
   const {products, getAllBuyables, deleteProduct, editProduct, handleCartAdd, user } = props
-  console.log(toggle)
+
 
   useEffect( () => {
     getAllBuyables()

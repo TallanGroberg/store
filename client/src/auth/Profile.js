@@ -6,28 +6,14 @@ import ProductEditPage from '../auth/ProductEditPage'
 
 
 const Profile = (props) => {
-  const [toggle, setToggle] = useState(false)
-  const [yourStuff, setYourStuff] = useState([])
-  const [user, setUser] = useState(props.user)
-  
-  
- 
+  const {getUsersProducts, yourStuff, deleteProduct, user } = props
+    const [toggle, setToggle] = useState(false)
+    
     const {_id} = user
 
-    const getUsersProducts = () => {
-      bearerAxios.get(`/api/product/user/${user._id}`)
-      .then( res => {
-        setYourStuff(res.data)
-      })
-    }
-    const getUsersProductsAgain = () => {
-      bearerAxios.get(`/api/product/user/${user._id}`)
-      .then( res => {
-        setYourStuff(res.data)
-      })
-    }
+    
+    
 
-    const initProducts = props.products
       useEffect( ()  => {
         getUsersProducts()
       }, props.products)
@@ -37,13 +23,7 @@ const Profile = (props) => {
           setToggle(prev => (!prev))
         }
 
-        const deleteStuff = async (_id) => {
-          const filterArray = yourStuff.filter( thing => {
-            return thing._id !== _id
-            })
-            await setYourStuff( prev => (filterArray))
-              props.deleteProduct(_id)
-        }
+        
         
 
         
@@ -54,7 +34,7 @@ const Profile = (props) => {
       <Link to='/usersettings'>User Settings</Link>
       <h1>your products to sell</h1>
       {yourStuff.map( stuff => {
-        return <ProductEditPage getUsersProductsAgain={getUsersProductsAgain} deleteStuff={deleteStuff} yourStuff={stuff} />
+        return <ProductEditPage mappedStuff={stuff} />
       })}
     </div>
   );

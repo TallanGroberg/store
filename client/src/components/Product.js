@@ -5,7 +5,9 @@ import {bearerAxios, withAuth} from '../provider/AuthProvider'
 import {withstoreCrud } from '../provider/ProductProvider'
 
 const Product = (props) => {
-  const {user, handleCartAdd} = props
+  const {user, handleCartAdd, deleteProduct, editProduct, } = props
+
+  console.log('props in product.js',props)
   
   const [product, setProduct] = useState({})
   const [toggle, setToggle] = useState(false)
@@ -23,6 +25,16 @@ const Product = (props) => {
     handleCartAdd(props.match.params._id)
   }
 
+  const handleDelete = () => {
+    deleteProduct(props.match.params._id)
+    props.history.push('/products')
+  }
+
+  const handleEdit = () => {
+    // editProduct()
+    //move everything to context. 
+
+  }
 
 
   return (
@@ -39,7 +51,12 @@ const Product = (props) => {
             :
               
               <>
-              {props.user._id === product.user ? <p>this is your product</p>
+              {props.user._id === product.user ? 
+                <>
+                  <p>this is your product</p>
+                    <button onClick={handleDelete}> Delete Product</button>
+                    {/* <button>will edit eventually.</button> */}
+                </>
               :
                 <button onClick={handleCart}>Buy now</button>
               }
