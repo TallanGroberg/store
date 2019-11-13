@@ -22,7 +22,7 @@ const Product = (props) => {
 
   const handleCart = () => {
     setToggle(prev => (!prev))
-    handleCartAdd(props.match.params._id)
+    handleCartAdd(props.match.params._id, user._id)
   }
 
   const handleDelete = () => {
