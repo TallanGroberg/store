@@ -5,6 +5,7 @@
   
   const EditProductForm = props => {
     const { handleImageUpload, editProduct, toggler, getUsersProducts, title, description, price, imgUrl, _id} = props
+
     
       const initState = { title, description, price, imgUrl }
         const [inputs, setInputs] = useState(initState)
@@ -69,7 +70,7 @@
           onChange={handleImageChange}
         />
         <br />
-    <button onClick={handleImage}>change image</button>
+          <button onClick={handleImage}>change image</button>
         <br />
         <img src={imgUrl} width="100" height='100' alt='no image' />
       </>

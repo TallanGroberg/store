@@ -6,31 +6,22 @@ import ProductEditPage from '../auth/ProductEditPage'
 
 
 const Profile = (props) => {
-  const {getUsersProducts, yourStuff, deleteProduct, user } = props
+  const {getUsersProducts, yourStuff, user } = props
     const [toggle, setToggle] = useState(false)
     
     const {_id} = user
-
-    
-    
 
       useEffect( ()  => {
         getUsersProducts()
       }, props.products)
 
-
         const toggler = () => {
           setToggle(prev => (!prev))
         }
 
-        
-        
-
-        
-
   return (
     <div>
-      {/* <button onClick={() => props.history.push('/usersettings')}>user Settings</button> */}
+      
       <Link to='/usersettings'>User Settings</Link>
       <h1>your products to sell</h1>
       {yourStuff.map( stuff => {

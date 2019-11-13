@@ -47,7 +47,9 @@ const ProductEditPage = (props) => {
     <>
       {toggle ? 
       <>
-        <EditProductForm title={title} description={description} price={price} imgUrl={imgUrl} _id={_id}  handleImageUpload={handleImageUpload} toggler={toggler}  /> 
+        <EditProductForm title={title} description={description} price={price} imgUrl={imgUrl} _id={_id} 
+         handleImageUpload={handleImageUpload}
+          toggler={toggler}  /> 
           <br />
             {complete && 'your image has been updated please wait a moment for the server to respond' }
               <br />

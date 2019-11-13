@@ -6,6 +6,8 @@ import {withRouter} from 'react-router-dom'
 
 const { Provider, Consumer, } = React.createContext()
 
+
+
 class ProductProvider extends React.Component {
   state = {
     products: [],
@@ -78,10 +80,13 @@ class ProductProvider extends React.Component {
     bearerAxios.delete(`/api/product/${_id}`)
     .then( res => {
       this.setState( prev => {
-        const filterArray = prev.products.filter( thing => {
+        const filterProductsArray = prev.products.filter( thing => {
           return thing._id !== _id
         })
-        return {products: filterArray}
+          const filterUsersArray = prev.yourStuff.filter(stuff => {
+            return stuff._id !== _id
+          })
+            return {products: filterProductsArray, yourStuff: filterUsersArray,}
       })
     })
   } 
