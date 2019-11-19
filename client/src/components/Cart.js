@@ -22,8 +22,7 @@ const Cart = (props) => {
   
   
   const yourCart = props.cart.filter( product => {
-
-    return product.buyer === props.user._id
+    return product.buyer === user._id
   })
   
   return (

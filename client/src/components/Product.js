@@ -4,13 +4,15 @@ import {Link} from 'react-router-dom'
 import {bearerAxios, withAuth} from '../provider/AuthProvider'
 import {withstoreCrud } from '../provider/ProductProvider'
 
+
 const Product = (props) => {
   const {user, handleCartAdd, deleteProduct, editProduct, } = props
+  const { push } = props.history
 
-  console.log('props in product.js',props)
-  
-  const [product, setProduct] = useState({})
-  const [toggle, setToggle] = useState(false)
+    const [product, setProduct] = useState({})
+    const [toggle, setToggle] = useState(false)
+    const [isEditing, setIsEditing] = useState(false)
+
   useEffect( () => {
     bearerAxios.get(`/api/product/id/${props.match.params._id}`)
     .then( res => {
@@ -18,23 +20,21 @@ const Product = (props) => {
     })
   }, [])
  
-  const {title, description, price, imgUrl, } = product
+  const {title, description, price, imgUrl, _id } = product
 
-  const handleCart = () => {
-    setToggle(prev => (!prev))
-    handleCartAdd(props.match.params._id, user._id)
+  const handleCart = (product) => {
+    setToggle(!toggle)
+    product.buyer = user._id
+    handleCartAdd(props.match.params._id, product.buyer)
   }
 
   const handleDelete = () => {
     deleteProduct(props.match.params._id)
-    props.history.push('/products')
+    push('/products')
   }
 
-  const handleEdit = () => {
-    // editProduct()
-    //move everything to context. 
 
-  }
+  
 
 
   return (
@@ -45,20 +45,22 @@ const Product = (props) => {
             <p>{price / 100}</p>
             {toggle ? <>
             <p>this item has been added to your cart, would you like to continue shoppin or proceed to checkout?</p>
-            <button onClick={props.history.push('/cart')}>see all the items in your cart</button>
-            <button onClick={props.history.push('/')}>go back to shopping</button>
+            <button onClick={() => push('/cart')}>see all the items in your cart</button>
+            <button onClick={() => push('/')}>go back to shopping</button>
             </>
             :
               
               <>
-              {props.user._id === product.user ? 
+              {user._id === product.user ? 
                 <>
                   <p>this is your product</p>
                     <button onClick={handleDelete}> Delete Product</button>
-                    {/* <button>will edit eventually.</button> */}
+                    <button onClick={() => push('/yourprofile')}>edit product</button>
                 </>
               :
-                <button onClick={handleCart}>Buy now</button>
+                <>
+                  <button onClick={() => handleCart(product)}>Buy now</button>
+                </>
               }
             </>
             }

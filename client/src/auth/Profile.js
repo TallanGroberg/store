@@ -21,12 +21,14 @@ const Profile = (props) => {
 
   return (
     <div>
-      
       <Link to='/usersettings'>User Settings</Link>
-      <h1>your products to sell</h1>
-      {yourStuff.map( stuff => {
-        return <ProductEditPage mappedStuff={stuff} />
-      })}
+      <br />
+      <br />
+        <Link to='/purchases'>Your Purchases</Link>
+          <h1>your products to sell</h1>
+          {yourStuff.map( stuff => {
+            return <ProductEditPage mappedStuff={stuff} />
+         })}
     </div>
   );
 };

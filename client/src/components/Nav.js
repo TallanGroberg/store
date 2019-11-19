@@ -39,7 +39,6 @@ const Nav = (props) => {
           <button onClick={() => props.history.push('/makeproduct')}>make a product</button>
           <button onClick={() => props.history.push('/cart')}>Cart</button>
           <button onClick={() => props.history.push('/yourprofile')}> your profile</button>
-          <button onClick={() => props.history.push('/purchases')}> your purchases</button>
           <button onClick={handleLogout}>logout</button>
       </NavStyle>
         :
