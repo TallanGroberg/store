@@ -39,6 +39,7 @@ const Cart = (props) => {
 
 const CartStyle = styled.div`
   display: grid;
+ 
   grid-template-columns: repeat(auto-fit, minmax(200pt, 1fr));
   grid-auto-flow: row;
   grid-gap: 5pt;

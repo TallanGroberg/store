@@ -30,7 +30,7 @@ const CheckoutForm = (props) =>  {
             
           })
           return setComplete(!complete)
-        } else if(res.status >= 500) {
+        } else if(res.status === 500) {
           setFail(true)
         }
       })
@@ -41,20 +41,20 @@ const CheckoutForm = (props) =>  {
       <>
         {fail && <p>payment failed this was probaby due to stripe payment system</p> }
         {complete ? 
-          <h1>payment successful, {props.totalPrice / 100} will be removed from your account</h1>
+          <>
+            <h1>payment successful, {props.totalPrice / 100} will be removed from your account, to view your purchases click here.</h1>
+              <button onClick={() => props.history.push('/purchases')}></button>
+          </>
 
           :
 
           <>
-          <p>Would you like to complete the purchase?</p>
-            <CardInputStyle>
-          
-            <p>this is for test purposes only please enter do not enter your creditcard information until the seller knows you are going to buy a product. </p>
-          
-            <CardElement  />
-           
-              <button onClick={submit}>Purchase</button>
-        </CardInputStyle>
+              <p>Would you like to complete the purchase?</p>
+                <CardInputStyle>
+                  <p>this is for test purposes only please enter do not enter your creditcard information until the seller knows you are going to buy a product. </p>
+                    <CardElement  />
+                      <button onClick={submit}>Purchase</button>
+                        </CardInputStyle>
         </>
         }
     </>
@@ -63,9 +63,13 @@ const CheckoutForm = (props) =>  {
 
   const CardInputStyle = styled.div`
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    width: 80%;
+    grid-template-rows: 1fr 2fr 1fr;
     grid-auto-flow: column;
     grid-gap: 5pt;
+    margin: auto;
+    left: 0;
+    right: 0;
     margin-bottom: 10pt;
     box-shadow: 0px 0px 9px -6px rgba(0,0,0,0.75);
     .card {
