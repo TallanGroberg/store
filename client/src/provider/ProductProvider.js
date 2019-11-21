@@ -14,6 +14,7 @@ class ProductProvider extends React.Component {
     cart: [],
     bought: [],
     yourStuff: [],
+    productError: ''
   }
   
   componentDidMount() {
@@ -66,13 +67,19 @@ class ProductProvider extends React.Component {
 
   
   makeProduct = (inputs) => {
-    bearerAxios.post('/api/product', inputs)
-    .then( res => {
-      this.setState( prev => ({
-        products: [...prev.products, inputs]
-      }))
-    })
-    .catch(err => console.log(err))
+    if(inputs.price <= 50) {
+      this.setState({
+        productError: 'you have to make the product more than 50 cents'
+      })
+    } else {
+      bearerAxios.post('/api/product', inputs)
+      .then( res => {
+        this.setState( prev => ({
+          products: [...prev.products, inputs]
+        }))
+      })
+      .catch(err => console.log(err))
+    }
   }
 
 
@@ -139,7 +146,7 @@ class ProductProvider extends React.Component {
 
 
   render() {
-    const {products,cart, bought, yourStuff} = this.state
+    const {productError, products,cart, bought, yourStuff} = this.state
 
     return (
       <Provider value={{
@@ -147,6 +154,7 @@ class ProductProvider extends React.Component {
         cart,
         bought,
         yourStuff,
+        productError,
         getUsersProducts: this.getUsersProducts,
         makeProduct: this.makeProduct,
         handleCartAdd: this.handleCartAdd,

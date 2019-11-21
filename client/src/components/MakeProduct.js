@@ -11,9 +11,12 @@ const MakeProduct = (props) => {
     
   const handleSubmit = async e => {
     e.preventDefault()
-
-    await makeProduct(inputs)
-    props.history.push('/')
+    if(inputs.price <= 50) {
+      makeProduct(inputs)
+    } else {
+      await makeProduct(inputs)
+      props.history.push('/')
+    }
   }
   const handleChange = e => {
     const {name,value} = e.target
@@ -48,47 +51,47 @@ const MakeProduct = (props) => {
   const {makeProduct, } = props
   return (
     <>
-
-    <form onSubmit={handleSubmit}>
-      <p>Title</p>
-      <input
-      placeholder='title'
-      name='title'
-      value={inputs.title}
-      onChange={handleChange} />
-    <br />
-    <p>Description</p>
-      <textarea rows='4' cols='50'
-      placeholder='description'
-      name='description'
-      value={inputs.description}
-      onChange={handleChange} />
-    <br />
-    <p>Price</p>
-      <input
-      type='number'
-      placeholder='price'
-      name='price'
-      value={inputs.price}
-      onChange={handleChange} />
+      {props.productError !== '' ? <h1>{props.productError}</h1> : null}
+      <form onSubmit={handleSubmit}>
+        <p>Title</p>
+        <input
+        placeholder='title'
+        name='title'
+        value={inputs.title}
+        onChange={handleChange} />
       <br />
-      {inputs.imgUrl === '' && 'Remember to upload the image before you submit a product, if you are on mobile you may not be able to submit an image from your photo library.' }
+      <p>Description</p>
+        <textarea rows='4' cols='50'
+        placeholder='description'
+        name='description'
+        value={inputs.description}
+        onChange={handleChange} />
       <br />
-      <button>submit</button>
-    </form>
-    <br />
-    <form>
-      <input type="file"  
-      id='file' 
-      name="file"
-      placeholder="file"
-      onChange={handleImageChange}
-      />
-      <br />
-      <button onClick={handleImageUpload}>upload image</button>
+      <p>Price</p>
+        <input
+        type='number'
+        placeholder='price'
+        name='price'
+        value={inputs.price}
+        onChange={handleChange} />
+        <br />
+        {inputs.imgUrl === '' && 'Remember to upload the image before you submit a product, if you are on mobile you may not be able to submit an image from your photo library.' }
+        <br />
+        <button>submit</button>
       </form>
-      {inputs.imgUrl !== '' && 'you sucessfully uploaded an image'}
-     
+      <br />
+      <form>
+        <input type="file"  
+        id='file' 
+        name="file"
+        placeholder="file"
+        onChange={handleImageChange}
+        />
+        <br />
+        <button onClick={handleImageUpload}>upload image</button>
+        </form>
+        {inputs.imgUrl !== '' && 'you sucessfully uploaded an image'}
+      
     </>
   );
 };

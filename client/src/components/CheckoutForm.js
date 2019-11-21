@@ -9,7 +9,8 @@ import {withstoreCrud} from '../provider/ProductProvider'
 const CheckoutForm = (props) =>  {
   const [complete, setComplete] = useState(false)
   const [fail, setFail] = useState(false)
-
+  
+  console.log('fail in checkoutFomr', fail)
   const {editProduct, getCart} = props
   
     const  submit =  async (ev) =>  {
@@ -20,6 +21,7 @@ const CheckoutForm = (props) =>  {
           token: token.id,  
           amount: props.totalPrice,
         }
+        
       ).then( res => {
         if(res.status === 200) {
           props.cart.map( async p  => {
@@ -27,19 +29,17 @@ const CheckoutForm = (props) =>  {
             p.isIncart = false
             await editProduct(p, p._id)
             getCart()
-            
           })
-          return setComplete(!complete)
+            return setComplete(!complete)
         } else if(res.status === 500) {
           setFail(true)
         }
       })
       .catch(err => console.log(err.message))
     }
-  
     return (
       <>
-        {fail && <p>payment failed this was probaby due to stripe payment system</p> }
+        
         {complete ? 
           <>
             <h1>payment successful, {props.totalPrice / 100} will be removed from your account, to view your purchases click here.</h1>
@@ -48,14 +48,14 @@ const CheckoutForm = (props) =>  {
 
           :
 
-          <>
+            <>
               <p>Would you like to complete the purchase?</p>
                 <CardInputStyle>
                   <p>this is for test purposes only please enter do not enter your creditcard information until the seller knows you are going to buy a product. </p>
                     <CardElement  />
                       <button id="checkout-button" onClick={submit}>Purchase</button>
                         </CardInputStyle>
-        </>
+            </>
         }
     </>
     );
