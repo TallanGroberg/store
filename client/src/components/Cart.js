@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom'
 import styled from 'styled-components'
 import { bearerAxios, withAuth } from '../provider/AuthProvider';
 import {withstoreCrud} from '../provider/ProductProvider'
-
+import CheckoutForm from './CheckoutForm'
 
 
 const Cart = (props) => {
@@ -13,7 +13,7 @@ const Cart = (props) => {
 
   //i want to kick all things out of the cart if it is in for a certain amout of time.
 
-  const {handleProductAdd, user} = props
+  const {handleProductAdd, user, cart} = props
 
   useEffect( () => {
     props.getCart()
@@ -21,50 +21,49 @@ const Cart = (props) => {
   
   
   
-  const yourCart = props.cart.filter( product => {
-    return product.buyer === user._id
-  })
+  const yourCart = cart.filter( product => product.buyer === user._id)
+  const prices = yourCart.map( p => p.price  )
+  const totalPrice = prices.reduce( (t,f) => t + f, 0)
   
   return (
-    <>
+    <CartStyle>
       {yourCart.length === 0 ? 
       <>
         <p>you have no items in your cart</p>
       </>
       :
-      <CartStyle>
+      <>
         {yourCart.map(p => {
           return <div>{p.isBought === false ? 
           <>
             <h1>{p.title}</h1>
-            <img src={p.imgUrl} width='100pt' height='100pt' alt='no picture added'/>
-            <p>{p.price / 100}</p>
-            <button onClick={() => props.handleProductAdd(p._id, '')}>remove from Cart</button>
+              <img src={p.imgUrl} width='100pt' height='100pt' alt='no picture added'/>
+                <p>{p.price / 100} $</p>
+                  <button onClick={() => props.handleProductAdd(p._id, '')}>remove from Cart</button>
           </>
               : 
-            <p>your cart is empty, go back to the product page</p>
-          }
+              <p>your cart is empty, go back to the product page</p>
+            }
+            <CheckoutForm yourCart={yourCart} totalPrice={totalPrice} />
+              <p>your total is:  {totalPrice / 100} $</p>
           </div>
 
         })}
-        </CartStyle>
+        </>
       }
       
-          {yourCart.length === 0 
-            ? 
               <button onClick={() => props.history.push('/products')}>go to products page</button> 
-            :
-              <button onClick={() => props.history.push('/checkout')}>proceed to checkout</button>
-          }
-    </>
+            
+    </CartStyle>
   );
 };
 
 const CartStyle = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200pt, 1fr));
-  grid-auto-flow: row;
+  
+  
   grid-gap: 5pt;
+
   margin-bottom: 10pt;
 `;
 

@@ -12,9 +12,7 @@ const Checkout = (props) => {
     props.getCart()
   }, [])
 
-  const yourCart = cart.filter( product => {
-    return product.buyer === user._id
-  })
+  const yourCart = cart.filter( product => product.buyer === user._id)
   const prices = yourCart.map( p => p.price  )
   const totalPrice = prices.reduce( (t,f) => t + f, 0)
 

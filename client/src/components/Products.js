@@ -40,7 +40,7 @@ const Products = (props) => {
           <Link to={'/products/' + p._id}>
             <h1>{p.title}</h1>
               <p>{p.description}</p>
-                <p>{p.price / 100}</p>
+                <p>{p.price / 100} $</p>
                 <img src={p.imgUrl} width='200' height="200" alt="a product" />
           </Link>
   <br />

@@ -13,8 +13,6 @@ const ProductEditPage = (props) => {
       const [complete, setComplete] = useState(false)
       const [inputs, setInputs] = useState(initState)
   
-  
-
   const toggler = () => {
     setToggle(prev => (!prev))
   }
@@ -39,7 +37,6 @@ const ProductEditPage = (props) => {
           setInputs(prev => ({...prev, imgUrl: url}))
           props.getUsersProducts()
         })
-        
       })
     }
   }
@@ -47,9 +44,13 @@ const ProductEditPage = (props) => {
     <>
       {toggle ? 
       <>
-        <EditProductForm title={title} description={description} price={price} imgUrl={imgUrl} _id={_id} 
-         handleImageUpload={handleImageUpload}
-          toggler={toggler}  /> 
+        <EditProductForm 
+          title={title} 
+            description={description} 
+              price={price} imgUrl={imgUrl} _id={_id} 
+                handleImageUpload={handleImageUpload}
+                  toggler={toggler}  
+        /> 
           <br />
             {complete && 'your image has been updated please wait a moment for the server to respond' }
               <br />
@@ -60,7 +61,7 @@ const ProductEditPage = (props) => {
         <h1>{title}</h1>
           <img src={imgUrl} width='100pt' height='100pt' />
             <p>{description}</p>
-              <p>{price / 100}</p>
+              <p>{price / 100} $</p>
                 <button onClick={() => deleteProduct(_id)}>Delete</button>
                   <button onClick={() => setToggle(prev => (!prev))}>show form</button>
       </>

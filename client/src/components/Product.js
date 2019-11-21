@@ -42,7 +42,7 @@ const Product = (props) => {
       <h1>{title}</h1>
           <img src={imgUrl} width="400" height='400' />
             <p>{description}</p>
-            <p>{price / 100}</p>
+            <p>{price / 100} $</p>
             {toggle ? <>
             <p>this item has been added to your cart, would you like to continue shoppin or proceed to checkout?</p>
             <button onClick={() => push('/cart')}>see all the items in your cart</button>
