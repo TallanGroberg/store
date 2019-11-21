@@ -22,17 +22,28 @@ const Cart = (props) => {
   //this will be the page that a user can enter credit card information and go back to the product page. 
   return (<>
     <CartStyle>
-      {yourCart.map(p => {
-        return <div>
-        <h1>{p.title}</h1>
-          <img src={p.imgUrl} alt='no image' height='100' width='100' />
-        <p>{p.price / 100}</p>
-        <button onClick={ () => handleProductAdd(p._id, p)}>Remove From cart</button>
-        </div>
-      })}
-    </CartStyle>
-      <CheckoutForm yourCart={yourCart} totalPrice={totalPrice} />
-      <p>your total is: {totalPrice / 100}</p>
+       
+          {yourCart.map(p => {
+            return <div>
+            <h1>{p.title}</h1>
+              <img src={p.imgUrl} alt='no image' height='100' width='100' />
+            <p>{p.price / 100}</p>
+            <button onClick={ () => handleProductAdd(p._id, p)}>Remove From cart</button>
+            </div>
+          })}
+        </CartStyle>
+
+          {yourCart.length === 0 ? 
+            <>
+              <p>your cart is empty</p>
+              <button onClick={() => props.history.push('/products')}>Back to products page</button>
+            </>
+            :
+              <>
+                <CheckoutForm yourCart={yourCart} totalPrice={totalPrice} />
+                  <p>your total is: {totalPrice / 100}</p>
+              </>
+          }
       </>
   );
 };

@@ -53,7 +53,7 @@ const CheckoutForm = (props) =>  {
                 <CardInputStyle>
                   <p>this is for test purposes only please enter do not enter your creditcard information until the seller knows you are going to buy a product. </p>
                     <CardElement  />
-                      <button onClick={submit}>Purchase</button>
+                      <button id="checkout-button" onClick={submit}>Purchase</button>
                         </CardInputStyle>
         </>
         }
@@ -72,8 +72,9 @@ const CheckoutForm = (props) =>  {
     right: 0;
     margin-bottom: 10pt;
     box-shadow: 0px 0px 9px -6px rgba(0,0,0,0.75);
-    .card {
-      border: 1px solid black;
+    #checkout-button {
+    box-shadow: 0px 0px 9px -6px rgba(0,0,0,0.75);
+      
 
     }
   `;
