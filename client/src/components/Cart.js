@@ -12,9 +12,7 @@ const Cart = (props) => {
     props.getCart()
   }, [])
 
-  const yourCart = cart.filter( product => {
-    return product.buyer === user._id
-  })
+  const yourCart = cart.filter( product => product.buyer === user._id)
   const prices = yourCart.map( p => p.price  )
   const totalPrice = prices.reduce( (t,f) => t + f, 0)
 
@@ -28,7 +26,7 @@ const Cart = (props) => {
             <h1>{p.title}</h1>
               <img src={p.imgUrl} alt='no image' height='100' width='100' />
             <p>{p.price / 100}</p>
-            <button onClick={ () => handleProductAdd(p._id, p)}>Remove From cart</button>
+            <button onClick={() => handleProductAdd(p._id, p)}>Remove From cart</button>
             </div>
           })}
         </CartStyle>
@@ -50,7 +48,6 @@ const Cart = (props) => {
 
 const CartStyle = styled.div`
   display: grid;
- 
   grid-template-columns: repeat(auto-fit, minmax(200pt, 1fr));
   grid-auto-flow: row;
   grid-gap: 5pt;
