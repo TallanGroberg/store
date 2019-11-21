@@ -9,6 +9,8 @@ import {withstoreCrud} from '../provider/ProductProvider'
 const CheckoutForm = (props) =>  {
   const [complete, setComplete] = useState(false)
   const [fail, setFail] = useState(false)
+
+  const {editProduct, getCart} = props
   
     const  submit =  async (ev) =>  {
       let {token} = await props.stripe.createToken({name: "Name"});
@@ -20,11 +22,12 @@ const CheckoutForm = (props) =>  {
         }
       ).then( res => {
         if(res.status === 200) {
-          props.cart.map(p => {
-            p.isBought = true
+          props.cart.map( async p  => {
+             p.isBought = true
             p.isIncart = false
-        
-            bearerAxios.put(`/api/product/bought/${p._id}`, p)
+            await editProduct(p, p._id)
+            getCart()
+            
           })
           return setComplete(!complete)
         } else if(res.status >= 500) {

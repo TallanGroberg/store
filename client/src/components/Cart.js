@@ -1,62 +1,39 @@
 import React, {useEffect} from 'react';
-import {withRouter} from 'react-router-dom'
 import styled from 'styled-components'
-import { bearerAxios, withAuth } from '../provider/AuthProvider';
-import {withstoreCrud} from '../provider/ProductProvider'
-
-
+import {withAuth, bearerAxios } from '../provider/AuthProvider'
+import {withstoreCrud} from '../provider/ProductProvider' 
+import {withRouter} from 'react-router-dom'
+import CheckoutForm from './CheckoutForm'
 
 const Cart = (props) => {
-  //will be the landing ground for setup of payment systems 
-
-  //will proceed to checkout
-
-  //i want to kick all things out of the cart if it is in for a certain amout of time.
-
-  const {handleProductAdd, user} = props
+  const {getCart, cart, handleProductAdd, user} = props
 
   useEffect( () => {
     props.getCart()
   }, [])
-  
-  
-  
-  const yourCart = props.cart.filter( product => {
+
+  const yourCart = cart.filter( product => {
     return product.buyer === user._id
   })
-  
-  return (
-    <>
-      {yourCart.length === 0 ? 
-      <>
-        <p>you have no items in your cart</p>
-      </>
-      :
-      <CartStyle>
-        {yourCart.map(p => {
-          return <div>{p.isBought === false ? 
-          <>
-            <h1>{p.title}</h1>
-            <img src={p.imgUrl} width='100pt' height='100pt' alt='no picture added'/>
-            <p>{p.price / 100}</p>
-            <button onClick={() => props.handleProductAdd(p._id, '')}>remove from Cart</button>
-          </>
-              : 
-            <p>your cart is empty, go back to the product page</p>
-          }
-          </div>
+  const prices = yourCart.map( p => p.price  )
+  const totalPrice = prices.reduce( (t,f) => t + f, 0)
 
-        })}
-        </CartStyle>
-      }
-      
-          {yourCart.length === 0 
-            ? 
-              <button onClick={() => props.history.push('/products')}>go to products page</button> 
-            :
-              <button onClick={() => props.history.push('/checkout')}>proceed to checkout</button>
-          }
-    </>
+  
+  //this will be the page that a user can enter credit card information and go back to the product page. 
+  return (<>
+    <CartStyle>
+      {yourCart.map(p => {
+        return <div>
+        <h1>{p.title}</h1>
+          <img src={p.imgUrl} alt='no image' height='100' width='100' />
+        <p>{p.price / 100}</p>
+        <button onClick={ () => handleProductAdd(p._id, p)}>Remove From cart</button>
+        </div>
+      })}
+    </CartStyle>
+      <CheckoutForm yourCart={yourCart} totalPrice={totalPrice} />
+      <p>your total is: {totalPrice / 100}</p>
+      </>
   );
 };
 
@@ -66,6 +43,7 @@ const CartStyle = styled.div`
   grid-auto-flow: row;
   grid-gap: 5pt;
   margin-bottom: 10pt;
+
 `;
 
 export default withRouter(withAuth(withstoreCrud(Cart)));
