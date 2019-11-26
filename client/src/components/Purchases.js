@@ -5,10 +5,10 @@ import {withstoreCrud} from '../provider/ProductProvider'
 
 
 const Purchases = (props) => {
-  const {user} = props
+  const {user, getAllBoughtProducts} = props
 
   useEffect( () => {
-    props.getAllBoughtProducts()
+    getAllBoughtProducts()
   }, [])
 
   const yourPurchases = props.bought.filter( product => {

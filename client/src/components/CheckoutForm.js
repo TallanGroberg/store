@@ -24,7 +24,8 @@ const CheckoutForm = (props) =>  {
         
       ).then( res => {
         if(res.status === 200) {
-          props.cart.map( async p  => {
+          props.yourCart.map( async p  => {
+            
              p.isBought = true
             p.isIncart = false
             await editProduct(p, p._id)

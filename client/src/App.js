@@ -20,6 +20,7 @@ import Cart from './components/Cart'
 import Purchases from './components/Purchases'
 
 import NoMatch from './components/NoMatch'
+import SoldItems from './components/SoldItems';
 
 const App = props => {
   
@@ -38,6 +39,7 @@ const App = props => {
             <ProtectedRoute exact path='/usersettings' render={ rProps => <EditUserForm {...rProps} /> } />
             <ProtectedRoute exact path='/cart' render={ rProps => <Cart /> } />
             <ProtectedRoute exact path='/purchases' render={ rProps => <Purchases /> } />
+            <ProtectedRoute exact path='/solditems' render={ rProps => <SoldItems /> } />
             <ProtectedRoute path='/products/:_id' render={ rProps => <Product {...rProps}  />} />
             <Route render={rProps => <NoMatch />}/>
         </Switch>
