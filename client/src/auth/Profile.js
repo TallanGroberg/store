@@ -26,10 +26,10 @@ const Profile = (props) => {
       <Link to='/usersettings'>User Settings</Link>
       <br />
       <br />
-        <Link to='/purchases'>Your sells</Link>
+        <Link to='/purchases'>your purchases</Link>
       <br />
       <br />
-        <Link to='/solditems'>items sold</Link>
+        <Link to='/solditems'>Items Sold</Link>
           <h1>your products to sell</h1>
           {yourStuff.map( stuff => {
             return stuff.isBought === false ?  <ProductEditPage mappedStuff={stuff} /> : null
