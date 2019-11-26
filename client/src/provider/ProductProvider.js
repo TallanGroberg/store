@@ -101,7 +101,6 @@ class ProductProvider extends React.Component {
   editProduct =  (inputs, _id) => {
     bearerAxios.put(`api/product/${_id}`, inputs)
     .then(res => {
-      debugger
       this.setState(prev => {
         const updatedProducts = prev.products.map(aProduct => aProduct._id === _id ? res.data : aProduct)
         return { products: [...updatedProducts] }

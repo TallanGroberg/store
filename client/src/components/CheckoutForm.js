@@ -10,7 +10,7 @@ const CheckoutForm = (props) =>  {
   const [complete, setComplete] = useState(false)
   const [fail, setFail] = useState(false)
   
-  console.log('fail in checkoutFomr', fail)
+  
   const {editProduct, getCart} = props
   
     const  submit =  async (ev) =>  {
