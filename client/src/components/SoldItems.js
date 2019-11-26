@@ -20,7 +20,7 @@ const SoldItems = (props) => {
 
       <>
         <h1>you haven't sold anything yet but it shouldn't be long</h1>
-        <Link to='/profile'>back to profile</Link>
+        <Link to='/yourprofile'>back to profile</Link>
         <br />
         <Link to='/'>Continue Shopping</Link>
       </>
