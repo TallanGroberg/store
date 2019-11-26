@@ -44,7 +44,7 @@ const Products = (props) => {
                 <img src={p.imgUrl} width='200' height="200" alt="a product" />
           </Link>
   <br />
-        {user._id === p.user ? 
+        {p.user === user._id ? 
             <>
                 <p>this is your product. </p> 
                   <button onClick={() => deleteProduct(p._id)}>delete your product</button>
