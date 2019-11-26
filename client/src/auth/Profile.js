@@ -34,7 +34,7 @@ const Profile = (props) => {
           {yourStuff.map( stuff => {
             return <ProductEditPage mappedStuff={stuff} />
          })}
-         <h1>Items you sold: </h1>
+       
         
 
     </div>
