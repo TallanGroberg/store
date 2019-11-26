@@ -32,7 +32,7 @@ const Profile = (props) => {
         <Link to='/solditems'>items sold</Link>
           <h1>your products to sell</h1>
           {yourStuff.map( stuff => {
-            return <ProductEditPage mappedStuff={stuff} />
+            return stuff.isBought === false ?  <ProductEditPage mappedStuff={stuff} /> : null
          })}
        
         

@@ -51,7 +51,7 @@ const Product = (props) => {
             :
               
               <>
-              {user._id === product.user ? 
+              {product.user === user._id ? 
                 <>
                   <p>this is your product</p>
                     <button onClick={handleDelete}> Delete Product</button>
