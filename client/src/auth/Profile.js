@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom'
 import {withstoreCrud} from '../provider/ProductProvider'
-import {withAuth,bearerAxios} from '../provider/AuthProvider'
+import {withAuth, bearerAxios} from '../provider/AuthProvider'
 import ProductEditPage from '../auth/ProductEditPage'
 import SoldItems from '../components/SoldItems'
 

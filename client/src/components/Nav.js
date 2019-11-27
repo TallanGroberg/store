@@ -3,6 +3,8 @@ import {Link, withRouter} from 'react-router-dom'
 import styled from 'styled-components'
 import {withAuth} from '../provider/AuthProvider'
 import {withstoreCrud} from '../provider/ProductProvider'
+import magnify from './images/Nav.jpeg'
+
 
 const Nav = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -32,14 +34,16 @@ const Nav = (props) => {
     <nav>
       
       {props.token ? 
-      // <NavStyle className={window.innerWidth < 1000 ? 'footer' : null}>
+      
       <NavStyle>
-
         <Link to='/products'>products</Link>
-          <button onClick={() => props.history.push('/makeproduct')}>make a product</button>
-          <button onClick={() => props.history.push('/cart')}>Cart</button>
-          <button onClick={() => props.history.push('/yourprofile')}> your profile</button>
-          <button onClick={handleLogout}>logout</button>
+          
+            
+          
+            <button onClick={() => props.history.push('/makeproduct')}>make a product</button>
+              <button onClick={() => props.history.push('/cart')}>Cart</button>
+                <button onClick={() => props.history.push('/yourprofile')}> your profile</button>
+                  <button onClick={handleLogout}>logout</button>
       </NavStyle>
         :
         <p>welcome</p>
@@ -59,6 +63,12 @@ const NavStyle = styled.nav`
     @media only screen and (min-width: 1000px) {
       top: -2px;
       
+    }
+
+    div {
+      display: flex;
+      margin: auto;
+      align-content: center;
     }
 
   

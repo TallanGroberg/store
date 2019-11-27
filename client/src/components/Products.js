@@ -6,6 +6,8 @@ import {Link, Switch, Route} from 'react-router-dom'
 import {withstoreCrud} from '../provider/ProductProvider'
 import Product from './Product'
 import EditProductForm from '../auth/EditProductForm'
+import magnify from './images/Nav.jpeg'
+import SearchForm from './SearchForm';
 
 const Products = (props) => {
   const [toggle, setToggle] = useState(false)
@@ -28,11 +30,14 @@ const Products = (props) => {
   return (
 
 <div>
-        
+
+<br />
+        <SearchForm />
       {products.length <= 0 ? 
       <p>loading, if it takes a while try refreshing the page</p>  
       :
     <>
+      
             <ProductPageStyle>
       {products.map( p =>  {
         return ( <>

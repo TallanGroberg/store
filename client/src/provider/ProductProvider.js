@@ -124,14 +124,12 @@ class ProductProvider extends React.Component {
   
 
   handleCartAdd = ( _id, buyer) => {
-
     bearerAxios.put(`/api/product/${_id}`, {isIncart: true, buyer})
     .then(res => {
       this.setState(prev => {
         const filterProduct = prev.products.filter(prod => {
           return prod._id !== _id  
         })
-
         return {products: [...filterProduct]}
       })
       
@@ -139,6 +137,19 @@ class ProductProvider extends React.Component {
     .catch(err => console.log(err))
   }
   
+  handleProductSearch = (name ,value) => {
+    console.log(name,value)
+    bearerAxios.get( `api/product/search?${name}=${value}`)
+    .then(res => {
+      this.setState(prev => {
+        const filterProductsInCart = res.data.filter(product => product.isIncart === false)
+        const filterProductsBought = filterProductsInCart.filter(product => product.isBought === false)
+        const filterYourProducts = filterProductsBought.filter(product => product.user !== this.props.user._id)
+        return {products: [ ...filterYourProducts]}
+      })
+    })
+    .catch(err => console.log(err))
+  }
 
 
   
@@ -163,6 +174,7 @@ class ProductProvider extends React.Component {
         getAllBuyables: this.getAllBuyables,
         getAllBoughtProducts: this.getAllBoughtProducts,
         editProduct: this.editProduct,
+        handleProductSearch: this.handleProductSearch,
       }}>
         {this.props.children}
       </Provider>
