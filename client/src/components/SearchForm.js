@@ -1,6 +1,8 @@
 import React, { useState, } from 'react';
 import {withstoreCrud} from '../provider/ProductProvider'
 import magnify from './images/Nav.jpeg'
+import styled from 'styled-components'
+
 const SearchForm = (props) => {
   const initInputs = { title: "" }
   const [inputs, setInputs] = useState(initInputs)
@@ -18,16 +20,22 @@ const SearchForm = (props) => {
 
   }
   return (
+    <SearchFormStyle>
     <form onSubmit={handleSubmit}>
       <img src={magnify} height='10pt'  />
-      <input type="text" placeholder='search'
-      name='title'
-      value={inputs.title}
-      onChange={handleChange} />
+        <input type="text" placeholder='search'
+        name='title'
+        value={inputs.title}
+        onChange={handleChange} />
       <br />
-      <button>search products for sell</button>
+          <button>products for sell</button>
     </form>
+      </SearchFormStyle>
   );
 };
+
+const SearchFormStyle = styled.div`
+  text-align: right;
+`;
 
 export default withstoreCrud(SearchForm);
