@@ -144,8 +144,8 @@ class ProductProvider extends React.Component {
       this.setState(prev => {
         const filterProductsInCart = res.data.filter(product => product.isIncart === false)
         const filterProductsBought = filterProductsInCart.filter(product => product.isBought === false)
-        const filterYourProducts = filterProductsBought.filter(product => product.user !== this.props.user._id)
-        return {products: [ ...filterYourProducts]}
+        // const filterYourProducts = filterProductsBought.filter(product => product.user !== this.props.user._id)
+        return {products: [ ...filterProductsBought]}
       })
     })
     .catch(err => console.log(err))
