@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {withRouter} from 'react-router-dom'
 import {withAuth} from '../provider/AuthProvider'
+
+
 const AuthForm = (props) => {
   const initState = {
     name: '',
@@ -20,15 +22,18 @@ const AuthForm = (props) => {
 
   return (
     <div>
-        <h1>Login</h1>
+        <h1>Welcome to Art hub. </h1>
+          <h4>The website to connect artist and see there best pieces.</h4>
         <form onSubmit={handleSubmit}>
           <input
+          style={{borderLeft: 'rgba(0,0,0,0)', borderTop: 'rgba(0,0,0,0.5)'}}
           placeholder="name"
           name='name'
           value={inputs.name}
           onChange={handleChange}
         />
           <input
+            style={{borderLeft: 'rgba(0,0,0,0)', borderTop: 'rgba(0,0,0,0.5)'}}
             placeholder="password"
             name='password'
             value={inputs.password}

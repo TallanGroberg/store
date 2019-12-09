@@ -52,6 +52,11 @@ const Nav = (props) => {
 };
 
 const NavStyle = styled.nav`
+
+@import url('https://fonts.googleapis.com/css?family=Cormorant+Upright');
+   font-family: "Cormorant Upright", serif;
+  text-align:center;
+
     z-index: 2;
     position: fixed;
     @media only screen and (max-width: 1000px) {
@@ -61,7 +66,7 @@ const NavStyle = styled.nav`
     }
     @media only screen and (min-width: 1000px) {
       top: -2px;
-      
+      left: 5px;
     }
 
     div {
@@ -77,7 +82,7 @@ const NavStyle = styled.nav`
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     background: white;
-    width: 101%;
+    width: 103%;
     height: 30pt;
     
     box-shadow: 0px 0px 9px -6px rgba(0,0,0,0.75);
@@ -99,8 +104,9 @@ const NavStyle = styled.nav`
     font-size: 12pt;
   }
   a {
+    font-family: "Cormorant Upright", serif;
     text-decoration: none;
-
+    font-size: 15pt;
     color: #171717;
     transition: 0.3s;
   }
@@ -115,8 +121,8 @@ const NavStyle = styled.nav`
           outline: none;
         }
   button {
-  
-  font-size: 12pt;
+  font-family: "Cormorant Upright", serif;
+  font-size: 15pt;
   padding: 3pt;
   margin: 0.5pt;
   border: none;

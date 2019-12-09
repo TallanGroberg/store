@@ -51,7 +51,8 @@ const App = props => {
 };
 
 const Container = styled.div`
-  font-family: Verdana, Geneva, sans-serif; 
+  @import url('https://fonts.googleapis.com/css?family=Cormorant+Upright');
+   font-family: "Cormorant Upright", serif;
   text-align:center;
 
   h1 {
@@ -72,9 +73,21 @@ const Container = styled.div`
     font-size: 12pt;
   }
   a {
+    font-size: 15pt;
+    font-family: "Cormorant Upright", serif;
     text-decoration: none;
     transition: 0.3s;
     color: #171717;
+  }
+  input {
+    border-top: rgba(0,0,0,0);
+    border-left: rgba(0,0,0,0)
+  }
+  textarea {
+    border-top: rgba(0,0,0,0);
+    border-left: rgba(0,0,0,0);
+    
+
   }
 
   a:hover {
@@ -88,7 +101,8 @@ const Container = styled.div`
           outline: none;
         }
   button {
-    font-size: 12pt;
+    font-family: "Cormorant Upright", serif;
+    font-size: 15pt;
     padding: 3pt;
     margin: 0.5pt;
     border: none;
