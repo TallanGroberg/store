@@ -36,27 +36,38 @@ const Nav = (props) => {
       
       
       <NavStyle>
-        <Link to={props.token !== '' ? '/product': '/products'}>products</Link>
+        <Link to={props.token !== '' ? '/product': '/products'}>art for sale</Link>
           
             
           
-            <button onClick={() => props.history.push('/makeproduct')}>make a product</button>
+            <button onClick={() => props.history.push('/makeproduct')}>Show your art</button>
               <button onClick={() => props.history.push('/cart')}>Cart</button>
-                <button onClick={() => props.history.push('/yourprofile')}> your profile</button>
-                  {props.token ? <button onClick={handleLogout}>logout</button> : <button onClick={() => props.history.push('/login')}>login</button>}
+                
+                  {props.token ? 
+                  <>
+                    <button onClick={() => props.history.push('/yourprofile')}> your profile</button>
+                      <button onClick={handleLogout}>logout</button>
+                        
+                  </>
+                  : 
+                  <>
+                  <button onClick={() => props.history.push('/login')}>login</button>
+                  <button onClick={() => props.history.push('/signup')}>signup</button>
+
+                  </>
+                  }
       </NavStyle>
         
-  
     </nav>
+  
   );
 };
 
 const NavStyle = styled.nav`
 
 @import url('https://fonts.googleapis.com/css?family=Cormorant+Upright');
-   font-family: "Cormorant Upright", serif;
-  text-align:center;
-
+    font-family: "Cormorant Upright", serif;
+    text-align:center;
     z-index: 2;
     position: fixed;
     @media only screen and (max-width: 1000px) {

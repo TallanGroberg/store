@@ -1,6 +1,6 @@
 //dependencies
 import React, {useState, useEffect} from 'react';
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch, Link} from 'react-router-dom'
 import styled from 'styled-components'
 
 //context
@@ -36,10 +36,17 @@ const App = props => {
             <Route exact path='/products' render={ rProps => <Products /> } />
             <Route exact path='/product' render={ rProps => props.token !== '' && <Products /> } />
             <Route path='/products/:_id' render={ rProps => <Product {...rProps}  />} />
-            <ProtectedRoute exact path='/makeproduct' render={ rProps => <MakeProduct /> } />
+            <Route exact path='/cart' render={ rProps => props.token ?  <Cart /> : 
+            <>
+              <h1>make an account to buy a piece you love</h1>
+              <Link to='/signup'>make an account</Link> </>} />
+            <Route exact path='/makeproduct' render={ rProps => props.token ? <MakeProduct /> : 
+            <>
+              <h1>To post your own art you have to have an account</h1>
+              <Link to='/signup'>make an account</Link> </>} />
+            
             <ProtectedRoute exact path='/yourprofile' render={ rProps => <Profile {...rProps} /> } />
             <ProtectedRoute exact path='/usersettings' render={ rProps => <EditUserForm {...rProps} /> } />
-            <ProtectedRoute exact path='/cart' render={ rProps => <Cart /> } />
             <ProtectedRoute exact path='/purchases' render={ rProps => <Purchases /> } />
             <ProtectedRoute exact path='/solditems' render={ rProps => <SoldItems /> } />
             <Route render={rProps => <NoMatch />}/>

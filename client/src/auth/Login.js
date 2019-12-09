@@ -23,7 +23,8 @@ const AuthForm = (props) => {
   return (
     <div>
         <h1>Welcome to Art hub. </h1>
-          <h4>The website to connect artist and see there best pieces.</h4>
+          <h4>The website to connect artist and see there best pieces. </h4>
+            <h4>this is a place where you can buy art, sell art or just browse and see some amazing art work</h4>
         <form onSubmit={handleSubmit}>
           <input
           style={{borderLeft: 'rgba(0,0,0,0)', borderTop: 'rgba(0,0,0,0.5)'}}
