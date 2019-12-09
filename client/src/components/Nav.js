@@ -134,7 +134,11 @@ const NavStyle = styled.nav`
     box-shadow: 0px 0px 9px -6px rgba(0,0,0,0.75);
     background-color: #FCFCFC;
     color: black;
+    
+
   }
+  
+  
 `
 
 export default withRouter(withAuth(withstoreCrud(Nav)));

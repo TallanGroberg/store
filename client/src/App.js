@@ -79,6 +79,17 @@ const Container = styled.div`
     transition: 0.3s;
     color: #171717;
   }
+  a:after {
+  content: '';
+  position: absolute;
+  width: 0; height: 3px;
+  display: block;
+  margin-top: 5px;
+  right: 0;
+  background: #fff;
+  transition: width .2s ease;
+  -webkit-transition: width .2s ease;
+}
   input {
     border-top: rgba(0,0,0,0);
     border-left: rgba(0,0,0,0)

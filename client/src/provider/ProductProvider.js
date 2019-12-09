@@ -128,7 +128,6 @@ class ProductProvider extends React.Component {
   handleCartAdd = ( _id, buyer) => {
     bearerAxios.put(`/api/product/${_id}`, {isIncart: true, buyer})
     .then(res => {
-      debugger
       this.setState(prev => {
         const filterProduct = prev.products.filter(prod => {
           return prod._id !== _id  
@@ -146,7 +145,6 @@ class ProductProvider extends React.Component {
       this.setState(prev => {
         const filterProductsInCart = res.data.filter(product => product.isIncart === false)
         const filterProductsBought = filterProductsInCart.filter(product => product.isBought === false)
-        // const filterYourProducts = filterProductsBought.filter(product => product.user !== this.props.user._id)
         return {products: [ ...filterProductsBought]}
       })
     })
