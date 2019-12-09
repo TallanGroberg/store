@@ -9,7 +9,7 @@ const AuthForm = (props) => {
     email: '',
     password: '',}
   const [inputs, setInputs] = useState(initState)
-
+  const [hide, setHide] = useState(true)
   const handleSubmit = (e) => {
     e.preventDefault()
     props.login(inputs) 
@@ -24,17 +24,17 @@ const AuthForm = (props) => {
     <div>
         <h1>Welcome to Art hub. </h1>
           <h4>The website to connect artist and see there best pieces. </h4>
-            <h4>this is a place where you can buy art, sell art or just browse and see some amazing art work</h4>
+            <h4>this is a place where you can buy art, sell art or just browse and see something amazing</h4>
         <form onSubmit={handleSubmit}>
           <input
-          style={{borderLeft: 'rgba(0,0,0,0)', borderTop: 'rgba(0,0,0,0.5)'}}
+         
           placeholder="name"
           name='name'
           value={inputs.name}
           onChange={handleChange}
         />
           <input
-            style={{borderLeft: 'rgba(0,0,0,0)', borderTop: 'rgba(0,0,0,0.5)'}}
+            type={hide && 'password'}
             placeholder="password"
             name='password'
             value={inputs.password}
@@ -44,6 +44,7 @@ const AuthForm = (props) => {
   <button>submit</button>
       </form>
       <button onClick={()=> props.history.push('/signup')}>go to signup</button>
+      <button onClick={()=> setHide(prev => (!prev))}>{hide ? 'show password' : 'hide password'}</button>
     </div>
   );
 };

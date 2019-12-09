@@ -7,12 +7,13 @@ const Signup = (props) => {
     email: '',
     password: '',}
   const [inputs, setInputs] = useState(initState)
-
+    const [hide, setHide] = useState(true)
   const handleSubmit = (e) => {
     e.preventDefault()
     props.signup(inputs)  
     
   }
+  console.log(hide)
   const handleChange = (e) => {
     const {name, value} = e.target
       setInputs(input => ({...inputs, [name]: value}))    
@@ -35,6 +36,7 @@ const Signup = (props) => {
             onChange={handleChange}
           />
           <input
+          type={hide && 'password'}
             placeholder="password"
             name='password'
             value={inputs.password}
@@ -44,6 +46,7 @@ const Signup = (props) => {
   <button>submit</button>
       </form>
       <button onClick={()=> props.history.push('/login')}>go to Login</button>
+      <button style={{marginLeft: '40px'}} onClick={() => setHide(prev => (!prev))}>{hide ? "show password" : 'hide password'}</button>
     </div>
   );
 };
