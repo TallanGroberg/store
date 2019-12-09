@@ -1,9 +1,10 @@
-import React, {useEffect,} from 'react';
+import React, {useEffect,useState} from 'react';
 import {withstoreCrud} from '../provider/ProductProvider'
-import {withAuth} from '../provider/AuthProvider'
+import {withAuth, bearerAxios} from '../provider/AuthProvider'
 import {Link} from 'react-router-dom'
+import axios from 'axios';
 const SoldItems = (props) => {
-
+  const [buyerName, setBuyerName] = useState([])
   const {user, getAllBoughtProducts, bought} = props
 
   useEffect( () => {
@@ -11,7 +12,8 @@ const SoldItems = (props) => {
   }, [])
 
   const soldProducts = bought.filter( product => product.user === user._id)
-
+  
+  
 
   return (
     <>
@@ -33,7 +35,7 @@ const SoldItems = (props) => {
                       <p>{product.description}</p>
                         <img src={product.imgUrl} height="200pt" width="200pt" alt="an image" />
                           <p>receipt id: {product._id}</p>
-                            <p>Buyer: to be determined</p>
+                            
                     </>
           })}
         </>

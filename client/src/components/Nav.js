@@ -70,13 +70,14 @@ const NavStyle = styled.nav`
     text-align:center;
     z-index: 2;
     position: fixed;
+    
     @media only screen and (max-width: 1000px) {
-      bottom: -2px;
+      bottom: -1px;
       
 
     }
     @media only screen and (min-width: 1000px) {
-      top: -2px;
+      top: -1px;
       left: 5px;
     }
 
@@ -84,7 +85,9 @@ const NavStyle = styled.nav`
       display: flex;
       margin: auto;
       align-content: center;
+      top: 0;
     }
+
 
   
 
@@ -94,7 +97,7 @@ const NavStyle = styled.nav`
     grid-template-columns: repeat(6, 1fr);
     background: white;
     width: 103%;
-    height: 30pt;
+    
     
     box-shadow: 0px 0px 9px -6px rgba(0,0,0,0.75);
   
@@ -132,10 +135,13 @@ const NavStyle = styled.nav`
           outline: none;
         }
   button {
+  
+    
+
   font-family: "Cormorant Upright", serif;
   font-size: 15pt;
   padding: 3pt;
-  margin: 0.5pt;
+  /* margin: 0.5pt; */
   border: none;
   background: none;
   transition: 0.3s;
