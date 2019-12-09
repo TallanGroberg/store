@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 
 import {bearerAxios, withAuth} from '../provider/AuthProvider'
 import {withstoreCrud } from '../provider/ProductProvider'
-
+import axios from 'axios'
 
 const Product = (props) => {
   const {user, handleCartAdd, deleteProduct, editProduct, } = props
@@ -14,7 +14,7 @@ const Product = (props) => {
     const [isEditing, setIsEditing] = useState(false)
 
   useEffect( () => {
-    bearerAxios.get(`/api/product/id/${props.match.params._id}`)
+    axios.get(`/products/id/${props.match.params._id}`)
     .then( res => {
       setProduct(res.data)
     })
@@ -51,7 +51,7 @@ const Product = (props) => {
             :
               
               <>
-              {product.user === user._id ? 
+              {props.token !== '' && product.user === user._id ? 
                 <>
                   <p>this is your product</p>
                     <button onClick={handleDelete}> Delete Product</button>
@@ -59,7 +59,7 @@ const Product = (props) => {
                 </>
               :
                 <>
-                  <button onClick={() => handleCart(product)}>Buy now</button>
+                  {props.token !== '' ? <button onClick={() => handleCart(product)}>Buy now</button> : <button onClick={() => push('/')}>back</button>}
                 </>
               }
             </>

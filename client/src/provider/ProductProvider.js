@@ -1,7 +1,7 @@
 import React from 'react';
 import {withAuth, bearerAxios} from './AuthProvider'
 import {withRouter} from 'react-router-dom'
-
+import axios from 'axios'
 
 
 const { Provider, Consumer, } = React.createContext()
@@ -21,12 +21,14 @@ class ProductProvider extends React.Component {
     this.getAllBuyables()
   }
   
-
+  
   getAllBuyables = () => {
-        bearerAxios.get('/api/product/')
-        .then(res  => {
-          this.setState(prev => {
-            const filterProducts = res.data.filter(product => {
+    axios.get('/products')
+    .then(res  => {
+
+   
+      this.setState(prev => {
+             const filterProducts = res.data.filter(product => {
               return product.isIncart === false
             })
             return {products: [ ...filterProducts]}
@@ -126,6 +128,7 @@ class ProductProvider extends React.Component {
   handleCartAdd = ( _id, buyer) => {
     bearerAxios.put(`/api/product/${_id}`, {isIncart: true, buyer})
     .then(res => {
+      debugger
       this.setState(prev => {
         const filterProduct = prev.products.filter(prod => {
           return prod._id !== _id  
@@ -138,8 +141,7 @@ class ProductProvider extends React.Component {
   }
   
   handleProductSearch = (name ,value) => {
-    console.log(name,value)
-    bearerAxios.get( `api/product/search?${name}=${value}`)
+    bearerAxios.get( `/products/search?${name}=${value}`)
     .then(res => {
       this.setState(prev => {
         const filterProductsInCart = res.data.filter(product => product.isIncart === false)

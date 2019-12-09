@@ -19,6 +19,7 @@ const Products = (props) => {
   }, [])
 
   const handleAdd = (p) => {
+    
     p.buyer = user._id
     handleCartAdd(p._id, p.buyer)
   }
@@ -39,8 +40,11 @@ const Products = (props) => {
     <>
       
             <ProductPageStyle>
-      {products.map( p =>  {
-        return ( <>
+
+
+  
+  {products.map( p =>  {
+    return ( <>
       <div>
           <Link to={'/products/' + p._id}>
             <h1>{p.title}</h1>
@@ -49,20 +53,23 @@ const Products = (props) => {
                 <img src={p.imgUrl} width='200' height="200" alt="a product" />
           </Link>
   <br />
-        {p.user === user._id ? 
+        {props.token !== '' && p.user === user._id  ? 
             <>
                 <p>this is your product. </p> 
                   <button onClick={() => deleteProduct(p._id)}>delete your product</button>
-                    {/* <button onClick={ () =>  setToggle(toggle => (!toggle))}>edit Product</button> */}
+                    
             </>
               : 
-              <button onClick={() => handleAdd(p)}>add to cart</button>}
+              <>
+              {props.token !== '' ? <button onClick={() => handleAdd(p)}>add to cart</button> : null}
+              </>
+              }
       </div>
                 </>)
         }
         )}
         </ProductPageStyle>
-    </>
+        </>
       }
 
       <Switch>

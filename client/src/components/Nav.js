@@ -33,21 +33,20 @@ const Nav = (props) => {
   return (
     <nav>
       
-      {props.token ? 
+      
       
       <NavStyle>
-        <Link to='/products'>products</Link>
+        <Link to={props.token !== '' ? '/product': '/products'}>products</Link>
           
             
           
             <button onClick={() => props.history.push('/makeproduct')}>make a product</button>
               <button onClick={() => props.history.push('/cart')}>Cart</button>
                 <button onClick={() => props.history.push('/yourprofile')}> your profile</button>
-                  <button onClick={handleLogout}>logout</button>
+                  {props.token ? <button onClick={handleLogout}>logout</button> : <button onClick={() => props.history.push('/login')}>login</button>}
       </NavStyle>
-        :
-        <p>welcome</p>
-    }
+        
+  
     </nav>
   );
 };

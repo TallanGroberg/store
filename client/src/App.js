@@ -32,15 +32,16 @@ const App = props => {
         <Switch>
           <Route expact path='/login' render={ rProps => <Login {...rProps} />} />
           <Route expact path='/signup' render={ rProps => <Signup {...rProps} />} />
-          <Route exact path='/' render={ rProps => token ? <Products {...rProps} /> : <Login /> } />
-            <ProtectedRoute exact path='/products' render={ rProps => <Products /> } />
+          <Route exact path='/' render={ rProps => <Products {...rProps} />} />
+            <Route exact path='/products' render={ rProps => <Products /> } />
+            <Route exact path='/product' render={ rProps => props.token !== '' && <Products /> } />
+            <Route path='/products/:_id' render={ rProps => <Product {...rProps}  />} />
             <ProtectedRoute exact path='/makeproduct' render={ rProps => <MakeProduct /> } />
             <ProtectedRoute exact path='/yourprofile' render={ rProps => <Profile {...rProps} /> } />
             <ProtectedRoute exact path='/usersettings' render={ rProps => <EditUserForm {...rProps} /> } />
             <ProtectedRoute exact path='/cart' render={ rProps => <Cart /> } />
             <ProtectedRoute exact path='/purchases' render={ rProps => <Purchases /> } />
             <ProtectedRoute exact path='/solditems' render={ rProps => <SoldItems /> } />
-            <ProtectedRoute path='/products/:_id' render={ rProps => <Product {...rProps}  />} />
             <Route render={rProps => <NoMatch />}/>
         </Switch>
     </Container>

@@ -36,7 +36,7 @@ const MakeProduct = (props) => {
       const uploadTask = storage.ref(`/images/${image.name}`).put(image)
       uploadTask.on('state_changed', 
       (snapShot) => {
-        console.log(snapShot)
+        
       }, (err) => {
         console.log(err)
       }, () => {
