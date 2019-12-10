@@ -35,7 +35,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/store', {
 app.use('/user', require('./routes/userRouter.js'))
 app.use('/api/product', require('./routes/productRouter.js'))
 app.use('/products', require('./routes/withoutAuthRouter.js'))
-
+app.use('/contact', require('./routes/contactRouter'))
 app.use('/charge', require('./routes/paymentRouter'))
 // may have to create a tokenified route
 
