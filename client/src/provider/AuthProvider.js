@@ -41,8 +41,11 @@ class AuthProvider extends Component {
           err: err.message
         })
       })
-      
-      this.props.history.push('/')
+      if(this.state.token !== '') {
+        this.props.history.push('/')
+      } else {
+        alert('login unsuccessful')
+      }
     }
 
     login = (user) => {
@@ -54,12 +57,16 @@ class AuthProvider extends Component {
         localStorage.setItem('user', JSON.stringify(res.data.user))
       })
       .catch(err => {
-        this.props.history.push('/')
+        this.props.history.push('/login')
         this.setState({
           err: err.message
         })
       })
-      this.props.history.push('/')
+      if(this.state.token !== '') {
+        this.props.history.push('/')
+      } else {
+        alert('login unsuccessful')
+      }
     }
 
     logout = () => {
