@@ -23,11 +23,11 @@ transporter.verify((error, success) => {
 contactRouter.post("/", (req,res,next) => {
   console.log(req.body);
   const mail = {
-    from: `${req.body}`,
-    to: `tallan.taven@gmail.com`,
-    subject: `NEW MESSAGE it worked Contact Form. Subject: ${req.body.email}`,
+    from: `${req.body.artHub}`,
+    to: req.body.email,
+    subject: `${req.body.subject}`,
     text: `
-      From: ${req.body} ${req.body}
+      ${req.body.message}
       
       `
   }

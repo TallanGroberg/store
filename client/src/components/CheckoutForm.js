@@ -12,6 +12,42 @@ const CheckoutForm = (props) =>  {
   
   
   const {editProduct, getCart} = props
+
+  console.log(props)
+
+  const emailReceipt = () => {
+    const boughtStuff = props.yourCart.map((p,i) => ` ${i + 1}. Name: ${p.title}, 
+    Price: ${p.price / 100} Item id. ${p._id}` )
+    bearerAxios.post('/contact', {
+      email: props.email, artHub: 'artHub12341234@gmail.com',
+      subject: `purchase reciept`, 
+      message: `${boughtStuff}` })
+      .then(res => {
+        console.log('hit the then')
+        // emailSeller()
+      })
+      .catch(err => console.log(err.message))
+      
+  }
+  // const emailSeller = () => {
+  //   const boughtStuff = props.yourCart.map((p,i) => ` ${i + 1}. Name: ${p.title}, 
+  //   Price: ${p.price / 100} Item id. ${p._id}` )
+    
+  //   props.yourCart.map( product => {
+  //       bearerAxios.get(`/user/${product.user}`)
+  //       .then( res => {
+  //         debugger
+  //         const email = res.data.email
+  //         console.log('seller email', email, product, res)
+  //         bearerAxios.post('/contact', {
+  //         email: email, artHub: 'artHub12341234@gmail.com',
+  //         subject: `someone bought ${product.title}`, 
+  //         message: `congrats someone ${product.title} bought your thing` 
+  //           })
+  //         })
+  //       .catch(err => console.log(err))
+  //   })
+  // }
   
     const  submit =  async (ev) =>  {
       let {token} = await props.stripe.createToken({name: "Name"});
@@ -22,8 +58,10 @@ const CheckoutForm = (props) =>  {
           amount: props.totalPrice,
         }
         
-      ).then( res => {
+      ).then(res => {
         if(res.status === 200) {
+          emailReceipt()
+          
           props.yourCart.map( async p  => {
             
              p.isBought = true
@@ -40,11 +78,12 @@ const CheckoutForm = (props) =>  {
     }
     return (
       <>
+      
         
         {complete ? 
           <>
             <h1>payment successful, {props.totalPrice / 100} will be removed from your account, to view your purchases click here.</h1>
-              <button onClick={() => props.history.push('/purchases')}></button>
+              <button onClick={() => props.history.push('/purchases')}>go to your purchases page</button>
           </>
 
           :

@@ -38,7 +38,7 @@ const Cart = (props) => {
             </>
             :
               <>
-                <CheckoutForm yourCart={yourCart} totalPrice={totalPrice} />
+                <CheckoutForm email={props.user.email} yourCart={yourCart} totalPrice={totalPrice} />
                   <p>your total is: {totalPrice / 100}</p>
               </>
           }
