@@ -18,36 +18,30 @@ const CheckoutForm = (props) =>  {
   const emailReceipt = () => {
     const boughtStuff = props.yourCart.map((p,i) => ` ${i + 1}. Name: ${p.title}, 
     Price: ${p.price / 100} Item id. ${p._id}` )
-    bearerAxios.post('/contact', {
+    bearerAxios.post('/contactbuyer', {
       email: props.email, artHub: 'artHub12341234@gmail.com',
       subject: `purchase reciept`, 
       message: `${boughtStuff}` })
       .then(res => {
         console.log('hit the then')
-        // emailSeller()
       })
       .catch(err => console.log(err.message))
-      
   }
-  // const emailSeller = () => {
-  //   const boughtStuff = props.yourCart.map((p,i) => ` ${i + 1}. Name: ${p.title}, 
-  //   Price: ${p.price / 100} Item id. ${p._id}` )
-    
-  //   props.yourCart.map( product => {
-  //       bearerAxios.get(`/user/${product.user}`)
-  //       .then( res => {
-  //         debugger
-  //         const email = res.data.email
-  //         console.log('seller email', email, product, res)
-  //         bearerAxios.post('/contact', {
-  //         email: email, artHub: 'artHub12341234@gmail.com',
-  //         subject: `someone bought ${product.title}`, 
-  //         message: `congrats someone ${product.title} bought your thing` 
-  //           })
-  //         })
-  //       .catch(err => console.log(err))
-  //   })
-  // }
+
+
+  const emailBuyerReceipt = () => {
+    const boughtStuff = props.yourCart.map((p,i) => ` ${i + 1}. Name: ${p.title}, 
+    Price: ${p.price / 100} Item id. ${p._id}` )
+    bearerAxios.post('/contactseller', {
+      email: props.email, artHub: 'artHub12341234@gmail.com',
+      subject: `some bought your art!!`, 
+      message: `${boughtStuff}` })
+      .then(res => {
+        console.log('hit the then')
+      })
+      .catch(err => console.log(err.message))
+  }
+  
   
     const  submit =  async (ev) =>  {
       let {token} = await props.stripe.createToken({name: "Name"});
@@ -58,13 +52,14 @@ const CheckoutForm = (props) =>  {
           amount: props.totalPrice,
         }
         
-      ).then(res => {
+      ).then( async res => {
         if(res.status === 200) {
-          emailReceipt()
+          await emailReceipt()
+          await emailBuyerReceipt()
           
           props.yourCart.map( async p  => {
             
-             p.isBought = true
+            p.isBought = true
             p.isIncart = false
             await editProduct(p, p._id)
             getCart()

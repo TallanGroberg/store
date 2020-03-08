@@ -1,9 +1,5 @@
 
-make edit and delete functionality on products, and product page
 
-do a refactor of all unreadable code. 
-
-make a way for a sell to know that someone bought there product
 
 incorporate user name into product page display,
 

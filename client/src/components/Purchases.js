@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import {withAuth,bearerAxios} from '../provider/AuthProvider'
 import {withstoreCrud} from '../provider/ProductProvider'
 
@@ -22,7 +22,10 @@ const Purchases = (props) => {
         ? 
           <>
             <p>you haven't bought anything yet. </p>
-            <button onClick={() => props.history.push('/products')}>go to products page</button> 
+            <button onClick={() => props.history.push('/products')}>Products Page</button> 
+            <br />
+            <button onClick={() => props.history.push('/yourprofile')}>Your Profile</button> 
+            
           </>
         : 
           null}
