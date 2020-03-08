@@ -23,6 +23,7 @@ class AuthProvider extends Component {
       name: '',
       email: '',
       password: '',
+      imgUrl: '',
       token: localStorage.getItem('token') || '',
     }
 
@@ -34,6 +35,7 @@ class AuthProvider extends Component {
         localStorage.setItem('token', token )
         this.setState({token, user})
         localStorage.setItem('user', JSON.stringify(res.data))
+
       })
       .catch(err =>  {
         console.log('err.message',err.message)
@@ -41,11 +43,11 @@ class AuthProvider extends Component {
           err: err.message
         })
       })
-      if(this.state.token !== '') {
-        this.props.history.push('/')
-      } else {
-        alert('login unsuccessful')
-      }
+        if(this.state.token !== '') {
+          this.props.history.push('/')
+        } else {
+          alert('login unsuccessful')
+        }
     }
 
     login = (user) => {
@@ -55,6 +57,7 @@ class AuthProvider extends Component {
         localStorage.setItem('token', token)
         this.setState({token, user})
         localStorage.setItem('user', JSON.stringify(res.data.user))
+
       })
       .catch(err => {
         this.props.history.push('/login')
@@ -62,6 +65,7 @@ class AuthProvider extends Component {
           err: err.message
         })
       })
+      
       if(this.state.token !== '') {
         this.props.history.push('/')
       } else {
@@ -109,7 +113,7 @@ class AuthProvider extends Component {
     
     
     render() {
-      const {err,isSigningUp,user,name,email,signup,login,token,} = this.state
+      const {err,isSigningUp,user,name,email,imgUrl, signup,login,token,} = this.state
       return (
         <Provider 
         value={{
@@ -119,6 +123,7 @@ class AuthProvider extends Component {
           user,
           name,
           email,
+          imgUrl,
           signup,
           login,
           token,

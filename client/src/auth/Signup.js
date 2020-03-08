@@ -55,7 +55,7 @@ const handleImageUpload = (e) => {
   return (
     <div>
         <h1>Signup</h1>
-          <button onClick={()=> props.history.push('/login')}>go to Login</button>
+        
           {inputs.imgUrl !== '' && <>
           <br />
           <p>profile picture</p>
@@ -105,7 +105,8 @@ const handleImageUpload = (e) => {
         </form>
       } 
         {inputs.imgUrl !== '' && 'you sucessfully uploaded an image'}
-
+        <br />
+        <button onClick={()=> props.history.push('/login')}>go to Login</button>
 
 
       

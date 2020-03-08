@@ -2,7 +2,7 @@ import React, {useState,} from 'react';
 import {withAuth, bearerAxios} from '../provider/AuthProvider'
 
 const EditUserForm = (props) => {
-  const {name, email, _id } = props.user
+  const {name, email, imgUrl, _id } = props.user
     const [inputs, setInputs] = useState({name: name, email: email, password: ''})
   
     const handleSubmit = (e) => {
@@ -19,6 +19,7 @@ const EditUserForm = (props) => {
     <>
       
       <h1>{name}</h1>
+        <img height='100' src={imgUrl} />
         <h4>{email}</h4>
           <p>you can update your password</p>
             <form onSubmit={handleSubmit}>
