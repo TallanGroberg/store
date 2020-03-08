@@ -17,6 +17,7 @@ const EditUserForm = (props) => {
 
   return (
     <>
+      
       <h1>{name}</h1>
         <h4>{email}</h4>
           <p>you can update your password</p>

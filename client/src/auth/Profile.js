@@ -33,8 +33,8 @@ const Profile = (props) => {
           <h1>your products to sell</h1>
           {yourStuff.map( stuff => {
             return stuff.isBought === false ?  <ProductEditPage mappedStuff={stuff} /> : null
-         })}
-       
+        })}
+      
         
 
     </div>
