@@ -1,6 +1,8 @@
 
 make profile image upload 
 
+get a user object by the product
+
 make photo edit component
 
 make feedback form 
