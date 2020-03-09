@@ -57,7 +57,7 @@ class AuthProvider extends Component {
         localStorage.setItem('token', token)
         this.setState({token, user})
         localStorage.setItem('user', JSON.stringify(res.data.user))
-
+        this.props.history.push('/')
       })
       .catch(err => {
         this.props.history.push('/login')
@@ -66,11 +66,6 @@ class AuthProvider extends Component {
         })
       })
       
-      if(this.state.token !== '') {
-        this.props.history.push('/')
-      } else {
-        alert('login unsuccessful')
-      }
     }
 
     logout = () => {
@@ -96,15 +91,18 @@ class AuthProvider extends Component {
         isSigningUp: !prev.isSigningUp,
       }))
     }
-    editUser = (user, _id) => {
+    editUser = async (user, _id) => {
+      
+      
       bearerAxios.put(`/user/${_id}`, user)
       .then(res => {
+        debugger
         delete user.password
-        this.setState({
+        localStorage.setItem('user', JSON.stringify(user))
+        this.setState(prev => ({
           user: user,
-        })
+        }))
       })
-
     }
     
     
