@@ -1,15 +1,16 @@
+yes my read me is a website todo list
+
+
 
 make profile image upload 
 
 get a user object by the product
 
-make photo edit component
-
-make feedback form 
+make feedback form *****
 
 incorporate user name into product page display,
 
-give users ability to search by name and artist 
+give users ability to search by name of artist 
 
 figure out image upload on mobile
 

@@ -50,6 +50,9 @@ const Container = styled.div`
  .artwork {
    height: 100px;
  }
+ .profile {
+   border-radius: 50%;
+ }
   
 `;
 

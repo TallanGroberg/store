@@ -3,6 +3,9 @@ import EditProductForm from './EditProductForm'
 import {storage} from '../firebase/index'
 import {bearerAxios} from '../provider/AuthProvider'
 import {withstoreCrud} from '../provider/ProductProvider'
+import Footer from '../components/Footer'
+import styled from 'styled-components'
+import {Link} from 'react-router-dom'
 
 
 const ProductEditPage = (props) => {
@@ -63,10 +66,24 @@ const ProductEditPage = (props) => {
               <p>{price / 100}</p>
                 <button onClick={() => deleteProduct(_id)}>Delete</button>
                   <button onClick={() => setToggle(prev => (!prev))}>show form</button>
+
       </>
       }
+      <br />
+      <Link className='footer' to='/contact'>contact</Link>
+      
     </>
   );
 };
+
+const EditProductStyle = styled.div`
+.footer {
+    position: sticky;
+   text-align: left;
+   bottom: 75px;
+   width: 100%;
+  }
+`;
+
 
 export default withstoreCrud(ProductEditPage);

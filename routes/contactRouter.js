@@ -1,7 +1,7 @@
 const express = require("express");
 const contactRouter = express.Router();
 const nodemailer = require('nodemailer');
-console.log('test',)
+
 
 const transport = {
   host: 'smtp.gmail.com',
@@ -17,7 +17,7 @@ transporter.verify((error, success) => {
   if (error) {
     console.error(error);
   } else {
-    console.log('buyer is ready to take messages');
+    console.log('buyer is ready to take messages,');
   };
 });
 

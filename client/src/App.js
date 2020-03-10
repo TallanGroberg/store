@@ -18,8 +18,9 @@ import Profile from './auth/Profile'
 import EditUserForm from './auth/EditUserForm'
 import Cart from './components/Cart'
 import Purchases from './components/Purchases'
-
 import NoMatch from './components/NoMatch'
+import Footer from './components/Footer'
+import Contact from './components/Contact'
 import SoldItems from './components/SoldItems';
 
 const App = props => {
@@ -33,6 +34,7 @@ const App = props => {
           <Route expact path='/login' render={ rProps => <Login {...rProps} />} />
           <Route expact path='/signup' render={ rProps => <Signup {...rProps} />} />
           <Route exact path='/' render={ rProps => <Products {...rProps} />} />
+          <Route path='/contact' render={ rProps => <Contact {...rProps}  />} />
             <Route exact path='/products' render={ rProps => <Products /> } />
             <Route exact path='/product' render={ rProps => props.token !== '' && <Products /> } />
             <Route path='/products/:_id' render={ rProps => <Product {...rProps}  />} />
@@ -51,6 +53,7 @@ const App = props => {
             <ProtectedRoute exact path='/solditems' render={ rProps => <SoldItems /> } />
             <Route render={rProps => <NoMatch />}/>
         </Switch>
+            
     </Container>
     
         
@@ -142,7 +145,7 @@ const Container = styled.div`
   @media only screen and (min-width: 1000px) {
     margin-top: 50px;
   }
-
+  
 `
 
 export default withAuth(withstoreCrud(App))

@@ -37,6 +37,7 @@ app.use('/api/product', require('./routes/productRouter.js'))
 app.use('/products', require('./routes/withoutAuthRouter.js'))
 app.use('/contactbuyer', require('./routes/contactRouter'))
 app.use('/contactseller', require('./routes/contactSellerRouter'))
+app.use('/feedback', require('./routes/contactFeedbackRouter'))
 app.use('/charge', require('./routes/paymentRouter'))
 // may have to create a tokenified route
 
